@@ -6,946 +6,179 @@
 <title>GM x NVIDIA — Alpamayo Reasoning Platform</title>
 <style>
   :root {
-    --bg: #080808;
-    --card: #0f0f14;
-    --card-hover: #141420;
-    --green: #1D9E75;
-    --green-dim: rgba(29,158,117,0.15);
-    --green-glow: rgba(29,158,117,0.4);
-    --gold: #C9A84C;
-    --gold-dim: rgba(201,168,76,0.12);
-    --white: #F0F0F0;
-    --gray: #8A8A9A;
-    --gray-dim: #3A3A4A;
+    --bg: #080808; --card: #0f0f14; --card-hover: #141420;
+    --green: #1D9E75; --green-dim: rgba(29,158,117,0.15); --green-glow: rgba(29,158,117,0.4);
+    --gold: #C9A84C; --gold-dim: rgba(201,168,76,0.12);
+    --white: #F0F0F0; --gray: #8A8A9A; --gray-dim: #3A3A4A;
     --border: rgba(255,255,255,0.06);
-    --font-display: 'Georgia', serif;
-    --font-ui: -apple-system, 'Helvetica Neue', sans-serif;
-    --radius: 12px;
-    --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: var(--font-ui);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  #nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(8,8,8,0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-  }
-
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-right: 40px;
-    padding: 18px 0;
-    flex-shrink: 0;
-  }
-
-  .nav-brand-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, var(--green), #0d6e50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: -1px;
-  }
-
-  .nav-brand-text {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .nav-tabs {
-    display: flex;
-    position: relative;
-    flex: 1;
-  }
-
-  .nav-tab {
-    padding: 20px 20px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gray);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    position: relative;
-    transition: color 0.25s var(--transition);
-    white-space: nowrap;
-    border: none;
-    background: none;
-    outline: none;
-  }
-
-  .nav-tab:hover { color: var(--white); }
-  .nav-tab.active { color: var(--green); }
-
-  .nav-indicator {
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--green), #0d7a5a);
-    border-radius: 2px 2px 0 0;
-    transition: left 0.35s var(--transition), width 0.35s var(--transition);
-    box-shadow: 0 0 12px var(--green-glow);
-  }
-
-  /* ── TABS ── */
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  /* ── HERO ── */
-  #hero {
-    position: relative;
-    overflow: hidden;
-    padding: 100px 40px 80px;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .hero-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(29,158,117,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(29,158,117,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-
-  .hero-radial {
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(ellipse, rgba(29,158,117,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-radial-gold {
-    position: absolute;
-    bottom: -30%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    position: relative;
-    max-width: 900px;
-  }
-
-  .hero-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: var(--green);
-  }
-
-  .hero-headline {
-    font-family: var(--font-display);
-    font-size: clamp(42px, 7vw, 82px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 28px;
-  }
-
-  .hero-headline em {
-    font-style: italic;
-    background: linear-gradient(135deg, var(--green), #4dd4a8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--gray);
-    max-width: 680px;
-    margin-bottom: 48px;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 48px;
-    margin-bottom: 52px;
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: var(--white);
-    letter-spacing: -0.02em;
-  }
-
-  .stat-value.green { color: var(--green); }
-  .stat-value.gold { color: var(--gold); }
-
-  .stat-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-
-  .hero-byline {
-    font-size: 12px;
-    color: var(--gray);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 36px;
-  }
-
-  .hero-byline span { color: var(--gold); }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: linear-gradient(135deg, var(--green), #0d7a5a);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s var(--transition);
-    box-shadow: 0 0 30px var(--green-glow), 0 4px 20px rgba(0,0,0,0.4);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--green-glow), 0 8px 30px rgba(0,0,0,0.5); }
-  .btn-primary:hover::after { opacity: 1; }
-
-  .btn-arrow { font-size: 16px; }
-
-  /* ── SECTION LAYOUT ── */
-  .section { padding: 60px 40px; }
-  .section-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 12px;
-  }
-  .section-headline {
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 40px;
-    letter-spacing: -0.01em;
-  }
-
-  /* ── GLASS CARD ── */
-  .glass-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    overflow: hidden;
-    transition: all 0.3s var(--transition);
-  }
-
-  /* ── TAB 2: SIMULATION ── */
-  #sim-container {
-    padding: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .sim-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .sim-scenarios {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .scenario-btn {
-    padding: 9px 16px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--gray);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: all 0.25s var(--transition);
-    white-space: nowrap;
-  }
-
-  .scenario-btn:hover { border-color: var(--green); color: var(--white); }
-  .scenario-btn.active {
-    border-color: var(--green);
-    background: var(--green-dim);
-    color: var(--green);
-    box-shadow: 0 0 16px var(--green-glow);
-  }
-
-  .sim-canvases {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-
-  .canvas-wrapper {
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    position: relative;
-  }
-
-  .canvas-label {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 4px;
-    z-index: 10;
-    backdrop-filter: blur(8px);
-  }
-
-  .canvas-label.legacy { background: rgba(120,120,140,0.3); color: #bbb; border: 1px solid rgba(255,255,255,0.1); }
-  .canvas-label.alpamayo { background: rgba(29,158,117,0.25); color: var(--green); border: 1px solid rgba(29,158,117,0.4); }
-
-  .canvas-disengaged {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(220,50,50,0.9);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-    padding: 10px 22px;
-    border-radius: 6px;
-    display: none;
-    z-index: 20;
-    text-transform: uppercase;
-    box-shadow: 0 0 30px rgba(220,50,50,0.5);
-    animation: pulse-red 1s infinite;
-  }
-
-  @keyframes pulse-red {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  canvas { display: block; width: 100%; }
-
-  .sim-bottom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .sim-panel {
-    padding: 20px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--card);
-  }
-
-  .sim-panel-title {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .disengagement-count {
-    background: rgba(220,50,50,0.2);
-    color: #ff6b6b;
-    border: 1px solid rgba(220,50,50,0.3);
-    border-radius: 4px;
-    padding: 2px 8px;
-    font-size: 11px;
-    font-weight: 700;
-  }
-
-  .scenario-desc {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.6;
-  }
-
-  .cot-trace {
-    font-size: 12px;
-    font-family: 'Courier New', monospace;
-    color: var(--green);
-    line-height: 1.7;
-    min-height: 80px;
-    letter-spacing: 0.01em;
-  }
-
-  .cot-cursor {
-    display: inline-block;
-    width: 7px;
-    height: 12px;
-    background: var(--green);
-    margin-left: 2px;
-    animation: blink 0.8s step-end infinite;
-    vertical-align: text-bottom;
-  }
-
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-  .sim-controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 16px;
-  }
-
-  .speed-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
-
-  .speed-btn {
-    padding: 6px 14px;
-    border-radius: 5px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--gray);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .speed-btn:hover, .speed-btn.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
-
-  /* ── TAB 3: STACK ── */
-  #stack-container {
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .stack-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  .stack-card {
-    padding: 32px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--card);
-  }
-
-  .stack-card.legacy { border-color: rgba(120,120,140,0.2); }
-  .stack-card.modern { border-color: rgba(29,158,117,0.25); background: linear-gradient(145deg, var(--card), #0d1a15); }
-
-  .stack-card-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .stack-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .stack-icon.gray { background: rgba(120,120,140,0.15); }
-  .stack-icon.green { background: var(--green-dim); }
-
-  .stack-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .stack-subtitle { font-size: 12px; color: var(--gray); }
-
-  .stack-components {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 28px;
-  }
-
-  .component-tag {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 11px;
-    font-weight: 600;
-    border: 1px solid;
-    letter-spacing: 0.04em;
-  }
-
-  .component-tag.gray { background: rgba(120,120,140,0.1); border-color: rgba(120,120,140,0.2); color: #aaa; }
-  .component-tag.green { background: var(--green-dim); border-color: rgba(29,158,117,0.3); color: var(--green); }
-
-  .capability-bars { display: flex; flex-direction: column; gap: 14px; }
-
-  .capability-row { display: flex; flex-direction: column; gap: 6px; }
-
-  .cap-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .cap-name { font-size: 12px; color: var(--gray); font-weight: 500; }
-  .cap-score { font-size: 12px; font-weight: 700; }
-  .cap-score.gray { color: #888; }
-  .cap-score.green { color: var(--green); }
-
-  .cap-track {
-    height: 5px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .cap-fill {
-    height: 100%;
-    border-radius: 3px;
-    width: 0%;
-    transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .cap-fill.gray { background: linear-gradient(90deg, #555, #888); }
-  .cap-fill.green { background: linear-gradient(90deg, var(--green), #4dd4a8); box-shadow: 0 0 8px var(--green-glow); }
-
-  /* ── TAB 4: LIBRARY ── */
-  #lib-container {
-    padding: 40px;
-    max-width: 1300px;
-    margin: 0 auto;
-  }
-
-  .lib-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-  }
-
-  .lib-card {
-    padding: 28px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--card);
-    cursor: pointer;
-    transition: all 0.3s var(--transition);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .lib-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius);
-    border: 1px solid transparent;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-
-  .lib-card:hover {
-    transform: translateY(-4px);
-    background: var(--card-hover);
-  }
-
-  .lib-card:hover::before {
-    border-color: var(--green);
-    box-shadow: 0 0 30px var(--green-glow), inset 0 0 20px rgba(29,158,117,0.04);
-  }
-
-  .lib-card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-
-  .lib-badge {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 4px;
-  }
-
-  .badge-model { background: rgba(29,158,117,0.15); color: var(--green); border: 1px solid rgba(29,158,117,0.3); }
-  .badge-sim { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
-  .badge-hw { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
-  .badge-data { background: rgba(236,72,153,0.12); color: #f9a8d4; border: 1px solid rgba(236,72,153,0.3); }
-
-  .lib-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    background: var(--green-dim);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-  }
-
-  .lib-name {
-    font-size: 19px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-  }
-
-  .lib-tagline {
-    font-size: 12px;
-    color: var(--green);
-    font-weight: 500;
-    margin-bottom: 14px;
-  }
-
-  .lib-desc {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.65;
-    margin-bottom: 16px;
-  }
-
-  .lib-usecase {
-    padding: 12px 14px;
-    background: rgba(201,168,76,0.06);
-    border-left: 3px solid var(--gold);
-    border-radius: 0 6px 6px 0;
-    font-size: 12px;
-    color: #b09040;
-    line-height: 1.5;
-  }
-
-  .lib-usecase-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-
-  /* ── TAB 5: PITCH ── */
-  #pitch-container {
-    padding: 60px 40px;
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  .pitch-hero {
-    text-align: center;
-    margin-bottom: 72px;
-  }
-
-  .pitch-hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-    line-height: 1.1;
-  }
-
-  .pitch-hero-sub {
-    font-size: 16px;
-    color: var(--gray);
-    max-width: 560px;
-    margin: 0 auto;
-    line-height: 1.65;
-  }
-
-  .pitch-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-bottom: 64px;
-  }
-
-  .pitch-section {
-    display: flex;
-    gap: 24px;
-    padding: 32px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--card);
-    transition: all 0.3s var(--transition);
-  }
-
-  .pitch-section:hover {
-    border-color: rgba(29,158,117,0.3);
-    background: linear-gradient(145deg, var(--card), #0d1a15);
-  }
-
-  .pitch-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    flex-shrink: 0;
-  }
-
-  .pitch-icon.green { background: var(--green-dim); }
-  .pitch-icon.gold { background: var(--gold-dim); }
-  .pitch-icon.purple { background: rgba(139,92,246,0.12); }
-
-  .pitch-section-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-  }
-
-  .pitch-section-body {
-    font-size: 14px;
-    color: var(--gray);
-    line-height: 1.7;
-  }
-
-  /* TIMELINE */
-  .timeline-wrapper {
-    padding: 36px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--card);
-  }
-
-  .timeline-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 36px;
-    text-align: center;
-  }
-
-  .timeline {
-    position: relative;
-    padding: 0 0 0 32px;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--green), var(--gold), rgba(255,255,255,0.1));
-    border-radius: 2px;
-  }
-
-  .timeline-event {
-    position: relative;
-    padding-bottom: 32px;
-  }
-
-  .timeline-event:last-child { padding-bottom: 0; }
-
-  .timeline-dot {
-    position: absolute;
-    left: -40px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .timeline-dot.green { border-color: var(--green); box-shadow: 0 0 12px var(--green-glow); }
-  .timeline-dot.gold { border-color: var(--gold); box-shadow: 0 0 12px rgba(201,168,76,0.4); }
-  .timeline-dot.active { border-color: var(--green); background: var(--green); }
-  .timeline-dot.active::after { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
-
-  .timeline-date {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 4px;
-  }
-
-  .timeline-date.gold { color: var(--gold); }
-
-  .timeline-event-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .timeline-event-desc {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.5;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 0 40px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 40px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--gray-dim);
-    border-top: 1px solid var(--border);
-    margin-top: 60px;
-  }
-
-  footer span { color: var(--gray); }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--gray-dim); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--gray); }
-
-  /* ── ANIMATE IN ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.6s var(--transition) forwards;
-  }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: none; }
-  }
-
-  .fade-in:nth-child(2) { animation-delay: 0.08s; }
-  .fade-in:nth-child(3) { animation-delay: 0.16s; }
-  .fade-in:nth-child(4) { animation-delay: 0.24s; }
-  .fade-in:nth-child(5) { animation-delay: 0.32s; }
-
-  @media (max-width: 768px) {
-    #nav { padding: 0 16px; }
-    .nav-tab { padding: 20px 12px; font-size: 11px; }
-    #hero { padding: 60px 20px 60px; }
-    .section { padding: 40px 20px; }
-    .sim-canvases, .stack-grid, .sim-bottom { grid-template-columns: 1fr; }
-    .lib-grid { grid-template-columns: 1fr; }
-    .hero-stats { gap: 24px; }
-    #sim-container, #stack-container, #lib-container, #pitch-container { padding: 24px 20px; }
+    --font-display: 'Georgia', serif; --font-ui: -apple-system,'Helvetica Neue',sans-serif;
+    --radius: 12px; --transition: cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--white);font-family:var(--font-ui);min-height:100vh;overflow-x:hidden}
+
+  /* NAV */
+  #nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:stretch}
+  .nav-brand{display:flex;align-items:center;gap:10px;margin-right:40px;padding:18px 0;flex-shrink:0}
+  .nav-brand-icon{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,var(--green),#0d6e50);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;letter-spacing:-1px}
+  .nav-brand-text{font-size:13px;font-weight:600;color:var(--white);letter-spacing:0.04em;text-transform:uppercase}
+  .nav-tabs{display:flex;position:relative;flex:1}
+  .nav-tab{padding:20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--gray);letter-spacing:0.05em;text-transform:uppercase;position:relative;transition:color 0.25s var(--transition);white-space:nowrap;border:none;background:none;outline:none}
+  .nav-tab:hover{color:var(--white)}.nav-tab.active{color:var(--green)}
+  .nav-indicator{position:absolute;bottom:0;height:2px;background:linear-gradient(90deg,var(--green),#0d7a5a);border-radius:2px 2px 0 0;transition:left 0.35s var(--transition),width 0.35s var(--transition);box-shadow:0 0 12px var(--green-glow)}
+  .tab-content{display:none}.tab-content.active{display:block}
+
+  /* ABOUT (technical brief) */
+  .brief-wrap{max-width:860px;margin:0 auto;padding:56px 40px 80px}
+  .brief-masthead{border-bottom:1px solid var(--border);padding-bottom:28px;margin-bottom:36px}
+  .brief-title{font-size:22px;font-weight:700;color:var(--white);letter-spacing:-0.01em;margin-bottom:6px}
+  .brief-meta{font-size:12px;color:var(--gray);letter-spacing:0.06em}
+  .brief-meta span{color:var(--green)}
+  .brief-section{margin-bottom:40px}
+  .brief-h2{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .brief-h2::after{content:'';flex:1;height:1px;background:var(--border)}
+  .brief-p{font-size:14px;color:var(--gray);line-height:1.75;margin-bottom:12px}
+  .brief-p:last-child{margin-bottom:0}
+  .brief-table{width:100%;border-collapse:collapse;margin-top:4px}
+  .brief-table th,.brief-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border);text-align:left}
+  .brief-table th{color:var(--gray);font-weight:600;letter-spacing:0.06em;font-size:11px;text-transform:uppercase}
+  .brief-table td{color:var(--white)}
+  .brief-table td:first-child{color:var(--gray);font-family:monospace;font-size:12px}
+  .brief-table tr:last-child td{border-bottom:none}
+  .brief-table tbody tr:hover td{background:rgba(255,255,255,0.02)}
+  .brief-toc{display:flex;flex-direction:column;gap:0}
+  .brief-toc-row{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border)}
+  .brief-toc-row:last-child{border-bottom:none}
+  .brief-toc-num{font-size:11px;color:var(--green);font-weight:700;font-family:monospace}
+  .brief-toc-name{font-size:13px;color:var(--white);font-weight:600}
+  .brief-toc-desc{font-size:12px;color:var(--gray)}
+  .brief-cta{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;gap:16px}
+  .btn-sm{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,var(--green),#0d7a5a);color:#fff;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:7px;cursor:pointer;transition:all 0.3s var(--transition);box-shadow:0 0 20px var(--green-glow)}
+  .btn-sm:hover{transform:translateY(-1px);box-shadow:0 0 36px var(--green-glow)}
+
+  /* SIMULATION */
+  #sim-container{padding:32px 40px;max-width:1400px;margin:0 auto}
+  .sim-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:14px}
+  .sim-scenarios{display:flex;gap:7px;flex-wrap:wrap}
+  .scenario-btn{padding:8px 15px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--gray);font-size:12px;font-weight:600;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+  .scenario-btn:hover{border-color:var(--green);color:var(--white)}
+  .scenario-btn.active{border-color:var(--green);background:var(--green-dim);color:var(--green);box-shadow:0 0 14px var(--green-glow)}
+  .sim-canvases{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  .canvas-wrapper{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative;background:#060606}
+  .canvas-wrapper.alp-border{border-color:rgba(29,158,117,0.25)}
+  .canvas-label{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:5px 10px;border-radius:4px;z-index:10;backdrop-filter:blur(8px)}
+  .canvas-label.legacy{background:rgba(100,100,120,0.35);color:#bbb;border:1px solid rgba(255,255,255,0.1)}
+  .canvas-label.alpamayo{background:rgba(29,158,117,0.25);color:var(--green);border:1px solid rgba(29,158,117,0.4)}
+  .canvas-disengaged{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(210,30,30,0.95);color:#fff;font-size:13px;font-weight:900;letter-spacing:0.14em;padding:10px 22px;border-radius:6px;display:none;z-index:20;text-transform:uppercase;box-shadow:0 0 30px rgba(210,30,30,0.6);animation:pulsered 0.9s infinite}
+  @keyframes pulsered{0%,100%{opacity:1}50%{opacity:0.65}}
+  canvas{display:block;width:100%}
+  .sim-bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .sim-panel{padding:18px 20px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
+  .sim-panel-title{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+  .disengagement-count{background:rgba(210,30,30,0.2);color:#ff6b6b;border:1px solid rgba(210,30,30,0.35);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700}
+  .scenario-desc{font-size:13px;color:var(--gray);line-height:1.65}
+  .cot-trace{font-size:12px;font-family:'Courier New',monospace;color:var(--green);line-height:1.75;min-height:80px;max-height:140px;overflow:hidden}
+  .cot-cursor{display:inline-block;width:7px;height:12px;background:var(--green);margin-left:2px;animation:blink 0.8s step-end infinite;vertical-align:text-bottom}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  .sim-controls{display:flex;align-items:center;gap:12px;margin-top:12px}
+  .speed-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em}
+  .speed-btn{padding:5px 13px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
+  .speed-btn:hover,.speed-btn.active{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+
+  /* STACK */
+  #stack-container{padding:40px;max-width:1200px;margin:0 auto}
+  .stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .stack-card{padding:32px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
+  .stack-card.legacy{border-color:rgba(120,120,140,0.2)}
+  .stack-card.modern{border-color:rgba(29,158,117,0.25);background:linear-gradient(145deg,var(--card),#0d1a15)}
+  .stack-card-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:28px}
+  .stack-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .stack-icon.gray{background:rgba(120,120,140,0.15)}.stack-icon.green{background:var(--green-dim)}
+  .stack-name{font-size:18px;font-weight:700;color:var(--white);margin-bottom:4px}
+  .stack-subtitle{font-size:12px;color:var(--gray)}
+  .stack-components{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+  .component-tag{padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;border:1px solid;letter-spacing:0.04em}
+  .component-tag.gray{background:rgba(120,120,140,0.1);border-color:rgba(120,120,140,0.2);color:#aaa}
+  .component-tag.green{background:var(--green-dim);border-color:rgba(29,158,117,0.3);color:var(--green)}
+  .capability-bars{display:flex;flex-direction:column;gap:14px}
+  .capability-row{display:flex;flex-direction:column;gap:6px}
+  .cap-meta{display:flex;justify-content:space-between;align-items:center}
+  .cap-name{font-size:12px;color:var(--gray);font-weight:500}
+  .cap-score{font-size:12px;font-weight:700}
+  .cap-score.gray{color:#888}.cap-score.green{color:var(--green)}
+  .cap-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+  .cap-fill{height:100%;border-radius:3px;width:0%;transition:width 1.2s cubic-bezier(0.25,1,0.5,1)}
+  .cap-fill.gray{background:linear-gradient(90deg,#555,#888)}
+  .cap-fill.green{background:linear-gradient(90deg,var(--green),#4dd4a8);box-shadow:0 0 8px var(--green-glow)}
+
+  /* LIBRARY */
+  #lib-container{padding:40px;max-width:1300px;margin:0 auto}
+  .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+  .lib-card{padding:28px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);cursor:pointer;transition:all 0.3s var(--transition);position:relative;overflow:hidden}
+  .lib-card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);border:1px solid transparent;transition:border-color 0.3s,box-shadow 0.3s}
+  .lib-card:hover{transform:translateY(-4px);background:var(--card-hover)}
+  .lib-card:hover::before{border-color:var(--green);box-shadow:0 0 30px var(--green-glow),inset 0 0 20px rgba(29,158,117,0.04)}
+  .lib-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+  .lib-badge{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:4px}
+  .badge-model{background:rgba(29,158,117,0.15);color:var(--green);border:1px solid rgba(29,158,117,0.3)}
+  .badge-sim{background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.3)}
+  .badge-hw{background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.3)}
+  .badge-data{background:rgba(236,72,153,0.12);color:#f9a8d4;border:1px solid rgba(236,72,153,0.3)}
+  .lib-icon{width:42px;height:42px;border-radius:10px;background:var(--green-dim);display:flex;align-items:center;justify-content:center;font-size:20px}
+  .lib-name{font-size:19px;font-weight:700;color:var(--white);margin-bottom:4px;letter-spacing:-0.01em}
+  .lib-tagline{font-size:12px;color:var(--green);font-weight:500;margin-bottom:14px}
+  .lib-desc{font-size:13px;color:var(--gray);line-height:1.65;margin-bottom:16px}
+  .lib-usecase{padding:12px 14px;background:rgba(201,168,76,0.06);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;font-size:12px;color:#b09040;line-height:1.5}
+  .lib-usecase-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+
+  /* PITCH */
+  #pitch-container{padding:60px 40px;max-width:960px;margin:0 auto}
+  .pitch-hero{text-align:center;margin-bottom:72px}
+  .pitch-hero-title{font-family:var(--font-display);font-size:clamp(32px,5vw,56px);font-weight:700;color:var(--white);letter-spacing:-0.02em;margin-bottom:16px;line-height:1.1}
+  .pitch-hero-sub{font-size:16px;color:var(--gray);max-width:560px;margin:0 auto;line-height:1.65}
+  .pitch-sections{display:flex;flex-direction:column;gap:24px;margin-bottom:64px}
+  .pitch-section{display:flex;gap:24px;padding:32px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);transition:all 0.3s var(--transition)}
+  .pitch-section:hover{border-color:rgba(29,158,117,0.3);background:linear-gradient(145deg,var(--card),#0d1a15)}
+  .pitch-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+  .pitch-icon.green{background:var(--green-dim)}.pitch-icon.gold{background:var(--gold-dim)}.pitch-icon.purple{background:rgba(139,92,246,0.12)}
+  .pitch-section-title{font-size:20px;font-weight:700;color:var(--white);margin-bottom:8px;letter-spacing:-0.01em}
+  .pitch-section-body{font-size:14px;color:var(--gray);line-height:1.7}
+  .timeline-wrapper{padding:36px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
+  .timeline-title{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:36px;text-align:center}
+  .timeline{position:relative;padding:0 0 0 32px}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--green),var(--gold),rgba(255,255,255,0.1));border-radius:2px}
+  .timeline-event{position:relative;padding-bottom:32px}
+  .timeline-event:last-child{padding-bottom:0}
+  .timeline-dot{position:absolute;left:-40px;top:3px;width:16px;height:16px;border-radius:50%;border:2px solid;background:var(--bg);display:flex;align-items:center;justify-content:center}
+  .timeline-dot.green{border-color:var(--green);box-shadow:0 0 12px var(--green-glow)}
+  .timeline-dot.gold{border-color:var(--gold);box-shadow:0 0 12px rgba(201,168,76,0.4)}
+  .timeline-dot.active{border-color:var(--green);background:var(--green)}
+  .timeline-dot.active::after{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#fff}
+  .timeline-date{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+  .timeline-date.gold{color:var(--gold)}
+  .timeline-event-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px}
+  .timeline-event-desc{font-size:13px;color:var(--gray);line-height:1.5}
+
+  /* SHARED */
+  .section-title{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .section-headline{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--white);margin-bottom:40px;letter-spacing:-0.01em}
+  footer{padding:40px;text-align:center;font-size:12px;color:var(--gray-dim);border-top:1px solid var(--border);margin-top:60px}
+  footer span{color:var(--gray)}
+  ::-webkit-scrollbar{width:6px;height:6px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--gray-dim);border-radius:3px}
+
+  @media(max-width:768px){
+    #nav{padding:0 16px}.nav-tab{padding:20px 10px;font-size:11px}
+    .sim-canvases,.stack-grid,.sim-bottom{grid-template-columns:1fr}
+    .lib-grid{grid-template-columns:1fr}
+    #sim-container,#stack-container,#lib-container,#pitch-container,.brief-wrap{padding:24px 20px}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="nav-brand">
     <div class="nav-brand-icon">GM</div>
@@ -961,75 +194,89 @@
   </div>
 </nav>
 
-<!-- ══════════════ TAB 1: ABOUT ══════════════ -->
+<!-- ══ TAB 1: ABOUT (technical brief) ══ -->
 <div id="tab-about" class="tab-content active">
-  <section id="hero">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-radial"></div>
-    <div class="hero-radial-gold"></div>
-    <div class="hero-inner">
-      <div class="hero-eyebrow fade-in">Alpamayo Reasoning Platform</div>
-      <h1 class="hero-headline fade-in">When Perception<br><em>Isn't Enough</em></h1>
-      <p class="hero-sub fade-in">
-        This platform explores how NVIDIA's Alpamayo reasoning AI closes the critical gap between GM's current Super Cruise perception stack and the Level 3 Eyes-Off autonomy they're targeting for 2028 — moving from "what do I see" to "what should I do and why."
-      </p>
-      <div class="hero-byline fade-in">By <span>Dean Guardanapo</span> — AI Strategy &amp; Automotive Intelligence</div>
-      <div class="hero-stats fade-in">
-        <div class="stat">
-          <span class="stat-value gold">2028</span>
-          <span class="stat-label">Launch Target</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value green">Level 3</span>
-          <span class="stat-label">Autonomy Goal</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value">10B</span>
-          <span class="stat-label">Parameter Model</span>
-        </div>
-        <div class="stat">
-          <span class="stat-value gold">1,727h</span>
-          <span class="stat-label">Training Data</span>
-        </div>
-      </div>
-      <button class="btn-primary fade-in" onclick="switchTab('simulation')">
-        Launch Simulation <span class="btn-arrow">→</span>
-      </button>
-    </div>
-  </section>
+  <div class="brief-wrap">
 
-  <div class="divider"></div>
+    <div class="brief-masthead">
+      <div class="brief-title">GM × NVIDIA — Alpamayo Reasoning Platform</div>
+      <div class="brief-meta">Technical Brief · v1.0 · <span>Dean Guardanapo</span> · AI Strategy &amp; Automotive Systems</div>
+    </div>
 
-  <section class="section" style="max-width:1100px;margin:0 auto;">
-    <div class="section-title">The Challenge</div>
-    <div class="section-headline">From Reactive to Reasoning</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-      <div class="glass-card fade-in" style="padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">🧠</div>
-        <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">The Perception Gap</div>
-        <div style="font-size:13px;color:var(--gray);line-height:1.7;">Super Cruise today excels at structured highway environments using LiDAR, cameras, and HD maps. But real-world driving demands contextual judgment — understanding why a construction worker is waving, not just detecting that a hand is moving.</div>
-      </div>
-      <div class="glass-card fade-in" style="padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">⚡</div>
-        <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">Alpamayo's Role</div>
-        <div style="font-size:13px;color:var(--gray);line-height:1.7;">NVIDIA's Alpamayo 1 model brings chain-of-thought reasoning trained on 1,727 hours of Physical AI AV data — enabling vehicles to simulate outcomes, weigh probabilities, and explain their decisions in natural language before acting.</div>
-      </div>
-      <div class="glass-card fade-in" style="padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">🎯</div>
-        <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">Why 2028 Is the Window</div>
-        <div style="font-size:13px;color:var(--gray);line-height:1.7;">Regulatory frameworks for Level 3 are crystallizing. Competitors are accelerating. GM has the manufacturing scale, brand trust, and installed Super Cruise base — what's missing is the cognitive layer that Alpamayo provides.</div>
+    <div class="brief-section">
+      <div class="brief-h2">Overview</div>
+      <div class="brief-p">This platform documents the technical integration pathway between General Motors' Super Cruise ADAS stack and NVIDIA's Alpamayo 1 reasoning model, targeting SAE J3016 Level 3 highway autonomy by 2028. It is structured as an interactive reference for engineering and product teams evaluating the feasibility, architecture, and implementation requirements of this integration.</div>
+      <div class="brief-p">The platform is not a product announcement or roadmap commitment. It is a structured analysis tool intended for internal technical evaluation.</div>
+    </div>
+
+    <div class="brief-section">
+      <div class="brief-h2">Technical Background</div>
+      <div class="brief-p">Super Cruise, as currently deployed, operates as a perception-execution system. LiDAR, camera, and HD map inputs feed a rule-based planning layer that handles well-structured, mapped highway environments. The system does not maintain an internal world model, produce decision rationale, or generalize to edge cases outside its training distribution.</div>
+      <div class="brief-p">SAE Level 3 requires the system — not the driver — to manage all aspects of the dynamic driving task within its operational design domain without supervision. The gap between Super Cruise's current capability and Level 3 compliance is primarily a reasoning gap: the ability to interpret ambiguous sensor inputs, simulate outcome probabilities, and produce defensible control decisions under novel conditions. Alpamayo 1 is designed to address this gap through chain-of-thought inference over physical-world data.</div>
+    </div>
+
+    <div class="brief-section">
+      <div class="brief-h2">Alpamayo 1 — Key Parameters</div>
+      <table class="brief-table">
+        <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>model_type</td><td>Autoregressive multimodal reasoning model</td></tr>
+          <tr><td>parameters</td><td>10 billion</td></tr>
+          <tr><td>training_hours</td><td>1,727 hours (Physical AI AV Dataset)</td></tr>
+          <tr><td>reasoning_mode</td><td>Chain-of-thought with explicit decision trace</td></tr>
+          <tr><td>target_hardware</td><td>NVIDIA DRIVE Orin / DRIVE AGX</td></tr>
+          <tr><td>inference_stack</td><td>TensorRT (target: &lt;100ms latency on DRIVE AGX)</td></tr>
+          <tr><td>l3_target_year</td><td>2028 (geo-fenced highway corridors)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="brief-section">
+      <div class="brief-h2">Platform Contents</div>
+      <div class="brief-toc">
+        <div class="brief-toc-row">
+          <span class="brief-toc-num">01</span>
+          <span class="brief-toc-name">About</span>
+          <span class="brief-toc-desc">This document. Platform scope, problem definition, and model parameters.</span>
+        </div>
+        <div class="brief-toc-row">
+          <span class="brief-toc-num">02</span>
+          <span class="brief-toc-name">Live Simulation</span>
+          <span class="brief-toc-desc">Side-by-side driving simulation: Super Cruise (perception-only) vs. Alpamayo-augmented stack across five edge-case scenarios.</span>
+        </div>
+        <div class="brief-toc-row">
+          <span class="brief-toc-num">03</span>
+          <span class="brief-toc-name">Stack Comparison</span>
+          <span class="brief-toc-desc">Capability ratings across six dimensions for the current and proposed stack configurations.</span>
+        </div>
+        <div class="brief-toc-row">
+          <span class="brief-toc-num">04</span>
+          <span class="brief-toc-name">Library Reference</span>
+          <span class="brief-toc-desc">Component-level documentation for Alpamayo 1, AlpaSim, DRIVE Orin/AGX, TensorRT, Cosmos, and the Physical AI AV Dataset.</span>
+        </div>
+        <div class="brief-toc-row">
+          <span class="brief-toc-num">05</span>
+          <span class="brief-toc-name">The Pitch</span>
+          <span class="brief-toc-desc">Strategic rationale for the GM–NVIDIA integration, including development timeline and regulatory context through 2028.</span>
+        </div>
       </div>
     </div>
-  </section>
+
+    <div class="brief-cta">
+      <button class="btn-sm" onclick="switchTab('simulation')">Open Simulation →</button>
+      <span style="font-size:12px;color:var(--gray)">Interactive dual-view scenario playback</span>
+    </div>
+
+  </div>
 </div>
 
-<!-- ══════════════ TAB 2: SIMULATION ══════════════ -->
+<!-- ══ TAB 2: SIMULATION ══ -->
 <div id="tab-simulation" class="tab-content">
   <div id="sim-container">
     <div class="sim-header">
       <div>
-        <div class="section-title" style="margin-bottom:4px;">Live Simulation</div>
-        <div style="font-size:20px;font-weight:700;color:var(--white);">Dual-System Scenario Playback</div>
+        <div class="section-title" style="margin-bottom:3px">Live Simulation</div>
+        <div style="font-size:19px;font-weight:700;color:var(--white)">Dual-System Scenario Playback</div>
       </div>
       <div class="sim-scenarios">
         <button class="scenario-btn active" data-scenario="0">Traffic Light Outage</button>
@@ -1044,24 +291,22 @@
       <div class="canvas-wrapper">
         <div class="canvas-label legacy">⬤ Super Cruise — Perception Only</div>
         <div class="canvas-disengaged" id="legacyDisengaged">⚠ DISENGAGED</div>
-        <canvas id="legacyCanvas" height="340"></canvas>
+        <canvas id="legacyCanvas" height="360"></canvas>
       </div>
-      <div class="canvas-wrapper" style="border-color:rgba(29,158,117,0.2);">
+      <div class="canvas-wrapper alp-border">
         <div class="canvas-label alpamayo">◆ Super Cruise + Alpamayo</div>
-        <canvas id="alpamayoCanvas" height="340"></canvas>
+        <canvas id="alpamayoCanvas" height="360"></canvas>
       </div>
     </div>
 
     <div class="sim-bottom">
       <div class="sim-panel">
         <div class="sim-panel-title">
-          Scenario Description
+          Scenario
           <div class="disengagement-count">Disengagements: <span id="disengageCount">0</span></div>
         </div>
-        <div class="scenario-desc" id="scenarioDesc">
-          A traffic light at an uncontrolled intersection has gone dark. No signal data available. Cross-traffic is present.
-        </div>
-        <div class="sim-controls" style="margin-top:14px;">
+        <div class="scenario-desc" id="scenarioDesc"></div>
+        <div class="sim-controls">
           <span class="speed-label">Speed:</span>
           <button class="speed-btn active" data-speed="1">1×</button>
           <button class="speed-btn" data-speed="2">2×</button>
@@ -1076,906 +321,692 @@
   </div>
 </div>
 
-<!-- ══════════════ TAB 3: STACK ══════════════ -->
+<!-- ══ TAB 3: STACK ══ -->
 <div id="tab-stack" class="tab-content">
   <div id="stack-container">
-    <div class="section-title" style="margin-bottom:6px;">Capability Analysis</div>
+    <div class="section-title" style="margin-bottom:6px">Capability Analysis</div>
     <div class="section-headline">Stack Comparison</div>
     <div class="stack-grid">
-
-      <!-- LEGACY -->
       <div class="stack-card legacy">
         <div class="stack-card-header">
           <div class="stack-icon gray">🔬</div>
-          <div>
-            <div class="stack-name">GM Super Cruise — Today</div>
-            <div class="stack-subtitle">Perception-first, rule-based autonomy</div>
-          </div>
+          <div><div class="stack-name">GM Super Cruise — Today</div><div class="stack-subtitle">Perception-first, rule-based autonomy</div></div>
         </div>
         <div class="stack-components">
-          <span class="component-tag gray">Mobileye EyeQ</span>
-          <span class="component-tag gray">LiDAR Arrays</span>
-          <span class="component-tag gray">HD Maps</span>
-          <span class="component-tag gray">Rule-Based Logic</span>
-          <span class="component-tag gray">Camera Fusion</span>
-          <span class="component-tag gray">GPS/GNSS</span>
+          <span class="component-tag gray">Mobileye EyeQ</span><span class="component-tag gray">LiDAR Arrays</span><span class="component-tag gray">HD Maps</span><span class="component-tag gray">Rule-Based Logic</span><span class="component-tag gray">Camera Fusion</span><span class="component-tag gray">GPS/GNSS</span>
         </div>
-        <div class="capability-bars" id="legacyBars">
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score gray">2/10</span></div>
-            <div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score gray">3/10</span></div>
-            <div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score gray">4/10</span></div>
-            <div class="cap-track"><div class="cap-fill gray" data-width="40"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score gray">2/10</span></div>
-            <div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score gray">5/10</span></div>
-            <div class="cap-track"><div class="cap-fill gray" data-width="50"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score gray">3/10</span></div>
-            <div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div>
-          </div>
+        <div class="capability-bars">
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score gray">4/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="40"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score gray">5/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="50"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
         </div>
       </div>
-
-      <!-- MODERN -->
       <div class="stack-card modern">
         <div class="stack-card-header">
           <div class="stack-icon green">🟢</div>
-          <div>
-            <div class="stack-name">GM + NVIDIA Alpamayo</div>
-            <div class="stack-subtitle">Physical AI reasoning stack</div>
-          </div>
+          <div><div class="stack-name">GM + NVIDIA Alpamayo</div><div class="stack-subtitle">Physical AI reasoning stack</div></div>
         </div>
         <div class="stack-components">
-          <span class="component-tag green">Alpamayo 1</span>
-          <span class="component-tag green">AlpaSim</span>
-          <span class="component-tag green">DRIVE Orin</span>
-          <span class="component-tag green">TensorRT</span>
-          <span class="component-tag green">Cosmos</span>
-          <span class="component-tag green">Physical AI AV Dataset</span>
-          <span class="component-tag green">DRIVE AGX</span>
+          <span class="component-tag green">Alpamayo 1</span><span class="component-tag green">AlpaSim</span><span class="component-tag green">DRIVE Orin</span><span class="component-tag green">TensorRT</span><span class="component-tag green">Cosmos</span><span class="component-tag green">Physical AI AV Dataset</span><span class="component-tag green">DRIVE AGX</span>
         </div>
-        <div class="capability-bars" id="modernBars">
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score green">9/10</span></div>
-            <div class="cap-track"><div class="cap-fill green" data-width="90"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score green">8/10</span></div>
-            <div class="cap-track"><div class="cap-fill green" data-width="80"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score green">9/10</span></div>
-            <div class="cap-track"><div class="cap-fill green" data-width="90"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score green">8/10</span></div>
-            <div class="cap-track"><div class="cap-fill green" data-width="80"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score green">9/10</span></div>
-            <div class="cap-track"><div class="cap-fill green" data-width="90"></div></div>
-          </div>
-          <div class="capability-row">
-            <div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score green">8/10</span></div>
-            <div class="cap-track"><div class="cap-fill green" data-width="80"></div></div>
-          </div>
+        <div class="capability-bars">
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score green">8/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="80"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score green">8/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="80"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score green">8/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="80"></div></div></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ TAB 4: LIBRARY ══════════════ -->
+<!-- ══ TAB 4: LIBRARY ══ -->
 <div id="tab-library" class="tab-content">
   <div id="lib-container">
-    <div class="section-title" style="margin-bottom:6px;">Technology Reference</div>
+    <div class="section-title" style="margin-bottom:6px">Technology Reference</div>
     <div class="section-headline">NVIDIA Platform Components</div>
     <div class="lib-grid">
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon">🧠</div>
-          <span class="lib-badge badge-model">Model</span>
-        </div>
-        <div class="lib-name">Alpamayo 1</div>
-        <div class="lib-tagline">World-first Physical AI reasoning model for autonomous vehicles</div>
-        <div class="lib-desc">A 10B-parameter multimodal reasoning model trained on 1,727 hours of real-world driving data. Unlike perception models, Alpamayo reasons through ambiguous scenarios step-by-step — weighing probabilities, simulating outcomes, and generating natural-language justifications before making any control decision.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Provides the cognitive engine behind Super Cruise decision-making in edge scenarios — construction zones, uncontrolled intersections, and novel traffic configurations that rule-based systems cannot handle.
-        </div>
-      </div>
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(99,102,241,0.12);">🔮</div>
-          <span class="lib-badge badge-sim">Simulator</span>
-        </div>
-        <div class="lib-name">AlpaSim</div>
-        <div class="lib-tagline">High-fidelity synthetic AV scenario generator</div>
-        <div class="lib-desc">A world-model-powered simulation platform that generates billions of photorealistic edge case scenarios for training and validation. AlpaSim uses Cosmos as its foundation world model, enabling physically plausible scenario synthesis at scale — replacing years of data collection with generated variety.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Accelerates Super Cruise validation coverage from thousands to millions of edge cases before real-world deployment, reducing physical test miles required for Level 3 certification.
-        </div>
-      </div>
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(201,168,76,0.12);">⚡</div>
-          <span class="lib-badge badge-hw">Hardware</span>
-        </div>
-        <div class="lib-name">DRIVE AGX</div>
-        <div class="lib-tagline">Centralized AI compute platform for software-defined vehicles</div>
-        <div class="lib-desc">NVIDIA's vehicle compute platform consolidates sensor fusion, AI inference, and control logic into a single high-performance unit. Built for functional safety standards (ISO 26262 ASIL-D), it provides the secure, redundant compute foundation that enables safe deployment of large AI models in production vehicles.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Serves as the vehicle-side compute backbone for the Cadillac Escalade IQ and future platforms, enabling OTA updates to the reasoning stack post-production.
-        </div>
-      </div>
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(201,168,76,0.12);">🔷</div>
-          <span class="lib-badge badge-hw">Hardware</span>
-        </div>
-        <div class="lib-name">DRIVE Orin</div>
-        <div class="lib-tagline">254 TOPS AI compute SoC for safety-critical autonomy</div>
-        <div class="lib-desc">A system-on-chip delivering 254 trillion operations per second specifically designed for automotive AI workloads. Orin runs perception, planning, and driving policy networks simultaneously with hardware-level redundancy — enabling the real-time inference required for Level 3 autonomous operations.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Powers concurrent execution of Alpamayo inference alongside existing Super Cruise perception algorithms, with enough headroom for future capability expansion.
-        </div>
-      </div>
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(29,158,117,0.12);">⚙️</div>
-          <span class="lib-badge badge-model">Inference</span>
-        </div>
-        <div class="lib-name">TensorRT</div>
-        <div class="lib-tagline">Deep learning inference optimizer for production deployment</div>
-        <div class="lib-desc">NVIDIA's inference optimization library compresses and optimizes trained models for real-time deployment on Orin and AGX hardware. TensorRT achieves up to 6× speedup on automotive AI workloads through quantization, layer fusion, and kernel auto-tuning — making 10B parameter models practical in embedded systems.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Makes Alpamayo's chain-of-thought reasoning fast enough for real-time driving decisions, compressing model inference latency to under 100ms on DRIVE Orin.
-        </div>
-      </div>
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(139,92,246,0.12);">🌌</div>
-          <span class="lib-badge badge-sim">World Model</span>
-        </div>
-        <div class="lib-name">Cosmos</div>
-        <div class="lib-tagline">Physical world foundation model for simulation and training</div>
-        <div class="lib-desc">NVIDIA's world foundation model understands the physical laws governing object behavior, material properties, and environmental dynamics. Cosmos generates training data that respects physical plausibility — meaning synthetic scenarios include realistic physics like momentum, friction, and occlusion, not just geometric arrangements.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Powers AlpaSim's scenario generation with physically accurate environments, ensuring Alpamayo trains on scenarios that reflect the real world rather than synthetic artifacts.
-        </div>
-      </div>
-
-      <div class="lib-card fade-in">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(236,72,153,0.12);">📀</div>
-          <span class="lib-badge badge-data">Dataset</span>
-        </div>
-        <div class="lib-name">Physical AI AV Dataset</div>
-        <div class="lib-tagline">1,727 hours of curated real-world driving for reasoning AI</div>
-        <div class="lib-desc">A meticulously curated dataset of real-world AV sensor data specifically designed to train physical reasoning capabilities. Unlike raw driving logs, every scenario includes rich annotations: decision rationale, counterfactual alternatives, and chain-of-thought labels that teach models to reason — not just recognize patterns.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Forms the training foundation for Alpamayo's automotive reasoning capabilities, with heavy emphasis on the edge cases most likely to trigger Super Cruise disengagements.
-        </div>
-      </div>
-
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon">🧠</div><span class="lib-badge badge-model">Model</span></div><div class="lib-name">Alpamayo 1</div><div class="lib-tagline">Physical AI reasoning model for autonomous vehicles</div><div class="lib-desc">A 10B-parameter multimodal reasoning model trained on 1,727 hours of real-world driving data. Alpamayo reasons through ambiguous scenarios step-by-step — weighing probabilities, simulating outcomes, and generating natural-language justifications before making control decisions.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Provides decision-making logic for Super Cruise in edge scenarios — construction zones, uncontrolled intersections, and novel traffic configurations that rule-based systems cannot handle.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🔮</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">AlpaSim</div><div class="lib-tagline">High-fidelity synthetic AV scenario generator</div><div class="lib-desc">A world-model-powered simulation platform that generates synthetic edge case scenarios for training and validation. AlpaSim uses Cosmos as its foundation world model, enabling physically plausible scenario synthesis at scale.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Accelerates Super Cruise validation coverage from thousands to millions of edge cases before deployment, reducing physical test miles required for Level 3 certification.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">⚡</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE AGX</div><div class="lib-tagline">Centralized AI compute platform for software-defined vehicles</div><div class="lib-desc">NVIDIA's vehicle compute platform consolidates sensor fusion, AI inference, and control logic. Built for ISO 26262 ASIL-D functional safety standards, it provides the secure, redundant compute foundation for deploying large AI models in production vehicles.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Serves as the vehicle-side compute backbone for Cadillac Escalade IQ and future platforms, enabling OTA updates to the reasoning stack post-production.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">🔷</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE Orin</div><div class="lib-tagline">254 TOPS AI compute SoC for safety-critical autonomy</div><div class="lib-desc">A system-on-chip delivering 254 TOPS specifically for automotive AI workloads. Orin runs perception, planning, and driving policy networks simultaneously with hardware-level redundancy, enabling real-time inference required for Level 3 operations.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Powers concurrent execution of Alpamayo inference alongside existing Super Cruise perception algorithms with headroom for future capability expansion.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(29,158,117,0.12)">⚙️</div><span class="lib-badge badge-model">Inference</span></div><div class="lib-name">TensorRT</div><div class="lib-tagline">Deep learning inference optimizer for production deployment</div><div class="lib-desc">NVIDIA's inference optimization library compresses and optimizes trained models for real-time deployment on Orin and AGX hardware via quantization, layer fusion, and kernel auto-tuning — making 10B parameter models practical in embedded systems.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Compresses Alpamayo inference latency to under 100ms on DRIVE Orin, making chain-of-thought reasoning compatible with real-time driving decisions.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(139,92,246,0.12)">🌌</div><span class="lib-badge badge-sim">World Model</span></div><div class="lib-name">Cosmos</div><div class="lib-tagline">Physical world foundation model for simulation and training</div><div class="lib-desc">NVIDIA's world foundation model encodes the physical laws governing object behavior, material properties, and environmental dynamics. Cosmos generates training data that is physically plausible — scenarios include accurate physics, not just geometric arrangements.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Powers AlpaSim's scenario generation with physically accurate environments, ensuring Alpamayo trains on data that reflects real-world behavior.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(236,72,153,0.12)">📀</div><span class="lib-badge badge-data">Dataset</span></div><div class="lib-name">Physical AI AV Dataset</div><div class="lib-tagline">1,727 hours of annotated real-world driving for reasoning AI</div><div class="lib-desc">Curated real-world AV sensor data designed to train physical reasoning. Every scenario includes decision rationale, counterfactual alternatives, and chain-of-thought labels that teach models to reason rather than pattern-match.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Forms the training foundation for Alpamayo's automotive reasoning capabilities, with emphasis on edge cases corresponding to Super Cruise disengagement events.</div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ TAB 5: PITCH ══════════════ -->
+<!-- ══ TAB 5: PITCH ══ -->
 <div id="tab-pitch" class="tab-content">
   <div id="pitch-container">
-    <div class="pitch-hero fade-in">
-      <div class="section-title" style="margin-bottom:12px;text-align:center;">Strategic Proposal</div>
+    <div class="pitch-hero">
+      <div class="section-title" style="margin-bottom:12px;text-align:center">Strategic Proposal</div>
       <div class="pitch-hero-title">The Case for<br>GM × NVIDIA</div>
-      <div class="pitch-hero-sub">Three convergences — a company at an inflection, a technology reaching maturity, and a market window closing — that make this the inevitable partnership.</div>
+      <div class="pitch-hero-sub">Three convergences — a company at an inflection, a technology reaching maturity, and a market window closing — that make this the compelling partnership.</div>
     </div>
-
     <div class="pitch-sections">
-      <div class="pitch-section fade-in">
-        <div class="pitch-icon gold">🏎️</div>
-        <div>
-          <div class="pitch-section-title">Why GM</div>
-          <div class="pitch-section-body">General Motors has built the most commercially successful advanced driver assistance system in North America with Super Cruise — with over 400,000 activated customers and 75 million cumulative miles. But ADAS is not autonomy. GM has the distribution, the brand trust, and the regulatory relationships to deploy Level 3 at scale. What they don't have is a reasoning layer that can handle the long tail of edge cases preventing them from removing the driver from the loop. Every month without Level 3 is a month their competitors close the gap and regulators write frameworks around someone else's system.</div>
-        </div>
-      </div>
-
-      <div class="pitch-section fade-in">
-        <div class="pitch-icon green">⚡</div>
-        <div>
-          <div class="pitch-section-title">Why Now</div>
-          <div class="pitch-section-body">The NHTSA's AV policy framework is entering its most critical formation period. States with the most attractive L3 markets — California, Texas, Nevada — are finalizing their regulatory structures now. The OEM that has certified L3 technology when these frameworks lock in will have a multi-year market advantage. Simultaneously, the compute economics of Orin-class hardware have crossed the threshold where sophisticated AI reasoning is deployable at automotive price points. The window between "too early" and "too late" is 18–36 months, and Alpamayo is ready now.</div>
-        </div>
-      </div>
-
-      <div class="pitch-section fade-in">
-        <div class="pitch-icon purple">🟣</div>
-        <div>
-          <div class="pitch-section-title">Why NVIDIA</div>
-          <div class="pitch-section-body">Every serious autonomous vehicle program runs on NVIDIA infrastructure — not by accident, but because no other company offers the complete stack from silicon to simulation to foundation models. NVIDIA's bet on Physical AI wasn't just a product announcement; it was the completion of a closed loop: generate training scenarios with Cosmos, train reasoning with Alpamayo, validate with AlpaSim, deploy on Orin, optimize with TensorRT, and improve over the air. No competitor offers this integration. Partnering with NVIDIA on Alpamayo doesn't just upgrade Super Cruise — it gives GM the same AI development velocity as a pure-play AV startup, at automotive manufacturing scale.</div>
-        </div>
-      </div>
+      <div class="pitch-section"><div class="pitch-icon gold">🏎️</div><div><div class="pitch-section-title">Why GM</div><div class="pitch-section-body">General Motors has built the most commercially deployed advanced driver assistance system in North America with Super Cruise — over 400,000 activated customers and 75 million cumulative miles. But ADAS is not autonomy. GM has distribution, brand trust, and regulatory relationships to deploy Level 3 at scale. What they lack is a reasoning layer that handles the long tail of edge cases preventing removal of the driver from the loop.</div></div></div>
+      <div class="pitch-section"><div class="pitch-icon green">⚡</div><div><div class="pitch-section-title">Why Now</div><div class="pitch-section-body">The NHTSA's AV policy framework is in its critical formation period. States with the most attractive L3 markets — California, Texas, Nevada — are finalizing regulatory structures now. The OEM with certified L3 technology when these frameworks lock in will have a multi-year market advantage. Simultaneously, Orin-class compute economics have crossed the threshold where sophisticated AI reasoning is deployable at automotive price points.</div></div></div>
+      <div class="pitch-section"><div class="pitch-icon purple">🟣</div><div><div class="pitch-section-title">Why NVIDIA</div><div class="pitch-section-body">Every serious AV program runs on NVIDIA infrastructure — not by accident, but because no other company offers a complete stack from silicon to simulation to foundation models. The loop is closed: generate scenarios with Cosmos, train reasoning with Alpamayo, validate with AlpaSim, deploy on Orin, optimize with TensorRT, and improve over the air. No competitor offers this integration at this maturity level.</div></div></div>
     </div>
-
-    <!-- TIMELINE -->
-    <div class="timeline-wrapper fade-in">
+    <div class="timeline-wrapper">
       <div class="timeline-title">GM × Alpamayo Development Timeline</div>
       <div class="timeline">
-        <div class="timeline-event">
-          <div class="timeline-dot active"></div>
-          <div class="timeline-date">2024 — Now</div>
-          <div class="timeline-event-title">Super Cruise Scales, Ceiling Becomes Visible</div>
-          <div class="timeline-event-desc">Super Cruise hits 400K+ customers. Disengagement data reveals consistent failure modes: uncontrolled intersections, construction zones, novel edge cases. The perception-only ceiling is measurable.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot green"></div>
-          <div class="timeline-date" style="color:var(--green);">2025 — Milestone</div>
-          <div class="timeline-event-title">Alpamayo 1 Released — Integration Begins</div>
-          <div class="timeline-event-desc">NVIDIA ships Alpamayo 1 with Physical AI AV Dataset. GM R&D begins integration testing on closed-course Escalade IQs. AlpaSim pipeline stands up for validation coverage generation.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot green"></div>
-          <div class="timeline-date" style="color:var(--green);">2026</div>
-          <div class="timeline-event-title">Regulatory Submission & Shadow Mode Deployment</div>
-          <div class="timeline-event-desc">Alpamayo runs in shadow mode across Super Cruise fleet, logging every intervention it would have made. Data builds the regulatory dossier for NHTSA L3 certification. AlpaSim coverage reaches 1M+ synthetic scenarios.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot green"></div>
-          <div class="timeline-date" style="color:var(--green);">2027</div>
-          <div class="timeline-event-title">Geo-Fenced L3 Launch on Cadillac Platform</div>
-          <div class="timeline-event-desc">First commercial L3-certified deployment on Cadillac Escalade IQ, geo-fenced to approved highway corridors in select states. Eyes-off permitted at highway speeds. Media coverage confirms the inflection point.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot gold"></div>
-          <div class="timeline-date gold">2028 — Target</div>
-          <div class="timeline-event-title">Nationwide Level 3 — Eyes-Off Highway Autonomy</div>
-          <div class="timeline-event-desc">Full national L3 deployment across GM's highway-capable fleet. Alpamayo version 2 ships with expanded urban edge case coverage. GM establishes the definitive North American L3 standard.</div>
-        </div>
+        <div class="timeline-event"><div class="timeline-dot active"></div><div class="timeline-date">2024 — Now</div><div class="timeline-event-title">Super Cruise Scales, Ceiling Becomes Measurable</div><div class="timeline-event-desc">Super Cruise reaches 400K+ customers. Disengagement logs reveal consistent failure modes: uncontrolled intersections, construction zones, novel configurations. The perception-only ceiling is quantifiable.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2025 — Milestone</div><div class="timeline-event-title">Alpamayo 1 Released — Integration Testing Begins</div><div class="timeline-event-desc">NVIDIA ships Alpamayo 1 with Physical AI AV Dataset. GM R&D begins closed-course integration testing on Escalade IQ platforms. AlpaSim validation pipeline initialized.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2026</div><div class="timeline-event-title">Shadow Mode Deployment &amp; Regulatory Submission</div><div class="timeline-event-desc">Alpamayo runs in shadow mode across Super Cruise fleet, logging intervention decisions. Data feeds the NHTSA L3 certification dossier. AlpaSim coverage exceeds 1M synthetic scenarios.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2027</div><div class="timeline-event-title">Geo-Fenced L3 Launch — Cadillac Platform</div><div class="timeline-event-desc">First commercial L3 deployment on Cadillac Escalade IQ, geo-fenced to certified highway corridors. Eyes-off operation permitted within ODD.</div></div>
+        <div class="timeline-event"><div class="timeline-dot gold"></div><div class="timeline-date gold">2028 — Target</div><div class="timeline-event-title">National Level 3 Deployment</div><div class="timeline-event-desc">Full national L3 deployment across GM's highway-capable fleet. Alpamayo v2 with expanded edge case coverage. GM establishes North American L3 production benchmark.</div></div>
       </div>
     </div>
-
-    <div style="text-align:center;margin-top:56px;">
-      <div style="font-size:13px;color:var(--gray);margin-bottom:20px;letter-spacing:0.04em;">Ready to explore the technology?</div>
-      <button class="btn-primary" onclick="switchTab('simulation')" style="margin:0 auto;">
-        Run the Simulation <span class="btn-arrow">→</span>
-      </button>
+    <div style="text-align:center;margin-top:48px">
+      <button class="btn-sm" onclick="switchTab('simulation')" style="margin:0 auto">Run the Simulation →</button>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <span>GM × NVIDIA — Alpamayo Reasoning Platform</span> &nbsp;·&nbsp; By <span>Dean Guardanapo</span> &nbsp;·&nbsp; AI Strategy & Automotive Intelligence
+  <span>GM × NVIDIA — Alpamayo Reasoning Platform</span> &nbsp;·&nbsp; By <span>Dean Guardanapo</span> &nbsp;·&nbsp; AI Strategy &amp; Automotive Intelligence
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════
-// TAB NAVIGATION
-// ═══════════════════════════════════════════════
-
+// ══════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════
 const tabs = document.querySelectorAll('.nav-tab');
 const contents = document.querySelectorAll('.tab-content');
 const indicator = document.getElementById('navIndicator');
-
-function updateIndicator(activeTab) {
-  const rect = activeTab.getBoundingClientRect();
-  const navRect = document.getElementById('navTabs').getBoundingClientRect();
-  indicator.style.left = (rect.left - navRect.left) + 'px';
-  indicator.style.width = rect.width + 'px';
-}
-
-function switchTab(tabName) {
-  const target = document.querySelector(`[data-tab="${tabName}"]`);
-  if (!target) return;
-  tabs.forEach(t => t.classList.remove('active'));
-  contents.forEach(c => c.classList.remove('active'));
-  target.classList.add('active');
-  document.getElementById(`tab-${tabName}`).classList.add('active');
-  updateIndicator(target);
-  if (tabName === 'stack') animateBars();
-  if (tabName === 'simulation') { startSimulation(); }
-}
-
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
-});
-
-window.addEventListener('load', () => {
-  const activeTab = document.querySelector('.nav-tab.active');
-  if (activeTab) updateIndicator(activeTab);
-});
-
-window.addEventListener('resize', () => {
-  const activeTab = document.querySelector('.nav-tab.active');
-  if (activeTab) updateIndicator(activeTab);
-});
-
-// ═══════════════════════════════════════════════
-// STACK BAR ANIMATION
-// ═══════════════════════════════════════════════
-
 let barsAnimated = false;
 
-function animateBars() {
-  if (barsAnimated) return;
-  barsAnimated = true;
-  setTimeout(() => {
-    document.querySelectorAll('.cap-fill').forEach(fill => {
-      const target = fill.dataset.width;
-      fill.style.width = target + '%';
-    });
-  }, 150);
+function updateIndicator(t) {
+  const r = t.getBoundingClientRect();
+  const nr = document.getElementById('navTabs').getBoundingClientRect();
+  indicator.style.left = (r.left - nr.left) + 'px';
+  indicator.style.width = r.width + 'px';
 }
 
-// ═══════════════════════════════════════════════
-// SIMULATION ENGINE
-// ═══════════════════════════════════════════════
+function switchTab(name) {
+  const t = document.querySelector(`[data-tab="${name}"]`);
+  if (!t) return;
+  tabs.forEach(x => x.classList.remove('active'));
+  contents.forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(`tab-${name}`).classList.add('active');
+  updateIndicator(t);
+  if (name === 'stack') animateBars();
+  if (name === 'simulation') startSimulation();
+}
 
+tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+window.addEventListener('load', () => { const a = document.querySelector('.nav-tab.active'); if (a) updateIndicator(a); });
+window.addEventListener('resize', () => { const a = document.querySelector('.nav-tab.active'); if (a) updateIndicator(a); });
+
+function animateBars() {
+  if (barsAnimated) return; barsAnimated = true;
+  setTimeout(() => { document.querySelectorAll('.cap-fill').forEach(f => { f.style.width = f.dataset.width + '%'; }); }, 150);
+}
+
+// ══════════════════════════════════════════════
+// PERSPECTIVE SIMULATION ENGINE
+// ══════════════════════════════════════════════
+
+// Road projection constants
+const HY   = 0.37;   // horizon Y fraction
+const RFL  = 0.415;  // road far-left fraction of W
+const RFR  = 0.585;  // road far-right
+const RNL  = 0.03;   // road near-left
+const RNR  = 0.97;   // road near-right
+
+// proj: worldZ 0=camera/near 1=horizon/far, laneX 0=left 1=right
+// vpx: vanishing point X (shifts with lane changes)
+function proj(wz, lx, w, h, vpx) {
+  vpx = vpx === undefined ? w/2 : vpx;
+  const hy = h * HY;
+  const t = 1 - wz;
+  const sy = hy + (h - hy) * t;
+  const cx = vpx + (w/2 - vpx) * t;
+  const hw = (RFL + (RNL - RFL) * t + RFR + (RNR - RFR) * t) / 2 * w;
+  const halfW = ((RFR - RFL)/2 + ((RNR - RNL)/2 - (RFR - RFL)/2) * t) * w;
+  const rl = cx - halfW, rr = cx + halfW;
+  return { x: rl + (rr - rl) * lx, y: sy, sc: t, rl, rr };
+}
+
+// ── ROAD DRAW ──
+function drawRoad(ctx, w, h, dist, vpx, isAlp, nightMode) {
+  const hy = h * HY;
+
+  // Sky
+  const skC = nightMode ? '#03030a' : (isAlp ? '#060e0b' : '#060606');
+  const skC2 = nightMode ? '#06060f' : (isAlp ? '#0a1a13' : '#0c0c0c');
+  const sg = ctx.createLinearGradient(0, 0, 0, hy);
+  sg.addColorStop(0, skC); sg.addColorStop(1, skC2);
+  ctx.fillStyle = sg; ctx.fillRect(0, 0, w, hy);
+
+  // Horizon line glow
+  if (isAlp) {
+    const hg = ctx.createLinearGradient(0, hy - 6, 0, hy + 6);
+    hg.addColorStop(0, 'transparent');
+    hg.addColorStop(0.5, 'rgba(29,158,117,0.06)');
+    hg.addColorStop(1, 'transparent');
+    ctx.fillStyle = hg; ctx.fillRect(0, hy - 6, w, 12);
+  }
+
+  // Road trapezoid
+  const nL = proj(0, 0, w, h, vpx), nR = proj(0, 1, w, h, vpx);
+  const fL = proj(1, 0, w, h, vpx), fR = proj(1, 1, w, h, vpx);
+
+  ctx.beginPath();
+  ctx.moveTo(fL.x, fL.y); ctx.lineTo(fR.x, fR.y);
+  ctx.lineTo(nR.x, nR.y); ctx.lineTo(nL.x, nL.y);
+  ctx.closePath();
+
+  const rg = ctx.createLinearGradient(0, hy, 0, h);
+  if (nightMode) { rg.addColorStop(0, '#111'); rg.addColorStop(1, '#080808'); }
+  else if (isAlp) { rg.addColorStop(0, '#0e1c16'); rg.addColorStop(1, '#080e0b'); }
+  else { rg.addColorStop(0, '#181818'); rg.addColorStop(1, '#0e0e0e'); }
+  ctx.fillStyle = rg; ctx.fill();
+
+  // Road edges
+  ctx.setLineDash([]);
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.45)' : 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(fL.x, fL.y); ctx.lineTo(nL.x, nL.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(fR.x, fR.y); ctx.lineTo(nR.x, nR.y); ctx.stroke();
+
+  // Dashed lane dividers at 1/3 and 2/3
+  const PERIOD = 30, SLEN = 13, VDIST = 220;
+  const baseI = Math.ceil(dist / PERIOD) * PERIOD;
+  for (let k = -1; k < VDIST / PERIOD + 2; k++) {
+    const p = baseI + k * PERIOD;
+    const d = p - dist;
+    if (d < 0 || d > VDIST + SLEN) continue;
+    const z1 = Math.max(0.02, d / VDIST);
+    const z2 = Math.min(0.99, (d + SLEN) / VDIST);
+    if (z1 >= z2) continue;
+    const mz = (z1 + z2) / 2;
+    ctx.lineWidth = Math.max(0.5, 2.8 * (1 - mz));
+    ctx.strokeStyle = isAlp
+      ? `rgba(29,158,117,${0.07 + 0.35 * (1 - mz)})`
+      : `rgba(255,255,255,${0.06 + 0.22 * (1 - mz)})`;
+    for (const lp of [1/3, 2/3]) {
+      const pt1 = proj(z1, lp, w, h, vpx);
+      const pt2 = proj(z2, lp, w, h, vpx);
+      ctx.beginPath(); ctx.moveTo(pt1.x, pt1.y); ctx.lineTo(pt2.x, pt2.y); ctx.stroke();
+    }
+  }
+
+  // Night headlight cone
+  if (nightMode) {
+    const cg = ctx.createRadialGradient(w/2, h, 20, w/2, hy + (h-hy)*0.4, (h-hy)*0.9);
+    cg.addColorStop(0, 'rgba(240,230,190,0.09)');
+    cg.addColorStop(0.55, 'rgba(240,230,190,0.025)');
+    cg.addColorStop(1, 'transparent');
+    ctx.fillStyle = cg; ctx.fillRect(0, hy, w, h - hy);
+  }
+
+  // Vignette
+  const vg = ctx.createRadialGradient(w/2, h/2, h*0.2, w/2, h/2, w*0.75);
+  vg.addColorStop(0, 'transparent'); vg.addColorStop(1, 'rgba(0,0,0,0.35)');
+  ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
+}
+
+// ── EGO CAR (rear view) ──
+function drawEgoCar(ctx, w, h, lx, vpx, isAlp, braking, disengaged) {
+  const nL = proj(0, 0, w, h, vpx), nR = proj(0, 1, w, h, vpx);
+  const roadW = nR.x - nL.x;
+  const cx = nL.x + roadW * lx;
+  const cw = roadW * 0.27;
+  const ch = cw * 0.62;
+  const bot = h + 10, top = bot - ch;
+
+  ctx.shadowColor = isAlp ? 'rgba(29,158,117,0.3)' : 'rgba(0,0,0,0.6)';
+  ctx.shadowBlur = 22;
+
+  // Body silhouette
+  const bodyC = isAlp ? '#0d2018' : '#1c1c28';
+  ctx.fillStyle = bodyC;
+  ctx.beginPath();
+  ctx.moveTo(cx - cw/2, bot);
+  ctx.lineTo(cx - cw/2, top + ch*0.28);
+  ctx.quadraticCurveTo(cx - cw*0.42, top + ch*0.1, cx - cw*0.24, top + ch*0.01);
+  ctx.lineTo(cx + cw*0.24, top + ch*0.01);
+  ctx.quadraticCurveTo(cx + cw*0.42, top + ch*0.1, cx + cw/2, top + ch*0.28);
+  ctx.lineTo(cx + cw/2, bot);
+  ctx.closePath();
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Roof panel
+  ctx.fillStyle = isAlp ? '#091510' : '#14141e';
+  ctx.beginPath();
+  ctx.roundRect(cx - cw*0.24, top, cw*0.48, ch*0.12, [6,6,0,0]);
+  ctx.fill();
+
+  // Rear window
+  ctx.fillStyle = isAlp ? 'rgba(30,120,85,0.18)' : 'rgba(50,60,90,0.2)';
+  ctx.beginPath();
+  ctx.roundRect(cx - cw*0.2, top + ch*0.03, cw*0.4, ch*0.18, 3);
+  ctx.fill();
+
+  // Chrome bumper strip
+  const bumpY = bot - ch*0.13;
+  const bumpGrad = ctx.createLinearGradient(cx - cw*0.46, 0, cx + cw*0.46, 0);
+  bumpGrad.addColorStop(0, '#2a2a2a'); bumpGrad.addColorStop(0.5, '#666'); bumpGrad.addColorStop(1, '#2a2a2a');
+  ctx.fillStyle = bumpGrad;
+  ctx.beginPath(); ctx.roundRect(cx - cw*0.46, bumpY, cw*0.92, ch*0.1, [0,0,3,3]); ctx.fill();
+
+  // Taillights — Cadillac horizontal strip style
+  const tlY = top + ch*0.3, tlH = ch*0.055, tlW = cw*0.34;
+  const tlCol = braking ? '#ff1111' : '#be2200';
+  ctx.shadowColor = 'rgba(255,20,20,0.9)'; ctx.shadowBlur = braking ? 22 : 7;
+  ctx.fillStyle = tlCol;
+  ctx.beginPath(); ctx.roundRect(cx - cw*0.46, tlY, tlW, tlH, 2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(cx + cw*0.46 - tlW, tlY, tlW, tlH, 2); ctx.fill();
+
+  if (braking) {
+    ctx.fillStyle = 'rgba(255,255,255,0.65)'; ctx.shadowColor = 'rgba(255,255,255,0.5)'; ctx.shadowBlur = 12;
+    ctx.beginPath(); ctx.roundRect(cx - cw*0.07, tlY, cw*0.04, tlH, 1); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(cx + cw*0.03, tlY, cw*0.04, tlH, 1); ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+
+  // License plate
+  ctx.fillStyle = '#d8dae0';
+  ctx.beginPath(); ctx.roundRect(cx - cw*0.1, bot - ch*0.09, cw*0.2, ch*0.06, 2); ctx.fill();
+  ctx.fillStyle = '#1a1a2a'; ctx.font = `bold ${Math.max(7, cw*0.05)}px sans-serif`;
+  ctx.textAlign = 'center'; ctx.fillText('CADILLAC', cx, bot - ch*0.065);
+
+  // Side mirrors
+  const mirY = top + ch*0.22;
+  ctx.fillStyle = isAlp ? '#0c1812' : '#16162a';
+  ctx.beginPath(); ctx.roundRect(cx - cw/2 - cw*0.065, mirY, cw*0.075, ch*0.1, 2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(cx + cw/2 - cw*0.01, mirY, cw*0.075, ch*0.1, 2); ctx.fill();
+
+  // Alpamayo green outline glow
+  if (isAlp) {
+    ctx.strokeStyle = 'rgba(29,158,117,0.5)'; ctx.lineWidth = 1.5;
+    ctx.shadowColor = 'rgba(29,158,117,0.6)'; ctx.shadowBlur = 18;
+    ctx.beginPath();
+    ctx.moveTo(cx - cw/2, bot); ctx.lineTo(cx - cw/2, top + ch*0.28);
+    ctx.quadraticCurveTo(cx - cw*0.42, top + ch*0.1, cx - cw*0.24, top + ch*0.01);
+    ctx.lineTo(cx + cw*0.24, top + ch*0.01);
+    ctx.quadraticCurveTo(cx + cw*0.42, top + ch*0.1, cx + cw/2, top + ch*0.28);
+    ctx.lineTo(cx + cw/2, bot); ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+
+  // Disengaged red pulse
+  if (disengaged) {
+    const a = 0.18 + 0.12 * Math.sin(Date.now() / 130);
+    ctx.fillStyle = `rgba(200,0,0,${a})`; ctx.fillRect(0, 0, w, h);
+  }
+}
+
+// ── OBSTACLE SPRITES ──
+function drawVehicle(ctx, cx, cy, sz, color, label) {
+  const cw = sz * 34, ch = sz * 50;
+  const bg = ctx.createLinearGradient(cx - cw/2, 0, cx + cw/2, 0);
+  const dc = color.replace(')', ', 0.6)').replace('rgb', 'rgba');
+  bg.addColorStop(0, dc); bg.addColorStop(0.5, color); bg.addColorStop(1, dc);
+  ctx.fillStyle = bg;
+  ctx.beginPath(); ctx.roundRect(cx - cw/2, cy - ch/2, cw, ch, sz*4); ctx.fill();
+  // Windshield
+  ctx.fillStyle = 'rgba(140,180,220,0.25)';
+  ctx.beginPath(); ctx.roundRect(cx - cw*0.35, cy - ch*0.42, cw*0.7, ch*0.22, sz*2); ctx.fill();
+  // Headlights
+  ctx.fillStyle = '#ffe'; ctx.shadowColor = 'rgba(255,250,180,0.9)'; ctx.shadowBlur = sz*6;
+  ctx.beginPath(); ctx.arc(cx - cw*0.28, cy - ch*0.47, sz*3.5, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + cw*0.28, cy - ch*0.47, sz*3.5, 0, Math.PI*2); ctx.fill();
+  ctx.shadowBlur = 0;
+  if (label && sz > 0.25) {
+    ctx.fillStyle = 'rgba(255,80,80,0.95)'; ctx.font = `bold ${sz*11}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.fillText(label, cx, cy - ch*0.6);
+  }
+}
+
+function drawAmbulance(ctx, cx, cy, sz, frame) {
+  const cw = sz * 34, ch = sz * 50;
+  ctx.fillStyle = '#e8e8e8';
+  ctx.beginPath(); ctx.roundRect(cx - cw/2, cy - ch/2, cw, ch, sz*3); ctx.fill();
+  ctx.fillStyle = '#cc0000'; ctx.font = `bold ${sz*16}px sans-serif`;
+  ctx.textAlign = 'center'; ctx.fillText('+', cx, cy + sz*6);
+  // Strobes
+  const s = Math.floor(frame / 6) % 2;
+  ctx.shadowBlur = sz * 14;
+  ctx.fillStyle = s ? 'rgba(255,20,20,0.95)' : 'rgba(20,80,255,0.95)';
+  ctx.shadowColor = s ? 'rgba(255,20,20,0.8)' : 'rgba(20,80,255,0.8)';
+  ctx.beginPath(); ctx.arc(cx - cw*0.3, cy - ch*0.52, sz*4, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = s ? 'rgba(20,80,255,0.95)' : 'rgba(255,20,20,0.95)';
+  ctx.shadowColor = s ? 'rgba(20,80,255,0.8)' : 'rgba(255,20,20,0.8)';
+  ctx.beginPath(); ctx.arc(cx + cw*0.3, cy - ch*0.52, sz*4, 0, Math.PI*2); ctx.fill();
+  ctx.shadowBlur = 0;
+}
+
+function drawWorker(ctx, cx, cy, sz) {
+  // Vest
+  ctx.fillStyle = '#ff8c00';
+  ctx.beginPath(); ctx.arc(cx, cy - sz*14, sz*7, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#ff6600';
+  ctx.beginPath(); ctx.roundRect(cx - sz*6, cy - sz*7, sz*12, sz*18, sz*2); ctx.fill();
+  // Arms raised = STOP
+  ctx.strokeStyle = '#ff8c00'; ctx.lineWidth = sz*3;
+  ctx.beginPath(); ctx.moveTo(cx, cy - sz*4); ctx.lineTo(cx - sz*16, cy - sz*14); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx, cy - sz*4); ctx.lineTo(cx + sz*16, cy - sz*14); ctx.stroke();
+  // Stop paddle
+  ctx.fillStyle = '#ff2200';
+  ctx.beginPath(); ctx.arc(cx - sz*19, cy - sz*15, sz*6, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#fff'; ctx.font = `bold ${sz*6}px sans-serif`;
+  ctx.textAlign = 'center'; ctx.fillText('STOP', cx - sz*19, cy - sz*13);
+}
+
+function drawPedestrian(ctx, cx, cy, sz, dark) {
+  const c = dark ? '#1a1a28' : '#6644cc';
+  ctx.fillStyle = c;
+  ctx.beginPath(); ctx.arc(cx, cy - sz*12, sz*6, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = c;
+  ctx.beginPath(); ctx.roundRect(cx - sz*5, cy - sz*6, sz*10, sz*16, sz*2); ctx.fill();
+  // Legs (mid-stride)
+  ctx.fillStyle = dark ? '#111' : '#442288';
+  ctx.beginPath(); ctx.roundRect(cx - sz*6, cy + sz*10, sz*5, sz*14, sz*2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(cx + sz*1, cy + sz*8, sz*5, sz*14, sz*2); ctx.fill();
+}
+
+function drawCone(ctx, cx, cy, sz) {
+  ctx.fillStyle = '#ff6600';
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - sz*14);
+  ctx.lineTo(cx - sz*8, cy + sz*6);
+  ctx.lineTo(cx + sz*8, cy + sz*6);
+  ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.roundRect(cx - sz*8, cy + sz*2, sz*16, sz*3, 1); ctx.fill();
+  ctx.fillStyle = '#ff6600';
+  ctx.beginPath(); ctx.roundRect(cx - sz*8.5, cy + sz*6, sz*17, sz*4, 1); ctx.fill();
+}
+
+function drawTrafficLight(ctx, cx, cy, sz) {
+  // Pole
+  ctx.strokeStyle = '#555'; ctx.lineWidth = sz*3;
+  ctx.beginPath(); ctx.moveTo(cx, cy + sz*30); ctx.lineTo(cx, cy); ctx.stroke();
+  // Housing
+  ctx.fillStyle = '#1a1a1a';
+  ctx.beginPath(); ctx.roundRect(cx - sz*7, cy - sz*22, sz*14, sz*38, sz*2); ctx.fill();
+  // Dark bulbs (outage)
+  ctx.fillStyle = '#2a2a2a';
+  ctx.beginPath(); ctx.arc(cx, cy - sz*14, sz*4, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx, cy - sz*1, sz*4, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx, cy + sz*12, sz*4, 0, Math.PI*2); ctx.fill();
+  // X marker
+  if (sz > 0.2) {
+    ctx.strokeStyle = 'rgba(255,60,60,0.8)'; ctx.lineWidth = sz*2;
+    ctx.beginPath(); ctx.moveTo(cx - sz*4, cy - sz*18); ctx.lineTo(cx + sz*4, cy - sz*10); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + sz*4, cy - sz*18); ctx.lineTo(cx - sz*4, cy - sz*10); ctx.stroke();
+  }
+}
+
+// ── OBSTACLE DISPATCH ──
+function drawObstacle(ctx, obs, w, h, vpx, frame) {
+  if (obs.wz <= 0.01 || obs.wz >= 0.995) return;
+  const p = proj(obs.wz, obs.lx, w, h, vpx);
+  const sz = Math.max(0.05, p.sc);
+  ctx.globalAlpha = Math.min(1, 0.2 + sz * 1.2);
+  switch(obs.type) {
+    case 'car':   drawVehicle(ctx, p.x, p.y, sz, obs.color || '#cc4400', obs.label); break;
+    case 'ambulance': drawAmbulance(ctx, p.x, p.y, sz, frame); break;
+    case 'worker': drawWorker(ctx, p.x, p.y, sz); break;
+    case 'pedestrian': drawPedestrian(ctx, p.x, p.y, sz, obs.dark); break;
+    case 'cone': drawCone(ctx, p.x, p.y, sz); break;
+    case 'light': drawTrafficLight(ctx, p.x, p.y, sz); break;
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ── SCENARIO DATA ──
 const SCENARIOS = [
   {
     name: 'Traffic Light Outage',
-    desc: 'A traffic light at an uncontrolled intersection has gone dark. No signal data available. Cross-traffic is present and behavior is inconsistent.',
-    legacyFail: true,
-    failDelay: 1.8,
-    cot: [
-      'Detecting signal outage at intersection [ID: 4471]...',
-      'No traffic light state receivable — fallback rule triggered...',
-      'Cross-referencing intersection geometry from HD map...',
-      'Classifying as uncontrolled 4-way intersection...',
-      'Scanning lateral traffic: 2 vehicles detected, velocities 18mph, 22mph...',
-      'Running right-of-way simulation: 94.2% confidence I have priority...',
-      'Activating creep-and-yield protocol at 4mph...',
-      'Gap acceptance calculation: 3.2s gap — sufficient...',
-      'Proceeding through intersection. Confidence: 91%. ✓'
-    ]
+    desc: 'Traffic signal failure at uncontrolled intersection. No signal state available. Cross-traffic present.',
+    nightMode: false, legacyFail: true,
+    cot: ['Signal state: NULL at intersection [4471]...','HD map cross-ref: 4-way uncontrolled intersection...','Lateral traffic detected: 2 vehicles, v=18–22mph...','Right-of-way simulation: priority confidence 92%...','Activating creep-yield protocol at 4mph...','Gap acceptance: 3.2s — sufficient...','Proceeding. Confidence: 89%. ✓'],
+    getObs: (t) => [
+      { type:'light', wz: Math.max(0.02, 0.98 - t*0.14), lx:0.5 },
+      { type:'car', color:'#886600', wz: Math.max(0.02, 0.82 - t*0.06), lx: ((t*0.12) % 1.1) },
+    ],
+    alpBeh: (t, s) => {
+      if (t > 2.4) { s.speed = Math.max(0, 0.8 - (t-2.4)*0.7); s.braking = true; }
+      if (t > 4.0) { s.speed = 0; s.braking = true; }
+      if (t > 5.2) { s.speed = 0.8; s.braking = false; }
+    },
+    legBeh: (t, s) => {
+      if (t > 2.8 && !s.disengaged) { s.disengaged = true; }
+    }
   },
   {
-    name: 'Construction Zone Override',
-    desc: 'A construction worker is issuing a hand signal to halt. The lane markings ahead are obscured by temporary barriers and paint.',
-    legacyFail: true,
-    failDelay: 2.2,
-    cot: [
-      'HD map divergence detected — lane markings inconsistent...',
-      'Identifying orange construction signage: HIGH CONFIDENCE...',
-      'Detecting human figure: high-visibility vest + hard hat = construction worker...',
-      'Classifying gesture: arms raised, palms out = STOP signal...',
-      'Cross-referencing with right-of-way database...',
-      'Flagging temporary traffic control authority override...',
-      'Overriding navigation path — temporary stop initiated...',
-      'Worker gesture updated: wave-through signal detected...',
-      'Resuming at 5mph through temporary single-lane corridor. ✓'
-    ]
+    name: 'Construction Zone',
+    desc: 'Lane markings absent. Temporary traffic control active. Construction worker issuing manual stop signal.',
+    nightMode: false, legacyFail: true,
+    cot: ['HD map divergence: lane geometry mismatch...','Orange signage detected — construction zone confirmed...','Human figure: high-vis vest, hard hat...','Gesture classification: arms raised = STOP...','Temporary traffic control override active...','Initiating stop. Worker acknowledged...','Wave-through received — resuming at 5mph. ✓'],
+    getObs: (t) => [
+      { type:'cone', wz: Math.max(0.02, 0.9 - t*0.13), lx: 0.64 },
+      { type:'cone', wz: Math.max(0.02, 0.82 - t*0.13), lx: 0.7 },
+      { type:'worker', wz: Math.max(0.02, 0.75 - t*0.12), lx: 0.5 },
+    ],
+    alpBeh: (t, s) => {
+      if (t > 1.8) { s.speed = Math.max(0.1, 0.8-(t-1.8)*0.5); s.braking = true; }
+      if (t > 2.3) { s.laneX = Math.max(0.22, 0.5-(t-2.3)*0.12); }
+      if (t > 3.8) { s.speed = 0; s.braking = true; }
+      if (t > 5.0) { s.speed = 0.7; s.laneX = 0.5; s.braking = false; }
+    },
+    legBeh: (t, s) => {
+      if (t > 2.5 && !s.disengaged) { s.disengaged = true; }
+    }
   },
   {
     name: 'Lane Cut-Off',
-    desc: 'A vehicle aggressively merges into the lane with less than 1 second of time-to-collision at highway speed.',
-    legacyFail: false,
-    failDelay: 0,
-    cot: [
-      'Tracking vehicle [VH-02] — merge trajectory detected...',
-      'TTC calculation: 0.85s — critical threshold breach...',
-      'Braking authority evaluated: 0.4g available, 0.3g required...',
-      'Lateral avoidance evaluated: adjacent lane occupancy = CLEAR (left)...',
-      'Executing combined response: brake 0.25g + steer left 0.8m...',
-      'Updating following distance to 2.8s for new lead vehicle...',
-      'Assessing cut-off driver intent: lane change complete, stable...',
-      'Returning to lane center. Situation resolved. ✓'
-    ]
+    desc: 'Adjacent vehicle merging into ego lane at highway speed. TTC < 0.9s. Left lane confirmed clear.',
+    nightMode: false, legacyFail: false,
+    cot: ['Vehicle [VH-02] merge trajectory detected...','TTC: 0.85s — critical threshold breached...','Left lane occupancy: CLEAR (80m verified)...','Executing: brake 0.2g + steer left 0.8m...','Following distance update: 2.8s to new lead...','Cut-off complete. Lane stable. Returning. ✓'],
+    getObs: (t) => {
+      const mergeLx = t < 1.3 ? 0.82 : Math.max(0.5, 0.82 - (t-1.3)*0.22);
+      return [{ type:'car', color:'#cc3300', wz: Math.max(0.05, 0.88 - t*0.13), lx: mergeLx, label: t > 1.3 && t < 2.5 ? '⚠ MERGE' : '' }];
+    },
+    alpBeh: (t, s) => {
+      if (t > 1.3) { s.laneX = Math.max(0.17, 0.5 - (t-1.3)*0.26); }
+      if (t > 3.2) { s.laneX = 0.5; }
+    },
+    legBeh: (t, s) => {
+      if (t > 2.1) { s.laneX = Math.max(0.27, 0.5 - (t-2.1)*0.14); }
+      if (t > 3.6) { s.laneX = 0.5; }
+    }
   },
   {
     name: 'Night Jaywalker',
-    desc: 'A pedestrian in dark clothing crosses at an unmarked midblock location at 11pm. Low ambient light, wet road surface.',
-    legacyFail: true,
-    failDelay: 1.5,
-    cot: [
-      'Night vision stack active — IR + visible light fusion...',
-      'Detecting heat signature: bipedal, 170cm, midblock position...',
-      'Classifying: pedestrian, non-crosswalk crossing...',
-      'Trajectory model: crossing vector at 1.4m/s — will clear in 2.1s...',
-      'TTC at current speed: 1.8s — insufficient margin...',
-      'Initiating precautionary deceleration to 18mph...',
-      'Wet road braking model applied: stopping distance +22%...',
-      'Pedestrian clear of path — resuming speed...',
-      'Incident logged for fleet learning. Safe passage confirmed. ✓'
-    ]
+    desc: 'Pedestrian crossing mid-block at low visibility. IR + visible-light fusion active. Wet road, +22% stopping distance.',
+    nightMode: true, legacyFail: true,
+    cot: ['Night stack: IR + visible fusion active...','Heat signature: bipedal, 170cm, mid-block...','Trajectory: crossing at 1.4m/s, clears in 2.1s...','TTC at current speed: 1.6s — insufficient...','Wet road model: +22% stopping distance applied...','Decelerating to 0mph...','Pedestrian cleared. Resuming. ✓'],
+    getObs: (t) => [
+      { type:'pedestrian', wz: Math.max(0.02, 0.85 - t*0.14), lx: 0.44, dark: true },
+    ],
+    alpBeh: (t, s) => {
+      if (t > 1.6) { s.speed = Math.max(0, 0.8-(t-1.6)*0.9); s.braking = true; }
+      if (t > 3.0) { s.speed = 0; s.braking = true; }
+      if (t > 4.4) { s.speed = 0.8; s.braking = false; }
+    },
+    legBeh: (t, s) => {
+      if (t > 2.0 && !s.disengaged) { s.disengaged = true; }
+    }
   },
   {
     name: 'Emergency Vehicle',
-    desc: 'An ambulance approaches from behind with lights and siren active while the host vehicle is in the center lane of a 3-lane highway.',
-    legacyFail: false,
-    failDelay: 0,
-    cot: [
-      'Acoustic signature detected: 960Hz siren — emergency vehicle...',
-      'Optical confirmation: red/blue strobes at 200m rear...',
-      'Classifying vehicle type: ambulance — emergency priority...',
-      'Scanning right lane: clear 80m ahead, safe merge window...',
-      'Move-over law database lookup: state = required...',
-      'Initiating right lane merge at 0.15g lateral acceleration...',
-      'Checking right shoulder: no breakdown vehicles detected...',
-      'Ambulance passing at 85mph — maintaining position...',
-      'Emergency vehicle cleared — resuming center lane. ✓'
-    ]
+    desc: 'Emergency vehicle approaching with active lights and siren. Move-over law requires right-lane yield.',
+    nightMode: false, legacyFail: false,
+    cot: ['Acoustic: 960Hz siren — emergency vehicle...','Visual: red/blue strobes confirmed at 180m...','Type: ambulance. Priority: EMERGENCY...','Right lane scan: clear 90m...','Move-over protocol active — state law applicable...','Merging right at 0.12g lateral accel...','Ambulance passing. Resuming center lane. ✓'],
+    getObs: (t) => [
+      { type:'ambulance', wz: Math.max(0.05, 0.9 - t*0.12), lx: 0.5 },
+    ],
+    alpBeh: (t, s) => {
+      if (t > 1.5) { s.laneX = Math.min(0.83, 0.5 + (t-1.5)*0.2); }
+      if (t > 4.2) { s.laneX = 0.5; }
+    },
+    legBeh: (t, s) => {
+      if (t > 2.6) { s.laneX = Math.min(0.64, 0.5 + (t-2.6)*0.1); }
+      if (t > 4.8) { s.laneX = 0.5; }
+    }
   }
 ];
 
-let simState = {
+// ── STATE ──
+const LOOP_DUR = 6.8; // seconds per loop
+
+let SIM = {
   scenario: 0,
+  t: 0,
   frame: 0,
+  speedMult: 1,
   running: false,
-  speed: 1,
-  disengagements: 0,
   rafId: null,
-  cotIndex: 0,
-  cotTimer: null,
-  disengaged: false,
-  disengageTimer: null
+  disengagements: 0,
+  cotIdx: 0, cotTimer: null,
+  alp: { speed:0.8, laneX:0.5, curLaneX:0.5, dist:0, braking:false, disengaged:false },
+  leg: { speed:0.8, laneX:0.5, curLaneX:0.5, dist:0, braking:false, disengaged:false }
 };
 
-const legacyCanvas = document.getElementById('legacyCanvas');
-const alpamayoCanvas = document.getElementById('alpamayoCanvas');
-const legacyCtx = legacyCanvas.getContext('2d');
-const alpamayoCtx = alpamayoCanvas.getContext('2d');
+const legC = document.getElementById('legacyCanvas');
+const alpC = document.getElementById('alpamayoCanvas');
+const legX = legC.getContext('2d');
+const alpX = alpC.getContext('2d');
 
 function resizeCanvases() {
-  [legacyCanvas, alpamayoCanvas].forEach(c => {
-    const w = c.parentElement.clientWidth;
-    c.width = w;
-    c.height = 340;
-  });
+  [legC, alpC].forEach(c => { c.width = c.parentElement.clientWidth; c.height = 360; });
 }
 
-function getScenarioObstacles(scenarioIdx, frame) {
-  const t = frame / 60;
-  switch(scenarioIdx) {
-    case 0: // traffic light outage
-      return {
-        type: 'intersection',
-        lightOff: true,
-        crossCar: { x: 0.5, y: 0.3 + (t * 0.04) % 0.5 }
-      };
-    case 1: // construction
-      return { type: 'construction', workerX: 0.5, workerY: 0.42 };
-    case 2: // cut-off
-      return { type: 'cutoff', cutX: 0.45 + Math.max(0, 0.08 - t * 0.02) };
-    case 3: // jaywalker
-      return { type: 'jaywalker', pedX: Math.min(0.7, 0.15 + t * 0.04), pedY: 0.4 };
-    case 4: // emergency
-      return { type: 'emergency', ambX: 0.5, ambY: 0.85 - (t * 0.04) % 0.8 };
-    default: return { type: 'clear' };
-  }
+function resetSideState(s) {
+  s.speed=0.8; s.laneX=0.5; s.curLaneX=0.5; s.dist=0; s.braking=false; s.disengaged=false;
 }
 
-function drawRoad(ctx, w, h, green) {
-  // Sky/bg
-  ctx.fillStyle = green ? '#090e0c' : '#0c0c0e';
-  ctx.fillRect(0, 0, w, h);
-
-  // Road surface
-  const roadL = w * 0.15, roadR = w * 0.85;
-  const roadW = roadR - roadL;
-  ctx.fillStyle = green ? '#121a16' : '#141414';
-  ctx.fillRect(roadL, 0, roadW, h);
-
-  // Lane lines
-  const laneW = roadW / 3;
-  ctx.setLineDash([20, 16]);
-  ctx.strokeStyle = green ? 'rgba(29,158,117,0.3)' : 'rgba(255,255,255,0.12)';
-  ctx.lineWidth = 2;
-
-  for (let i = 1; i < 3; i++) {
-    const x = roadL + laneW * i;
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, h);
-    ctx.stroke();
-  }
-
-  ctx.setLineDash([]);
-
-  // Shoulder lines
-  ctx.strokeStyle = green ? 'rgba(29,158,117,0.5)' : 'rgba(255,255,255,0.2)';
-  ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(roadL, 0); ctx.lineTo(roadL, h); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(roadR, 0); ctx.lineTo(roadR, h); ctx.stroke();
-
-  // Road gradient overlay
-  const grad = ctx.createLinearGradient(roadL, 0, roadR, 0);
-  grad.addColorStop(0, 'rgba(0,0,0,0.2)');
-  grad.addColorStop(0.5, 'rgba(0,0,0,0)');
-  grad.addColorStop(1, 'rgba(0,0,0,0.2)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(roadL, 0, roadW, h);
-
-  return { roadL, roadR, roadW, laneW };
+function updateSide(s, sc, t, isAlp) {
+  const beh = isAlp ? sc.alpBeh : sc.legBeh;
+  beh(t, s);
+  s.curLaneX += (s.laneX - s.curLaneX) * 0.07;
 }
 
-function drawCar(ctx, x, y, w, h, green) {
-  const cw = w * 0.12, ch = cw * 1.8;
-  const cx = x - cw/2, cy = y - ch/2;
-
-  // Shadow
-  ctx.shadowColor = green ? 'rgba(29,158,117,0.5)' : 'rgba(100,100,120,0.3)';
-  ctx.shadowBlur = 18;
-
-  // Body
-  const bodyGrad = ctx.createLinearGradient(cx, cy, cx + cw, cy);
-  if (green) {
-    bodyGrad.addColorStop(0, '#1a5c45');
-    bodyGrad.addColorStop(0.5, '#2aaf83');
-    bodyGrad.addColorStop(1, '#1a5c45');
-  } else {
-    bodyGrad.addColorStop(0, '#4a4a5a');
-    bodyGrad.addColorStop(0.5, '#7a7a8a');
-    bodyGrad.addColorStop(1, '#4a4a5a');
-  }
-  ctx.fillStyle = bodyGrad;
-  ctx.beginPath();
-  ctx.roundRect(cx, cy, cw, ch, 5);
-  ctx.fill();
-  ctx.shadowBlur = 0;
-
-  // Windshield
-  ctx.fillStyle = green ? 'rgba(100,220,180,0.3)' : 'rgba(180,180,200,0.2)';
-  ctx.beginPath();
-  ctx.roundRect(cx + cw*0.1, cy + ch*0.05, cw*0.8, ch*0.25, 3);
-  ctx.fill();
-
-  // Headlights
-  ctx.fillStyle = green ? '#7fffd4' : '#e0e0f0';
-  ctx.shadowColor = green ? 'rgba(120,255,200,0.8)' : 'rgba(200,200,230,0.6)';
-  ctx.shadowBlur = 10;
-  ctx.beginPath(); ctx.arc(cx + cw*0.2, cy + ch*0.02, 3, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(cx + cw*0.8, cy + ch*0.02, 3, 0, Math.PI*2); ctx.fill();
-  ctx.shadowBlur = 0;
-
-  // Tail lights
-  ctx.fillStyle = '#ff4444';
-  ctx.shadowColor = 'rgba(255,60,60,0.8)';
-  ctx.shadowBlur = 8;
-  ctx.beginPath(); ctx.arc(cx + cw*0.2, cy + ch*0.98, 3, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(cx + cw*0.8, cy + ch*0.98, 3, 0, Math.PI*2); ctx.fill();
-  ctx.shadowBlur = 0;
-
-  // GM badge
-  if (green) {
-    ctx.fillStyle = 'rgba(201,168,76,0.8)';
-    ctx.font = `bold ${cw*0.3}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('GM', x, y + ch*0.1);
-  }
-}
-
-function drawObstacle(ctx, obs, w, h, green, frame) {
-  const roadL = w * 0.15, roadR = w * 0.85;
-  const t = frame / 60;
-
-  if (obs.type === 'intersection') {
-    // Draw intersection box
-    ctx.strokeStyle = obs.lightOff ? 'rgba(255,100,100,0.3)' : 'rgba(255,255,100,0.3)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(roadL, h*0.3, (roadR - roadL), h*0.25);
-
-    // Traffic light (dark)
-    const lx = roadL - 20, ly = h*0.28;
-    ctx.fillStyle = '#222';
-    ctx.fillRect(lx, ly, 14, 40);
-    ctx.fillStyle = obs.lightOff ? '#333' : '#ff4444';
-    ctx.beginPath(); ctx.arc(lx+7, ly+8, 5, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = obs.lightOff ? '#333' : '#ffaa00';
-    ctx.beginPath(); ctx.arc(lx+7, ly+20, 5, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = obs.lightOff ? '#333' : '#44ff44';
-    ctx.beginPath(); ctx.arc(lx+7, ly+32, 5, 0, Math.PI*2); ctx.fill();
-
-    if (obs.lightOff) {
-      ctx.fillStyle = 'rgba(255,80,80,0.7)';
-      ctx.font = 'bold 9px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('SIGNAL', lx+7, ly+55);
-      ctx.fillText('OUTAGE', lx+7, ly+66);
-    }
-
-    // Cross traffic car
-    const cx = roadL + (roadR - roadL) * obs.crossCar.x;
-    const cy = h * obs.crossCar.y;
-    drawCrossCarH(ctx, cx, cy, w, h);
-  }
-
-  if (obs.type === 'construction') {
-    // Barriers
-    for (let i = 0; i < 4; i++) {
-      const bx = roadL + (roadR - roadL) * (0.4 + i * 0.04);
-      const by = h * 0.35;
-      ctx.fillStyle = i % 2 === 0 ? '#ff6600' : '#ff6600';
-      ctx.fillRect(bx - 4, by, 8, 24);
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(bx - 4, by + 6, 8, 4);
-      ctx.fillRect(bx - 4, by + 14, 8, 4);
-    }
-
-    // Worker
-    const wx = w * obs.workerX;
-    const wy = h * obs.workerY;
-    ctx.fillStyle = '#ff8c00';
-    ctx.beginPath(); ctx.arc(wx, wy - 14, 7, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#ff6600';
-    ctx.fillRect(wx - 6, wy - 7, 12, 20);
-    ctx.strokeStyle = '#ff8c00';
-    ctx.lineWidth = 3;
-    // Arms up (stop signal)
-    ctx.beginPath();
-    ctx.moveTo(wx, wy - 3);
-    ctx.lineTo(wx - 18, wy - 16);
-    ctx.moveTo(wx, wy - 3);
-    ctx.lineTo(wx + 18, wy - 16);
-    ctx.stroke();
-  }
-
-  if (obs.type === 'cutoff') {
-    const cx = (roadL + (roadR - roadL) * obs.cutX);
-    const cy = h * 0.35;
-    // Cutting vehicle
-    ctx.fillStyle = '#cc4400';
-    ctx.beginPath();
-    ctx.roundRect(cx - 14, cy - 20, 28, 40, 4);
-    ctx.fill();
-    ctx.fillStyle = 'rgba(255,200,100,0.4)';
-    ctx.beginPath();
-    ctx.roundRect(cx - 10, cy - 16, 20, 12, 2);
-    ctx.fill();
-    // Warning
-    if (obs.cutX > 0.42) {
-      ctx.fillStyle = 'rgba(255,80,80,0.8)';
-      ctx.font = 'bold 10px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('⚠ MERGE', cx, cy - 30);
-    }
-  }
-
-  if (obs.type === 'jaywalker') {
-    const px = roadL + (roadR - roadL) * obs.pedX;
-    const py = h * obs.pedY;
-    // Person (dark clothing)
-    ctx.fillStyle = '#1a1a2a';
-    ctx.beginPath(); ctx.arc(px, py - 10, 7, 0, Math.PI*2); ctx.fill();
-    ctx.fillRect(px - 5, py - 3, 10, 18);
-    ctx.fillRect(px - 9, py - 1, 6, 14);
-    ctx.fillRect(px + 3, py - 1, 6, 14);
-    // Night effect
-    if (!green) {
-      ctx.fillStyle = 'rgba(255,200,100,0.1)';
-      ctx.beginPath();
-      ctx.arc(px, py, 40, 0, Math.PI*2);
-      ctx.fill();
-    }
-  }
-
-  if (obs.type === 'emergency') {
-    const ax = w * obs.ambX;
-    const ay = h * obs.ambY;
-    // Ambulance body
-    ctx.fillStyle = '#f0f0f0';
-    ctx.beginPath();
-    ctx.roundRect(ax - 16, ay - 22, 32, 44, 4);
-    ctx.fill();
-    ctx.fillStyle = '#cc0000';
-    ctx.font = 'bold 10px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('+', ax, ay + 4);
-    // Strobe lights
-    const strobeOn = Math.floor(frame / 8) % 2 === 0;
-    ctx.fillStyle = strobeOn ? 'rgba(255,0,0,0.9)' : 'rgba(0,100,255,0.9)';
-    ctx.shadowColor = strobeOn ? 'rgba(255,0,0,0.8)' : 'rgba(0,100,255,0.8)';
-    ctx.shadowBlur = 20;
-    ctx.beginPath(); ctx.arc(ax - 12, ay - 24, 5, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = strobeOn ? 'rgba(0,100,255,0.9)' : 'rgba(255,0,0,0.9)';
-    ctx.beginPath(); ctx.arc(ax + 12, ay - 24, 5, 0, Math.PI*2); ctx.fill();
-    ctx.shadowBlur = 0;
-  }
-}
-
-function drawCrossCarH(ctx, x, y, w, h) {
-  ctx.fillStyle = '#cc6600';
-  ctx.beginPath();
-  ctx.roundRect(x - 22, y - 8, 44, 16, 3);
-  ctx.fill();
-  ctx.fillStyle = 'rgba(200,220,255,0.3)';
-  ctx.beginPath();
-  ctx.roundRect(x - 16, y - 6, 14, 12, 2);
-  ctx.fill();
-  ctx.fillStyle = '#ffcc44';
-  ctx.shadowColor = 'rgba(255,200,50,0.8)';
-  ctx.shadowBlur = 6;
-  ctx.beginPath(); ctx.arc(x + 22, y - 4, 3, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x + 22, y + 4, 3, 0, Math.PI*2); ctx.fill();
-  ctx.shadowBlur = 0;
-}
-
-function drawScene(ctx, w, h, green, frame, scenarioIdx, disengaged) {
-  ctx.clearRect(0, 0, w, h);
-  const { roadL, roadR, laneW } = drawRoad(ctx, w, h, green);
-
-  const carX = roadL + laneW * 1.5;
-  const scenario = SCENARIOS[scenarioIdx];
-
-  // Car Y position (moves up slightly when braking)
-  let carY;
-  if (!green && disengaged) {
-    carY = h * 0.72;
-  } else if (green) {
-    const t = frame / 60 * simState.speed;
-    const braking = scenario.legacyFail && t > scenario.failDelay - 0.5 && t < scenario.failDelay + 1.5;
-    carY = braking ? h * 0.68 : h * 0.7;
-  } else {
-    carY = h * 0.7;
-  }
-
-  const obs = getScenarioObstacles(scenarioIdx, frame);
-  drawObstacle(ctx, obs, w, h, green, frame);
-  drawCar(ctx, carX, carY, w, h, green);
-
-  // Sensor arcs on Alpamayo side
-  if (green) {
-    ctx.strokeStyle = 'rgba(29,158,117,0.15)';
-    ctx.lineWidth = 1;
-    for (let r = 40; r <= 120; r += 40) {
-      ctx.beginPath();
-      ctx.arc(carX, carY, r, -Math.PI * 0.7, -Math.PI * 0.3);
-      ctx.stroke();
-    }
-    // Confidence ring
-    ctx.strokeStyle = 'rgba(29,158,117,0.4)';
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath();
-    ctx.arc(carX, carY, 60, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  // Disengaged overlay
-  if (!green && disengaged) {
-    ctx.fillStyle = 'rgba(180,20,20,0.08)';
-    ctx.fillRect(0, 0, w, h);
-  }
-}
-
-let lastFrameTime = 0;
-let accumulatedTime = 0;
-
+let lastTS = 0;
 function simLoop(ts) {
-  if (!simState.running) return;
+  if (!SIM.running) return;
+  const dt = Math.min(0.05, (ts - lastTS) / 1000) * SIM.speedMult;
+  lastTS = ts;
 
-  const dt = ts - lastFrameTime;
-  lastFrameTime = ts;
+  SIM.t += dt;
+  SIM.frame++;
 
-  // Speed-adjusted frame increment
-  const frameInc = (dt / (1000/60)) * simState.speed;
-  simState.frame += frameInc;
+  const sc = SCENARIOS[SIM.scenario];
 
-  const w1 = legacyCanvas.width, h1 = legacyCanvas.height;
-  const w2 = alpamayoCanvas.width, h2 = alpamayoCanvas.height;
-
-  const sc = SCENARIOS[simState.scenario];
-  const t = simState.frame / 60;
-
-  // Check disengagement
-  if (sc.legacyFail && !simState.disengaged && t > sc.failDelay) {
-    simState.disengaged = true;
-    simState.disengagements++;
-    document.getElementById('disengageCount').textContent = simState.disengagements;
-    document.getElementById('legacyDisengaged').style.display = 'flex';
-
-    clearTimeout(simState.disengageTimer);
-    simState.disengageTimer = setTimeout(() => {
-      document.getElementById('legacyDisengaged').style.display = 'none';
-    }, 3000);
-  }
-
-  // Reset loop every 6 seconds
-  if (simState.frame > 360) {
-    simState.frame = 0;
-    simState.disengaged = false;
+  // Reset loop
+  if (SIM.t >= LOOP_DUR) {
+    SIM.t = 0;
+    resetSideState(SIM.alp);
+    resetSideState(SIM.leg);
     document.getElementById('legacyDisengaged').style.display = 'none';
     startCOT();
   }
 
-  drawScene(legacyCtx, w1, h1, false, simState.frame, simState.scenario, simState.disengaged);
-  drawScene(alpamayoCtx, w2, h2, true, simState.frame, simState.scenario, false);
+  const t = SIM.t;
 
-  simState.rafId = requestAnimationFrame(simLoop);
+  // Update behavior
+  updateSide(SIM.alp, sc, t, true);
+  updateSide(SIM.leg, sc, t, false);
+
+  // Advance distances
+  SIM.alp.dist += SIM.alp.speed * dt * 80;
+  if (!SIM.leg.disengaged) SIM.leg.dist += SIM.leg.speed * dt * 80;
+
+  // Trigger disengagement
+  if (SIM.leg.disengaged && !SIM.legWasDis) {
+    SIM.legWasDis = true;
+    SIM.disengagements++;
+    document.getElementById('disengageCount').textContent = SIM.disengagements;
+    document.getElementById('legacyDisengaged').style.display = 'flex';
+  }
+
+  // Get obstacles
+  const obs = sc.getObs(t);
+
+  // Draw scenes
+  const w1=legC.width, h1=legC.height, w2=alpC.width, h2=alpC.height;
+
+  // Legacy vpx (shifts slightly with lane)
+  const legVpx = (w1/2) + (SIM.leg.curLaneX - 0.5) * w1 * 0.18;
+  legX.clearRect(0,0,w1,h1);
+  drawRoad(legX, w1, h1, SIM.leg.dist, legVpx, false, sc.nightMode);
+  obs.forEach(o => drawObstacle(legX, o, w1, h1, legVpx, SIM.frame));
+  drawEgoCar(legX, w1, h1, SIM.leg.curLaneX, legVpx, false, SIM.leg.braking, SIM.leg.disengaged);
+
+  const alpVpx = (w2/2) + (SIM.alp.curLaneX - 0.5) * w2 * 0.18;
+  alpX.clearRect(0,0,w2,h2);
+  drawRoad(alpX, w2, h2, SIM.alp.dist, alpVpx, true, sc.nightMode);
+  obs.forEach(o => drawObstacle(alpX, o, w2, h2, alpVpx, SIM.frame));
+  drawEgoCar(alpX, w2, h2, SIM.alp.curLaneX, alpVpx, true, SIM.alp.braking, false);
+
+  SIM.rafId = requestAnimationFrame(simLoop);
 }
 
 function startSimulation() {
-  cancelAnimationFrame(simState.rafId);
-  clearTimeout(simState.cotTimer);
+  cancelAnimationFrame(SIM.rafId);
+  clearTimeout(SIM.cotTimer);
   resizeCanvases();
-  simState.frame = 0;
-  simState.disengaged = false;
-  simState.running = true;
+  SIM.t = 0; SIM.frame = 0; SIM.legWasDis = false;
+  resetSideState(SIM.alp); resetSideState(SIM.leg);
   document.getElementById('legacyDisengaged').style.display = 'none';
-  lastFrameTime = performance.now();
-  simState.rafId = requestAnimationFrame(simLoop);
+  document.getElementById('scenarioDesc').textContent = SCENARIOS[SIM.scenario].desc;
+  SIM.running = true;
+  lastTS = performance.now();
+  SIM.rafId = requestAnimationFrame(simLoop);
   startCOT();
-  updateScenarioUI();
 }
 
 // ── CHAIN OF THOUGHT ──
-
 function startCOT() {
-  clearTimeout(simState.cotTimer);
-  const trace = document.getElementById('cotTrace');
-  trace.innerHTML = '<span class="cot-cursor"></span>';
-  simState.cotIndex = 0;
-  typeNextLine();
+  clearTimeout(SIM.cotTimer);
+  const el = document.getElementById('cotTrace');
+  el.innerHTML = '<span class="cot-cursor"></span>';
+  SIM.cotIdx = 0;
+  cotNext();
 }
 
-function typeNextLine() {
-  const sc = SCENARIOS[simState.scenario];
-  const lines = sc.cot;
-  if (simState.cotIndex >= lines.length) return;
-
-  const trace = document.getElementById('cotTrace');
-  const cursor = trace.querySelector('.cot-cursor');
-  if (cursor) cursor.remove();
-
-  const line = document.createElement('div');
-  line.textContent = '> ' + lines[simState.cotIndex];
-  line.style.opacity = '0';
-  line.style.transition = 'opacity 0.3s';
-  trace.appendChild(line);
-  setTimeout(() => { line.style.opacity = '1'; }, 10);
-
-  const cursor2 = document.createElement('span');
-  cursor2.className = 'cot-cursor';
-  trace.appendChild(cursor2);
-
-  trace.scrollTop = trace.scrollHeight;
-  simState.cotIndex++;
-
-  const delay = 900 + Math.random() * 600;
-  simState.cotTimer = setTimeout(typeNextLine, delay * (1 / simState.speed));
+function cotNext() {
+  const lines = SCENARIOS[SIM.scenario].cot;
+  if (SIM.cotIdx >= lines.length) return;
+  const el = document.getElementById('cotTrace');
+  const cur = el.querySelector('.cot-cursor');
+  if (cur) cur.remove();
+  const d = document.createElement('div');
+  d.textContent = '> ' + lines[SIM.cotIdx];
+  d.style.opacity = '0'; d.style.transition = 'opacity 0.3s';
+  el.appendChild(d);
+  setTimeout(() => d.style.opacity = '1', 10);
+  const c2 = document.createElement('span');
+  c2.className = 'cot-cursor'; el.appendChild(c2);
+  el.scrollTop = el.scrollHeight;
+  SIM.cotIdx++;
+  SIM.cotTimer = setTimeout(cotNext, (800 + Math.random()*550) / SIM.speedMult);
 }
 
-// ── SCENARIO SWITCHING ──
-
-function updateScenarioUI() {
-  const sc = SCENARIOS[simState.scenario];
-  document.getElementById('scenarioDesc').textContent = sc.desc;
-}
-
+// ── CONTROLS ──
 document.querySelectorAll('.scenario-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    simState.scenario = parseInt(btn.dataset.scenario);
-    simState.frame = 0;
-    simState.disengaged = false;
+    SIM.scenario = parseInt(btn.dataset.scenario);
+    SIM.t = 0; SIM.frame = 0; SIM.legWasDis = false;
+    resetSideState(SIM.alp); resetSideState(SIM.leg);
     document.getElementById('legacyDisengaged').style.display = 'none';
-    updateScenarioUI();
+    document.getElementById('scenarioDesc').textContent = SCENARIOS[SIM.scenario].desc;
     startCOT();
   });
 });
@@ -1984,32 +1015,15 @@ document.querySelectorAll('.speed-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    simState.speed = parseFloat(btn.dataset.speed);
-    clearTimeout(simState.cotTimer);
-    typeNextLine();
+    SIM.speedMult = parseFloat(btn.dataset.speed);
   });
 });
 
-// ── ABOUT HERO BUTTON ──
-// Already handled via switchTab()
+window.addEventListener('resize', resizeCanvases);
 
-// ── RESIZE ──
-window.addEventListener('resize', () => {
-  resizeCanvases();
-});
-
-// ── INIT ──
 window.addEventListener('load', () => {
-  // Kick off sim canvas sizing
   resizeCanvases();
-
-  // Render first frame on sim canvas even before tab switch
-  const w1 = legacyCanvas.width, h1 = legacyCanvas.height;
-  const w2 = alpamayoCanvas.width, h2 = alpamayoCanvas.height;
-  if (w1 > 0) {
-    drawScene(legacyCtx, w1, h1, false, 0, 0, false);
-    drawScene(alpamayoCtx, w2, h2, true, 0, 0, false);
-  }
+  document.getElementById('scenarioDesc').textContent = SCENARIOS[0].desc;
 });
 </script>
 </body>
