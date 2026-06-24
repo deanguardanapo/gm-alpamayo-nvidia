@@ -67,34 +67,56 @@
   .replay-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:7px;border:1px solid var(--green);background:rgba(29,158,117,0.1);color:var(--green);font-size:12px;font-weight:700;letter-spacing:0.08em;cursor:pointer;transition:all 0.22s}
   .replay-btn:hover{background:rgba(29,158,117,0.22);box-shadow:0 0 18px var(--green-glow);transform:translateY(-1px)}
   .sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
-  .sim-panel-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#040404;display:flex;flex-direction:column}
-  .sim-panel-wrap.alp-wrap{border-color:rgba(29,158,117,0.25);background:#020706}
-  .sim-panel-wrap canvas{display:block;width:100%;height:460px}
+  /* Panel card */
+  .sim-panel{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#0a0a0a;display:flex;flex-direction:column}
+  .sim-panel.alp-panel{border-color:rgba(29,158,117,0.28)}
+  .sim-panel-label{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 9px;background:#0d0d10;border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0}
+  .sim-panel-name{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray)}
+  .sim-panel.alp-panel .sim-panel-name{color:var(--green)}
+  .sim-panel-right{display:flex;align-items:center;gap:10px}
+  .sim-status-bar{display:flex;align-items:center;gap:5px}
+  .sim-status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);transition:background 0.3s,box-shadow 0.3s}
+  .sim-status-dot.dis{background:#ff3333;box-shadow:0 0 6px #ff3333}
+  .sim-status-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(29,158,117,0.8);transition:color 0.3s}
+  .sim-status-txt.dis{color:#ff5555}
+  .sim-speed-num{font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:var(--white);min-width:34px;text-align:right}
+  .sim-panel.alp-panel .sim-speed-num{color:var(--green)}
+  .sim-speed-unit{font-size:9px;color:var(--gray);letter-spacing:0.08em}
+  /* Canvas wrap with overlay */
+  .sim-canvas-wrap{position:relative;flex-shrink:0}
+  .sim-canvas-wrap canvas{display:block;width:100%;height:280px}
+  .dis-overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(180,5,5,0.2);pointer-events:none;z-index:8}
+  .dis-overlay.show{display:flex;animation:dis-pulse 0.9s ease-in-out infinite alternate}
+  @keyframes dis-pulse{from{background:rgba(180,5,5,0.16)}to{background:rgba(180,5,5,0.26)}}
+  .dis-box{background:rgba(170,4,4,0.93);border:1.5px solid rgba(255,75,75,0.55);border-radius:9px;padding:14px 28px;text-align:center;box-shadow:0 0 30px rgba(220,0,0,0.4)}
+  .dis-title{font-size:17px;font-weight:900;color:#fff;letter-spacing:0.07em;margin-bottom:5px}
+  .dis-sub{font-size:11px;color:rgba(255,200,200,0.88);font-weight:500}
   /* Terminal */
-  .cot-terminal{background:#020906;border-top:1px solid rgba(29,158,117,0.18);padding:14px 18px 14px;height:162px;overflow:hidden;position:relative;flex-shrink:0}
-  .cot-terminal-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(29,158,117,0.1)}
-  .cot-dot-red{width:8px;height:8px;border-radius:50%;background:#ff5f57;flex-shrink:0}
-  .cot-dot-ylw{width:8px;height:8px;border-radius:50%;background:#febc2e;flex-shrink:0}
-  .cot-dot-grn{width:8px;height:8px;border-radius:50%;background:#28c840;flex-shrink:0}
-  .cot-terminal-title{font-size:9px;font-weight:700;letter-spacing:0.18em;color:rgba(29,158,117,0.5);text-transform:uppercase;margin-left:4px}
-  .cot-lines{display:flex;flex-direction:column;gap:0}
-  .cot-line{font-family:'Courier New',monospace;font-size:12px;line-height:1.7;color:rgba(29,158,117,0.92);opacity:0;transition:opacity 0.28s ease;white-space:pre}
-  .cot-line.show{opacity:1}
-  .cot-tag{color:rgba(29,158,117,0.42);font-size:11px}
-  .cot-cursor-el{display:inline-block;width:7px;height:13px;background:var(--green);vertical-align:text-bottom;margin-left:2px;animation:blink 0.75s step-end infinite}
+  .sim-terminal{background:#09090c;border-top:1px solid rgba(255,255,255,0.05);flex:1;display:flex;flex-direction:column;min-height:155px;max-height:175px}
+  .sim-panel.alp-panel .sim-terminal{background:#020a09;border-top-color:rgba(29,158,117,0.1)}
+  .term-hdr{display:flex;align-items:center;gap:6px;padding:7px 12px 6px;border-bottom:1px solid rgba(255,255,255,0.03);flex-shrink:0}
+  .term-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .term-title{font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(130,135,155,0.38);margin-left:4px}
+  .sim-panel.alp-panel .term-title{color:rgba(29,158,117,0.32)}
+  .term-body{flex:1;overflow:hidden;padding:7px 13px 9px;display:flex;flex-direction:column;gap:1px}
+  .term-line{font-family:'Courier New',monospace;font-size:11.5px;line-height:1.62;opacity:0;transform:translateY(4px);transition:opacity 0.22s ease,transform 0.22s ease;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .term-line.vis{opacity:1;transform:none}
+  .term-line.dim{color:rgba(130,135,155,0.5)}
+  .term-line.normal{color:rgba(185,190,210,0.72)}
+  .term-line.dis-line{color:#ff5252;font-weight:700}
+  .term-line.green-line{color:rgba(29,158,117,0.92)}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-  /* Info strip below canvases */
-  .sim-info-strip{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .sim-info-card{padding:16px 20px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
-  .sim-info-title{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
-  .diseng-badge{background:rgba(210,25,25,0.18);color:#ff6b6b;border:1px solid rgba(210,25,25,0.3);border-radius:4px;padding:2px 9px;font-size:11px;font-weight:700}
-  .sim-desc{font-size:13px;color:var(--gray);line-height:1.65}
-  .sim-controls{display:flex;align-items:center;gap:9px;margin-top:12px;flex-wrap:wrap}
-  .speed-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em}
-  .speed-btn{padding:4px 11px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
+  /* Bottom strip */
+  .sim-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:4px}
+  .diseng-counter{display:flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(200,20,20,0.08);border:1px solid rgba(200,20,20,0.2);border-radius:8px}
+  .diseng-label{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,80,80,0.7)}
+  .diseng-num{font-size:20px;font-weight:900;color:#ff6b6b;font-family:'Courier New',monospace;min-width:24px;text-align:center}
+  .sim-controls{display:flex;align-items:center;gap:8px}
+  .speed-label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em}
+  .speed-btn{padding:5px 12px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s}
   .speed-btn.active,.speed-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-dim)}
-  .omnidreams-strip{margin-top:14px;display:flex;align-items:flex-start;gap:9px;padding:10px 15px;background:rgba(29,158,117,0.04);border:1px solid rgba(29,158,117,0.12);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.55}
-  .omnidreams-strip strong{color:var(--green)}
+  .omnidreams-note{font-size:11px;color:rgba(100,110,130,0.65);display:flex;align-items:center;gap:6px}
+  .omnidreams-note strong{color:rgba(29,158,117,0.6)}
 
   /* ── STACK ── */
   #stack-container{padding:40px;max-width:1200px;margin:0 auto}
@@ -277,48 +299,92 @@
           <button class="scenario-btn active" data-scenario="0">Traffic Light Outage</button>
           <button class="scenario-btn" data-scenario="1">Lane Cut-Off</button>
         </div>
-        <button class="replay-btn" onclick="replayScenario()">↺ Replay</button>
+        <button class="replay-btn" onclick="replaySim()">↺ Replay</button>
       </div>
     </div>
 
     <div class="sim-grid">
-      <!-- Left: Super Cruise -->
-      <div class="sim-panel-wrap" id="legWrap">
-        <canvas id="legCanvas"></canvas>
-      </div>
-      <!-- Right: Alpamayo -->
-      <div class="sim-panel-wrap alp-wrap" id="alpWrap">
-        <canvas id="alpCanvas"></canvas>
-        <div class="cot-terminal" id="cotTerminal">
-          <div class="cot-terminal-hdr">
-            <span class="cot-dot-red"></span><span class="cot-dot-ylw"></span><span class="cot-dot-grn"></span>
-            <span class="cot-terminal-title">alpamayo 2 super — reasoning trace</span>
+
+      <!-- LEFT: Super Cruise -->
+      <div class="sim-panel" id="legPanel">
+        <div class="sim-panel-label">
+          <span class="sim-panel-name">⬤ &nbsp;Super Cruise — Perception Only</span>
+          <div class="sim-panel-right">
+            <div class="sim-status-bar">
+              <div class="sim-status-dot" id="legDot"></div>
+              <span class="sim-status-txt" id="legStatusTxt">ENGAGED</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:3px">
+              <span class="sim-speed-num" id="legSpeed">60</span>
+              <span class="sim-speed-unit">MPH</span>
+            </div>
           </div>
-          <div class="cot-lines" id="cotLines"></div>
+        </div>
+        <div class="sim-canvas-wrap">
+          <canvas id="legCanvas" height="280"></canvas>
+          <div class="dis-overlay" id="legOverlay">
+            <div class="dis-box">
+              <div class="dis-title">⚠ &nbsp;DISENGAGED</div>
+              <div class="dis-sub">Returning control to driver</div>
+            </div>
+          </div>
+        </div>
+        <div class="sim-terminal">
+          <div class="term-hdr">
+            <div class="term-dot" style="background:#ff5f57"></div>
+            <div class="term-dot" style="background:#febc2e"></div>
+            <div class="term-dot" style="background:#28c840"></div>
+            <span class="term-title">super cruise — system log</span>
+          </div>
+          <div class="term-body" id="legTerm"></div>
         </div>
       </div>
+
+      <!-- RIGHT: Alpamayo -->
+      <div class="sim-panel alp-panel" id="alpPanel">
+        <div class="sim-panel-label">
+          <span class="sim-panel-name">◆ &nbsp;Alpamayo 2 Super — Reason · Plan · Act</span>
+          <div class="sim-panel-right">
+            <div class="sim-status-bar">
+              <div class="sim-status-dot" id="alpDot"></div>
+              <span class="sim-status-txt" id="alpStatusTxt">ENGAGED</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:3px">
+              <span class="sim-speed-num" id="alpSpeed">60</span>
+              <span class="sim-speed-unit">MPH</span>
+            </div>
+          </div>
+        </div>
+        <div class="sim-canvas-wrap">
+          <canvas id="alpCanvas" height="280"></canvas>
+        </div>
+        <div class="sim-terminal">
+          <div class="term-hdr">
+            <div class="term-dot" style="background:#ff5f57"></div>
+            <div class="term-dot" style="background:#febc2e"></div>
+            <div class="term-dot" style="background:#28c840"></div>
+            <span class="term-title">alpamayo 2 super — reasoning trace</span>
+          </div>
+          <div class="term-body" id="alpTerm"></div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="sim-info-strip">
-      <div class="sim-info-card">
-        <div class="sim-info-title">
-          Scenario
-          <span class="diseng-badge">Disengagements: <span id="disengCount">0</span></span>
-        </div>
-        <div class="sim-desc" id="simDesc"></div>
-        <div class="sim-controls">
-          <span class="speed-label">Speed:</span>
-          <button class="speed-btn active" data-speed="1">1×</button>
-          <button class="speed-btn" data-speed="1.5">1.5×</button>
-          <button class="speed-btn" data-speed="0.5">0.5×</button>
-        </div>
+    <div class="sim-bottom">
+      <div class="diseng-counter">
+        <span class="diseng-label">Disengagements</span>
+        <span class="diseng-num" id="disengCount">0</span>
       </div>
-      <div class="sim-info-card" style="display:flex;flex-direction:column;gap:6px">
-        <div class="sim-info-title">OmniDreams</div>
-        <div class="omnidreams-strip" style="margin-top:0">
-          <span style="color:var(--green);font-size:14px;flex-shrink:0">◈</span>
-          <span>Scenarios constructed using <strong>NVIDIA OmniDreams</strong> photorealistic world modeling — closed-loop synthetic environments built from real fleet data, enabling edge-case validation without physical test exposure.</span>
-        </div>
+      <div class="sim-controls">
+        <span class="speed-label">Speed:</span>
+        <button class="speed-btn" data-speed="0.5">0.5×</button>
+        <button class="speed-btn active" data-speed="1">1×</button>
+        <button class="speed-btn" data-speed="2">2×</button>
+      </div>
+      <div class="omnidreams-note">
+        <span style="color:rgba(29,158,117,0.5);font-size:13px;flex-shrink:0">◈</span>
+        Scenarios generated using <strong>NVIDIA OmniDreams</strong> photorealistic world modeling
       </div>
     </div>
 
@@ -464,7 +530,6 @@ tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
 window.addEventListener('load', () => {
   const a = document.querySelector('.nav-tab.active');
   if (a) updateIndicator(a);
-  document.getElementById('simDesc').textContent = SCENARIOS[0].desc;
 });
 window.addEventListener('resize', () => {
   const a = document.querySelector('.nav-tab.active');
@@ -478,28 +543,424 @@ function animateBars() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// ROAD SIMULATION ENGINE
+// TOP-DOWN ROAD SIMULATION ENGINE
 // ═══════════════════════════════════════════════════════════════════
 
-// Viewport fractions (fraction of canvas height)
-const HOR_Y  = 0.375;  // horizon
-const HOOD_Y = 0.755;  // hood starts here
+const legC = document.getElementById('legCanvas');
+const alpC = document.getElementById('alpCanvas');
+const legX = legC.getContext('2d');
+const alpX = alpC.getContext('2d');
 
-// Project worldZ [0=near, 1=far] + laneX [0=left edge, 1=right edge]
-// vpx: vanishing-point X (default w/2, shifts on lane change)
-function P(wz, lx, w, h, vpx) {
-  vpx = (vpx === undefined) ? w / 2 : vpx;
-  const hY  = h * HOR_Y;
-  const bY  = h * HOOD_Y;
-  const t   = wz;                    // 0 = near, 1 = far
-  const y   = bY - (bY - hY) * t;
-  const hwN = w * 0.455;             // half-road-width near
-  const hwF = w * 0.058;             // half-road-width far
-  const hw  = hwN - (hwN - hwF) * t;
-  const cx  = vpx + (w / 2 - vpx) * t;
-  const rl  = cx - hw, rr = cx + hw;
-  return { x: rl + (rr - rl) * lx, y, sc: 1 - t, cx, rl, rr };
+// Lane center X fractions (3 lanes across full canvas width)
+const LANE_XF = [1/6, 1/2, 5/6];
+const DUR = 9.5;
+
+let SIM = {
+  scenario: 0, t: 0, running: false, ended: false, speedMult: 1,
+  rafId: null, disengagements: 0, legWasDis: false,
+  legDash: 0, alpDash: 0,
+  legCurX: 0.5, alpCurX: 0.5,
+  legTermIdx: 0, alpTermIdx: 0,
+};
+let lastTS = 0;
+
+function fitCanvases() {
+  for (const c of [legC, alpC]) {
+    c.width  = c.parentElement.clientWidth;
+    c.height = 280;
+  }
 }
+
+// ── ROAD ─────────────────────────────────────────────────────────
+function drawRoad(ctx, w, h, dashOff) {
+  ctx.fillStyle = '#111111';
+  ctx.fillRect(0, 0, w, h);
+
+  // Edge darkening
+  const eg = ctx.createLinearGradient(0, 0, w, 0);
+  eg.addColorStop(0,    'rgba(0,0,0,0.4)');
+  eg.addColorStop(0.09, 'rgba(0,0,0,0)');
+  eg.addColorStop(0.91, 'rgba(0,0,0,0)');
+  eg.addColorStop(1,    'rgba(0,0,0,0.4)');
+  ctx.fillStyle = eg; ctx.fillRect(0, 0, w, h);
+
+  // Solid road edges
+  ctx.strokeStyle = 'rgba(255,255,255,0.32)';
+  ctx.lineWidth = 2; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(2, 0); ctx.lineTo(2, h); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w-2, 0); ctx.lineTo(w-2, h); ctx.stroke();
+
+  // Scrolling dashed lane dividers
+  const dLen = 30, gap = 20, period = dLen + gap;
+  ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([dLen, gap]);
+  ctx.lineDashOffset = -(dashOff % period);
+  for (const xf of [1/3, 2/3]) {
+    ctx.beginPath();
+    ctx.moveTo(w * xf, 0);
+    ctx.lineTo(w * xf, h);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]); ctx.lineDashOffset = 0;
+}
+
+// ── CADILLAC ESCALADE ─────────────────────────────────────────────
+function drawCadillac(ctx, w, h, xf, isAlp) {
+  const cw = w * 0.105, ch = h * 0.225;
+  const cx = w * xf, cy = h * 0.72;
+  const x = cx - cw/2, y = cy - ch/2;
+
+  // Drop shadow
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,0.65)';
+  ctx.shadowBlur = 14;
+  ctx.fillStyle = isAlp ? '#192320' : '#252528';
+  ctx.beginPath(); ctx.roundRect(x, y, cw, ch, 5); ctx.fill();
+  ctx.restore();
+
+  // Body border
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.65)' : 'rgba(200,205,220,0.28)';
+  ctx.lineWidth = 1.5; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.roundRect(x, y, cw, ch, 5); ctx.stroke();
+
+  // Accent stripe
+  const sw = cw * 0.36, sh = 3;
+  ctx.fillStyle = isAlp ? '#1D9E75' : '#55556a';
+  ctx.fillRect(cx - sw/2, y + ch * 0.19, sw, sh);
+
+  // Windshield (top = front in top-down)
+  ctx.fillStyle = 'rgba(100,150,220,0.15)';
+  ctx.beginPath(); ctx.roundRect(x + cw*0.13, y + ch*0.06, cw*0.74, ch*0.2, 3); ctx.fill();
+
+  // Headlights (top)
+  const lw = cw * 0.2, lh = 3;
+  ctx.fillStyle = 'rgba(255,252,180,0.85)';
+  ctx.shadowColor = 'rgba(255,255,140,0.6)'; ctx.shadowBlur = 6;
+  ctx.fillRect(x + cw*0.06, y + 2, lw, lh);
+  ctx.fillRect(x + cw*0.94 - lw, y + 2, lw, lh);
+
+  // Tail lights (bottom)
+  ctx.fillStyle = '#bb1111';
+  ctx.shadowColor = 'rgba(255,0,0,0.85)'; ctx.shadowBlur = 7;
+  ctx.fillRect(x + cw*0.06, y + ch - lh - 3, lw, lh);
+  ctx.fillRect(x + cw*0.94 - lw, y + ch - lh - 3, lw, lh);
+  ctx.shadowBlur = 0;
+}
+
+// ── OBSTACLE CAR ─────────────────────────────────────────────────
+function drawObsCar(ctx, w, h, xf, yf) {
+  const cw = w * 0.095, ch = h * 0.19;
+  const cx = w * xf, cy = h * yf;
+  const x = cx - cw/2, y = cy - ch/2;
+
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,0.55)'; ctx.shadowBlur = 10;
+  ctx.fillStyle = '#7a0f0f';
+  ctx.beginPath(); ctx.roundRect(x, y, cw, ch, 4); ctx.fill();
+  ctx.restore();
+
+  ctx.strokeStyle = 'rgba(255,65,65,0.55)'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.roundRect(x, y, cw, ch, 4); ctx.stroke();
+
+  const lw = cw * 0.2, lh = 3;
+  ctx.fillStyle = '#ff2020';
+  ctx.shadowColor = 'rgba(255,0,0,0.9)'; ctx.shadowBlur = 9;
+  ctx.fillRect(x + cw*0.06, y + ch - lh - 3, lw, lh);
+  ctx.fillRect(x + cw*0.94 - lw, y + ch - lh - 3, lw, lh);
+  ctx.shadowBlur = 0;
+}
+
+// ── TRAFFIC LIGHT ─────────────────────────────────────────────────
+function drawLight(ctx, w, h, yf, state) {
+  const lx = w / 2, ly = h * yf;
+  const sz = Math.max(10, w * 0.026);
+
+  // Pole
+  ctx.strokeStyle = '#2e2e2e'; ctx.lineWidth = sz * 0.28; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(lx, ly + sz*2.6); ctx.lineTo(lx, ly - sz*0.3); ctx.stroke();
+
+  // Housing
+  ctx.fillStyle = '#0d0d0d';
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 0.5;
+  ctx.beginPath(); ctx.roundRect(lx - sz, ly - sz*3.4, sz*2, sz*5.6, sz*0.22); ctx.fill(); ctx.stroke();
+
+  // Lenses
+  const ly0 = [ly - sz*2.4, ly - sz*0.95, ly + sz*0.5];
+  const offC = ['#1e0000','#141000','#001100'];
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath(); ctx.arc(lx, ly0[i], sz*0.52, 0, Math.PI*2);
+    ctx.fillStyle = offC[i]; ctx.fill();
+  }
+
+  if (state === 'green') {
+    ctx.beginPath(); ctx.arc(lx, ly0[2], sz*0.46, 0, Math.PI*2);
+    ctx.fillStyle = '#00e055';
+    ctx.shadowColor = 'rgba(0,255,80,0.9)'; ctx.shadowBlur = sz*1.6;
+    ctx.fill(); ctx.shadowBlur = 0;
+  }
+  if (state === 'flicker') {
+    const fa = 0.08 + Math.random() * 0.92;
+    ctx.beginPath(); ctx.arc(lx, ly0[2], sz*0.46, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(0,195,55,${fa})`;
+    ctx.shadowColor = `rgba(0,255,80,${fa*0.8})`; ctx.shadowBlur = sz*1.3;
+    ctx.fill(); ctx.shadowBlur = 0;
+  }
+  if (state === 'dark') {
+    ctx.strokeStyle = 'rgba(255,45,45,0.92)'; ctx.lineWidth = sz*0.2;
+    ctx.beginPath(); ctx.moveTo(lx-sz*0.8, ly-sz*3.1); ctx.lineTo(lx+sz*0.8, ly-sz*1.7); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(lx+sz*0.8, ly-sz*3.1); ctx.lineTo(lx-sz*0.8, ly-sz*1.7); ctx.stroke();
+    ctx.fillStyle = 'rgba(255,50,50,0.82)';
+    ctx.font = `bold ${Math.max(7, sz*0.72)}px sans-serif`; ctx.textAlign = 'center';
+    ctx.fillText('OUTAGE', lx, ly + sz*1.9);
+  }
+}
+
+// ── SCENARIOS ────────────────────────────────────────────────────
+const SCENARIOS = [
+  {
+    id: 0,
+    name: 'Traffic Light Outage',
+    legLines: [
+      { t:0.3,  text:'> Speed 45mph',                                cls:'dim' },
+      { t:1.0,  text:'> Sensors nominal',                            cls:'dim' },
+      { t:1.8,  text:'> Mode: Perception-only',                      cls:'normal' },
+      { t:2.9,  text:'> Signal authority lost',                      cls:'normal' },
+      { t:3.8,  text:'> No decision framework available',            cls:'normal' },
+      { t:4.7,  text:'> DISENGAGED — returning control to driver',   cls:'dis-line' },
+    ],
+    alpLines: [
+      { t:0.3,  text:'> Speed 45mph',                                cls:'dim' },
+      { t:1.0,  text:'> Sensors nominal',                            cls:'dim' },
+      { t:1.8,  text:'> Mode: Alpamayo 2 Super active',              cls:'green-line' },
+      { t:2.9,  text:'> Signal authority lost at intersection',       cls:'green-line' },
+      { t:3.6,  text:'> Scanning cross-traffic vectors...',          cls:'green-line' },
+      { t:4.4,  text:'> Gap probability 97% clear',                  cls:'green-line' },
+      { t:5.2,  text:'> Proceeding at 8mph',                         cls:'green-line' },
+      { t:6.4,  text:'> Intersection cleared',                       cls:'green-line' },
+      { t:7.2,  text:'> Resuming cruise speed ✓',               cls:'green-line' },
+    ],
+    legState(t) {
+      if (t < 2.9) return { speed:45, disengaged:false, status:'ENGAGED',    laneIdx:1 };
+      if (t < 4.4) return { speed:Math.max(0, 45-(t-2.9)*30), disengaged:false, status:'BRAKING', laneIdx:1 };
+      return            { speed:0,  disengaged:true,  status:'DISENGAGED', laneIdx:1 };
+    },
+    alpState(t) {
+      if (t < 2.9) return { speed:45, disengaged:false, status:'ENGAGED',  laneIdx:1 };
+      if (t < 5.0) return { speed:Math.max(8, 45-(t-2.9)*17.7), disengaged:false, status:'BRAKING', laneIdx:1 };
+      if (t < 6.2) return { speed:8,  disengaged:false, status:'CREEPING', laneIdx:1 };
+      return            { speed:Math.min(45, 8+(t-6.2)*22), disengaged:false, status:'ENGAGED', laneIdx:1 };
+    },
+    light(t) {
+      if (t < 1.8) return { show:true, yf:0.22, state:'green' };
+      if (t < 2.6) return { show:true, yf:0.22, state:'flicker' };
+      if (t < 9.0) return { show:true, yf:0.22, state:'dark' };
+      return { show:false };
+    },
+    obs() { return null; },
+  },
+  {
+    id: 1,
+    name: 'Lane Cut-Off',
+    legLines: [
+      { t:0.3,  text:'> Speed 65mph',                                cls:'dim' },
+      { t:1.0,  text:'> Sensors nominal',                            cls:'dim' },
+      { t:1.6,  text:'> Mode: Perception-only',                      cls:'normal' },
+      { t:2.3,  text:'> Vehicle intrusion detected right lane',      cls:'normal' },
+      { t:2.9,  text:'> TTC 0.9s',                                   cls:'normal' },
+      { t:3.5,  text:'> Reaction threshold exceeded',                cls:'normal' },
+      { t:4.1,  text:'> DISENGAGED — returning control to driver',   cls:'dis-line' },
+    ],
+    alpLines: [
+      { t:0.3,  text:'> Speed 65mph',                                cls:'dim' },
+      { t:1.0,  text:'> Sensors nominal',                            cls:'dim' },
+      { t:1.6,  text:'> Mode: Alpamayo 2 Super active',              cls:'green-line' },
+      { t:2.3,  text:'> Vehicle intrusion right lane',               cls:'green-line' },
+      { t:2.8,  text:'> TTC calculated 1.4s',                        cls:'green-line' },
+      { t:3.3,  text:'> Left lane verified clear',                   cls:'green-line' },
+      { t:3.9,  text:'> Executing lane change...',                   cls:'green-line' },
+      { t:5.8,  text:'> Lane change complete',                       cls:'green-line' },
+      { t:6.8,  text:'> Resuming speed ✓',                      cls:'green-line' },
+    ],
+    legState(t) {
+      if (t < 2.9) return { speed:65, disengaged:false, status:'ENGAGED',    laneIdx:1 };
+      if (t < 3.9) return { speed:Math.max(0, 65-(t-2.9)*65), disengaged:false, status:'BRAKING', laneIdx:1 };
+      return            { speed:0,  disengaged:true,  status:'DISENGAGED', laneIdx:1 };
+    },
+    alpState(t) {
+      let laneIdx = 1;
+      if (t >= 3.9 && t < 7.8) laneIdx = 0;
+      const speed = t < 2.1 ? 65
+        : t < 2.9 ? Math.max(56, 65-(t-2.1)*11)
+        : Math.min(65, 56+(t-2.9)*7);
+      const status = t < 2.1 ? 'ENGAGED' : t < 3.9 ? 'BRAKING' : 'ENGAGED';
+      return { speed, disengaged:false, status, laneIdx };
+    },
+    light() { return { show:false }; },
+    obs(t) {
+      if (t < 1.4) return null;
+      const enter = Math.min(1, (t-1.4) / 0.85);
+      let xf = 1.0 - enter * (1.0 - LANE_XF[2]);
+      if (t > 2.1) {
+        const cut = Math.min(1, (t-2.1) / 1.3);
+        xf = LANE_XF[2] - cut * (LANE_XF[2] - LANE_XF[1]);
+      }
+      return { xf, yf: 0.41 };
+    },
+  },
+];
+
+// ── RENDER ────────────────────────────────────────────────────────
+function render() {
+  const sc   = SCENARIOS[SIM.scenario];
+  const t    = SIM.t;
+  const legS = sc.legState(t);
+  const alpS = sc.alpState(t);
+  const li   = sc.light(t);
+  const ob   = sc.obs(t);
+
+  // Smooth lane change (ease toward target lane center)
+  SIM.legCurX += (LANE_XF[legS.laneIdx] - SIM.legCurX) * 0.045;
+  SIM.alpCurX += (LANE_XF[alpS.laneIdx] - SIM.alpCurX) * 0.045;
+
+  // Scroll road markings proportional to speed
+  SIM.legDash += legS.speed * 0.013 * SIM.speedMult;
+  SIM.alpDash += alpS.speed * 0.013 * SIM.speedMult;
+
+  // Disengagement tracking
+  if (legS.disengaged && !SIM.legWasDis) {
+    SIM.legWasDis = true;
+    SIM.disengagements++;
+    document.getElementById('disengCount').textContent = SIM.disengagements;
+  }
+
+  // HUD DOM updates
+  document.getElementById('legSpeed').textContent = Math.round(legS.speed);
+  document.getElementById('alpSpeed').textContent = Math.round(alpS.speed);
+  const legDot  = document.getElementById('legDot');
+  const legStat = document.getElementById('legStatusTxt');
+  if (legS.disengaged) {
+    legDot.classList.add('dis'); legStat.classList.add('dis');
+    legStat.textContent = 'DISENGAGED';
+    document.getElementById('legOverlay').classList.add('show');
+  } else {
+    legDot.classList.remove('dis'); legStat.classList.remove('dis');
+    legStat.textContent = legS.status;
+    document.getElementById('legOverlay').classList.remove('show');
+  }
+  document.getElementById('alpStatusTxt').textContent = alpS.status;
+
+  // Terminal lines: push any whose timestamp has been passed
+  const legEl = document.getElementById('legTerm');
+  const alpEl = document.getElementById('alpTerm');
+  while (SIM.legTermIdx < sc.legLines.length && sc.legLines[SIM.legTermIdx].t <= t) {
+    const l = sc.legLines[SIM.legTermIdx++];
+    const d = document.createElement('div');
+    d.className = `term-line ${l.cls}`; d.textContent = l.text;
+    legEl.appendChild(d);
+    requestAnimationFrame(() => d.classList.add('vis'));
+    legEl.scrollTop = legEl.scrollHeight;
+  }
+  while (SIM.alpTermIdx < sc.alpLines.length && sc.alpLines[SIM.alpTermIdx].t <= t) {
+    const l = sc.alpLines[SIM.alpTermIdx++];
+    const d = document.createElement('div');
+    d.className = `term-line ${l.cls}`; d.textContent = l.text;
+    alpEl.appendChild(d);
+    requestAnimationFrame(() => d.classList.add('vis'));
+    alpEl.scrollTop = alpEl.scrollHeight;
+  }
+
+  // Draw left canvas
+  const w1 = legC.width, h1 = legC.height;
+  legX.clearRect(0, 0, w1, h1);
+  drawRoad(legX, w1, h1, SIM.legDash);
+  if (li.show) drawLight(legX, w1, h1, li.yf, li.state);
+  if (ob) drawObsCar(legX, w1, h1, ob.xf, ob.yf);
+  drawCadillac(legX, w1, h1, SIM.legCurX, false);
+
+  // Draw right canvas
+  const w2 = alpC.width, h2 = alpC.height;
+  alpX.clearRect(0, 0, w2, h2);
+  drawRoad(alpX, w2, h2, SIM.alpDash);
+  if (li.show) drawLight(alpX, w2, h2, li.yf, li.state);
+  if (ob) drawObsCar(alpX, w2, h2, ob.xf, ob.yf);
+  drawCadillac(alpX, w2, h2, SIM.alpCurX, true);
+}
+
+// ── TICK ─────────────────────────────────────────────────────────
+function tick(ts) {
+  if (!SIM.running) return;
+  const raw = (ts - lastTS) / 1000;
+  lastTS = ts;
+  SIM.t = Math.min(SIM.t + Math.min(0.05, raw) * SIM.speedMult, DUR);
+  if (SIM.t >= DUR && !SIM.ended) { SIM.ended = true; SIM.running = false; }
+  render();
+  if (SIM.running) SIM.rafId = requestAnimationFrame(tick);
+  else render();
+}
+
+// ── INIT / REPLAY ────────────────────────────────────────────────
+function resetSimState() {
+  const sc  = SIM.scenario;
+  const spd = SIM.speedMult;
+  const dis = SIM.disengagements;
+  SIM = {
+    scenario:sc, t:0, running:false, ended:false, speedMult:spd,
+    rafId:null, disengagements:dis, legWasDis:false,
+    legDash:0, alpDash:0,
+    legCurX:0.5, alpCurX:0.5,
+    legTermIdx:0, alpTermIdx:0,
+  };
+  document.getElementById('legTerm').innerHTML = '';
+  document.getElementById('alpTerm').innerHTML = '';
+  document.getElementById('legOverlay').classList.remove('show');
+  document.getElementById('legDot').classList.remove('dis');
+  document.getElementById('legStatusTxt').classList.remove('dis');
+  document.getElementById('legStatusTxt').textContent = 'ENGAGED';
+  document.getElementById('alpStatusTxt').textContent = 'ENGAGED';
+}
+
+function initSim() {
+  cancelAnimationFrame(SIM.rafId);
+  fitCanvases();
+  resetSimState();
+  render();
+  setTimeout(() => {
+    SIM.running = true; lastTS = performance.now();
+    SIM.rafId = requestAnimationFrame(tick);
+  }, 300);
+}
+
+function replaySim() {
+  cancelAnimationFrame(SIM.rafId);
+  resetSimState();
+  render();
+  SIM.running = true; lastTS = performance.now();
+  SIM.rafId = requestAnimationFrame(tick);
+}
+
+// ── CONTROLS ─────────────────────────────────────────────────────
+document.querySelectorAll('.scenario-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    SIM.scenario = parseInt(btn.dataset.scenario);
+    SIM.disengagements = 0;
+    document.getElementById('disengCount').textContent = '0';
+    initSim();
+  });
+});
+
+document.querySelectorAll('.speed-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    SIM.speedMult = parseFloat(btn.dataset.speed);
+  });
+});
+</script>
+</body>
+</html>
 
 // ── DRAW ROAD SCENE (sky + asphalt + markings) ────────────────────
 function drawScene(ctx, w, h, dist, vpx, isAlp) {
