@@ -131,30 +131,50 @@
   .od-icon{color:rgba(29,158,117,0.48);font-size:16px;flex-shrink:0;margin-top:1px}
 
   /* ── STACK ── */
-  #stack-container{padding:40px;max-width:1200px;margin:0 auto}
-  .stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  .stack-card{padding:32px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
+  #stack-container{padding:40px;max-width:1400px;margin:0 auto}
+  .stack-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+  .stack-col-label{font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;padding:5px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:6px;margin-bottom:10px}
+  .stack-col-label.gray{background:rgba(120,120,140,0.1);color:rgba(160,160,180,0.7);border:1px solid rgba(120,120,140,0.18)}
+  .stack-col-label.gold{background:rgba(201,168,76,0.1);color:var(--gold);border:1px solid rgba(201,168,76,0.25)}
+  .stack-col-label.green{background:var(--green-dim);color:var(--green);border:1px solid rgba(29,158,117,0.3)}
+  .stack-card{padding:28px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
   .stack-card.legacy{border-color:rgba(120,120,140,0.2)}
+  .stack-card.onramp{border-color:rgba(201,168,76,0.3);background:linear-gradient(145deg,var(--card),#1a1508)}
   .stack-card.modern{border-color:rgba(29,158,117,0.25);background:linear-gradient(145deg,var(--card),#0d1a15)}
-  .stack-card-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:28px}
+  .stack-card-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
   .stack-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-  .stack-icon.gray{background:rgba(120,120,140,0.15)}.stack-icon.green{background:var(--green-dim)}
-  .stack-name{font-size:18px;font-weight:700;color:var(--white);margin-bottom:4px}
-  .stack-subtitle{font-size:12px;color:var(--gray)}
-  .stack-components{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
-  .component-tag{padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;border:1px solid;letter-spacing:0.04em}
+  .stack-icon.gray{background:rgba(120,120,140,0.15)}.stack-icon.green{background:var(--green-dim)}.stack-icon.gold{background:rgba(201,168,76,0.15)}
+  .stack-name{font-size:16px;font-weight:700;color:var(--white);margin-bottom:4px}
+  .stack-subtitle{font-size:11px;color:var(--gray)}
+  .stack-components{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .component-tag{padding:4px 9px;border-radius:5px;font-size:10px;font-weight:600;border:1px solid;letter-spacing:0.04em}
   .component-tag.gray{background:rgba(120,120,140,0.1);border-color:rgba(120,120,140,0.2);color:#aaa}
   .component-tag.green{background:var(--green-dim);border-color:rgba(29,158,117,0.3);color:var(--green)}
-  .capability-bars{display:flex;flex-direction:column;gap:14px}
-  .capability-row{display:flex;flex-direction:column;gap:6px}
+  .component-tag.gold{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.28);color:var(--gold)}
+  .capability-bars{display:flex;flex-direction:column;gap:12px}
+  .capability-row{display:flex;flex-direction:column;gap:5px}
   .cap-meta{display:flex;justify-content:space-between;align-items:center}
-  .cap-name{font-size:12px;color:var(--gray);font-weight:500}
-  .cap-score{font-size:12px;font-weight:700}
-  .cap-score.gray{color:#888}.cap-score.green{color:var(--green)}
+  .cap-name{font-size:11px;color:var(--gray);font-weight:500}
+  .cap-score{font-size:11px;font-weight:700}
+  .cap-score.gray{color:#888}.cap-score.green{color:var(--green)}.cap-score.gold{color:var(--gold)}
   .cap-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
   .cap-fill{height:100%;border-radius:3px;width:0%;transition:width 1.2s cubic-bezier(0.25,1,0.5,1)}
   .cap-fill.gray{background:linear-gradient(90deg,#555,#888)}
+  .cap-fill.gold{background:linear-gradient(90deg,#8a6820,var(--gold));box-shadow:0 0 8px rgba(201,168,76,0.4)}
   .cap-fill.green{background:linear-gradient(90deg,var(--green),#4dd4a8);box-shadow:0 0 8px var(--green-glow)}
+  /* ── LIBRARY SECTIONS ── */
+  .lib-section-sep{margin:36px 0 22px;display:flex;align-items:center;gap:14px}
+  .lib-section-sep-label{font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;white-space:nowrap}
+  .lib-section-sep-label.today{color:var(--gold)}
+  .lib-section-sep-label.nearterm{color:var(--green)}
+  .lib-section-sep-line{flex:1;height:1px}
+  .lib-section-sep-line.today{background:linear-gradient(90deg,rgba(201,168,76,0.35),transparent)}
+  .lib-section-sep-line.nearterm{background:linear-gradient(90deg,rgba(29,158,117,0.35),transparent)}
+  /* ── SIMULATION PHASE NOTE ── */
+  .sim-phase-note{padding:10px 16px;background:rgba(29,158,117,0.05);border:1px solid rgba(29,158,117,0.12);border-radius:8px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
+  .sim-phase-note-icon{color:rgba(29,158,117,0.55);font-size:14px;flex-shrink:0;padding-top:1px}
+  .sim-phase-note-text{font-size:12px;color:var(--gray);line-height:1.6}
+  .sim-phase-note-text strong{color:rgba(29,158,117,0.88);font-weight:600}
 
   /* ── LIBRARY ── */
   #lib-container{padding:40px;max-width:1360px;margin:0 auto}
@@ -218,6 +238,9 @@
   footer span{color:var(--gray)}
   ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gray-dim);border-radius:3px}
 
+  @media(max-width:1100px){
+    .stack-grid{grid-template-columns:1fr 1fr}
+  }
   @media(max-width:860px){
     #nav{padding:0 14px}.nav-tab{padding:20px 10px;font-size:11px}
     .sim-grid,.stack-grid,.sim-info-strip{grid-template-columns:1fr}
@@ -261,6 +284,11 @@
       <div class="brief-h2">Technical Background</div>
       <div class="brief-p">Super Cruise, as currently deployed, operates as a perception-execution system. LiDAR, camera, and HD map inputs feed a rule-based planning layer that handles mapped highway environments reliably. The system does not maintain an internal world model, produce decision rationale, or generalize to scenarios outside its training distribution.</div>
       <div class="brief-p">SAE Level 3 requires the system — not the driver — to manage the full dynamic driving task within its operational design domain without supervision. The gap between Super Cruise's current capability and Level 3 compliance is primarily a reasoning gap: the ability to interpret ambiguous sensor inputs, simulate outcome probabilities, and produce defensible control decisions under novel conditions. Alpamayo 2 Super is an open 32B-parameter reasoning VLA model designed to address this gap by jointly reasoning across perception, planning, and action.</div>
+    </div>
+    <div class="brief-section">
+      <div class="brief-h2">Phased Integration Approach</div>
+      <div class="brief-p">This platform documents two integration phases. The <strong style="color:var(--gold)">On Ramp phase</strong> uses current DRIVE AGX Orin hardware with Alpamayo 1.5 Nano — a distilled 10B-parameter version of the Alpamayo reasoning family — to deliver immediate chain-of-thought reasoning capability without requiring a hardware transition. GM engineering teams can pull the weights from Hugging Face and begin closed-course integration testing on existing Super Cruise platforms today.</div>
+      <div class="brief-p">The <strong style="color:var(--green)">Full Stack phase</strong> uses DRIVE AGX Thor with the full 32B Alpamayo 2 Super model, OmniDreams world generation, AlpaGym reinforcement learning, and Omniverse NuRec data pipeline — enabling Level 3 and Level 4 production deployment at scale. The phased structure means integration work begun today on Orin directly transfers to the Thor platform as the hardware transition occurs.</div>
     </div>
     <div class="brief-section">
       <div class="brief-h2">Alpamayo 2 Super — Key Parameters</div>
@@ -313,6 +341,12 @@
         <button class="scenario-btn" data-scenario="2">Wrong-Way Driver</button>
         <button class="scenario-btn" data-scenario="3">Emergency Vehicle</button>
       </div>
+    </div>
+
+    <!-- Phase callout -->
+    <div class="sim-phase-note">
+      <span class="sim-phase-note-icon">◈</span>
+      <span class="sim-phase-note-text">Scenarios shown represent the <strong>Near Term full stack configuration</strong> — Alpamayo 2 Super (32B) on DRIVE AGX Thor. An <strong>On Ramp configuration</strong> using Alpamayo 1.5 Nano on DRIVE AGX Orin is available today as a first integration step on current Super Cruise hardware.</span>
     </div>
 
     <!-- Disengagement counter (left panel only) -->
@@ -406,40 +440,73 @@
     <div class="section-title" style="margin-bottom:6px">Capability Analysis</div>
     <div class="section-headline">Stack Comparison</div>
     <div class="stack-grid">
-      <div class="stack-card legacy">
-        <div class="stack-card-header">
-          <div class="stack-icon gray">🔬</div>
-          <div><div class="stack-name">GM Super Cruise — Current</div><div class="stack-subtitle">Perception-first, rule-based autonomy</div></div>
-        </div>
-        <div class="stack-components">
-          <span class="component-tag gray">Mobileye EyeQ</span><span class="component-tag gray">LiDAR Arrays</span><span class="component-tag gray">HD Maps</span><span class="component-tag gray">Rule-Based Logic</span><span class="component-tag gray">Camera Fusion</span><span class="component-tag gray">GPS/GNSS</span>
-        </div>
-        <div class="capability-bars">
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score gray">4/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="40"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score gray">5/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="50"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
-        </div>
-      </div>
-      <div class="stack-card modern">
-        <div class="stack-card-header">
-          <div class="stack-icon green">🟢</div>
-          <div><div class="stack-name">GM + NVIDIA Alpamayo 2 Super</div><div class="stack-subtitle">Full-stack Physical AI — Level 3/4 capable</div></div>
-        </div>
-        <div class="stack-components">
-          <span class="component-tag green">Alpamayo 2 Super (32B)</span><span class="component-tag green">OmniDreams</span><span class="component-tag green">AlpaGym</span><span class="component-tag green">Neural Reconstruction</span><span class="component-tag green">AlpaSim</span><span class="component-tag green">DRIVE Orin</span><span class="component-tag green">DRIVE AGX Thor</span><span class="component-tag green">TensorRT</span><span class="component-tag green">Cosmos</span><span class="component-tag green">Physical AI AV Dataset</span>
-        </div>
-        <div class="capability-bars">
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score green">10/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="100"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score green">10/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="100"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
-          <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+
+      <!-- COLUMN 1: Super Cruise Today -->
+      <div>
+        <div class="stack-col-label gray">● &nbsp;Current State</div>
+        <div class="stack-card legacy">
+          <div class="stack-card-header">
+            <div class="stack-icon gray">🔬</div>
+            <div><div class="stack-name">GM Super Cruise — Today</div><div class="stack-subtitle">Perception-first, rule-based autonomy</div></div>
+          </div>
+          <div class="stack-components">
+            <span class="component-tag gray">Mobileye EyeQ</span><span class="component-tag gray">LiDAR Arrays</span><span class="component-tag gray">HD Maps</span><span class="component-tag gray">Rule-Based Logic</span><span class="component-tag gray">Camera Fusion</span><span class="component-tag gray">GPS/GNSS</span>
+          </div>
+          <div class="capability-bars">
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score gray">4/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="40"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score gray">5/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="50"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
+          </div>
         </div>
       </div>
+
+      <!-- COLUMN 2: On Ramp — Today -->
+      <div>
+        <div class="stack-col-label gold">◆ &nbsp;On Ramp — Available Now</div>
+        <div class="stack-card onramp">
+          <div class="stack-card-header">
+            <div class="stack-icon gold">⚡</div>
+            <div><div class="stack-name">GM + NVIDIA On Ramp</div><div class="stack-subtitle">Alpamayo 1.5 Nano on current Orin hardware</div></div>
+          </div>
+          <div class="stack-components">
+            <span class="component-tag gold">DRIVE AGX Orin</span><span class="component-tag gold">Alpamayo 1.5 Nano (10B)</span><span class="component-tag gold">AlpaSim</span><span class="component-tag gold">Physical AI AV Dataset</span><span class="component-tag gold">TensorRT</span>
+          </div>
+          <div class="capability-bars">
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score gold">6/10</span></div><div class="cap-track"><div class="cap-fill gold" data-width="60"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score gold">6/10</span></div><div class="cap-track"><div class="cap-fill gold" data-width="60"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score gold">7/10</span></div><div class="cap-track"><div class="cap-fill gold" data-width="70"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score gold">6/10</span></div><div class="cap-track"><div class="cap-fill gold" data-width="60"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score gold">7/10</span></div><div class="cap-track"><div class="cap-fill gold" data-width="70"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score gold">6/10</span></div><div class="cap-track"><div class="cap-fill gold" data-width="60"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 3: Full Stack — Near Term -->
+      <div>
+        <div class="stack-col-label green">◈ &nbsp;Full Stack — Near Term</div>
+        <div class="stack-card modern">
+          <div class="stack-card-header">
+            <div class="stack-icon green">🟢</div>
+            <div><div class="stack-name">GM + NVIDIA Full Stack</div><div class="stack-subtitle">Alpamayo 2 Super on DRIVE AGX Thor</div></div>
+          </div>
+          <div class="stack-components">
+            <span class="component-tag green">DRIVE AGX Thor</span><span class="component-tag green">Alpamayo 2 Super (32B)</span><span class="component-tag green">OmniDreams</span><span class="component-tag green">AlpaGym</span><span class="component-tag green">NuRec</span><span class="component-tag green">TensorRT</span><span class="component-tag green">Cosmos 3</span><span class="component-tag green">DRIVE Hyperion</span>
+          </div>
+          <div class="capability-bars">
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score green">10/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="100"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Edge Case Handling</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Simulation Coverage</span><span class="cap-score green">10/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="100"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Explainability</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">OTA Improvement</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+            <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score green">9/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="90"></div></div></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -451,21 +518,36 @@
   <div id="lib-container">
     <div class="section-title" style="margin-bottom:6px">Technology Reference</div>
     <div class="section-headline">NVIDIA Platform Components</div>
+
+    <!-- TODAY -->
+    <div class="lib-section-sep">
+      <span class="lib-section-sep-label today">⚡ &nbsp;Today — On Ramp Stack</span>
+      <div class="lib-section-sep-line today"></div>
+    </div>
     <div class="lib-grid">
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon">🧠</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">Alpamayo 2 Super</div><div class="lib-tagline">32B open reasoning VLA for full-stack Level 4 autonomy</div><div class="lib-desc">A 32B-parameter open multimodal Vision–Language–Action reasoning model that jointly reasons across perception, planning, and action for autonomous driving. Announced at GTC Taipei in June 2026, Alpamayo 2 Super generates explicit chain-of-thought decision traces at each step.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Provides the cognitive backbone for Eyes-Off highway autonomy on Super Cruise platforms — reasoning through uncontrolled intersections, dynamic merge conflicts, and edge cases outside the rule-based system's training distribution.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🌐</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">OmniDreams</div><div class="lib-tagline">Photorealistic world generation for AV simulation</div><div class="lib-desc">A generative world model that creates photorealistic, closed-loop driving scenarios at scale, enabling developers to simulate rare and long-tail events without real-world exposure. OmniDreams reconstructs environments with physically accurate lighting, weather, and sensor responses.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Generate millions of edge-case scenarios for Eyes-Off validation — signal outages, construction zone configurations, and pedestrian behavior variants — before a single physical test mile is driven.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(245,158,11,0.12)">🏋️</div><span class="lib-badge badge-framework">Training Framework</span></div><div class="lib-name">AlpaGym</div><div class="lib-tagline">Reinforcement learning from driving consequences</div><div class="lib-desc">A closed-loop reinforcement learning framework that trains AV models by simulating the real-world consequences of every driving decision before road deployment. AlpaGym connects Alpamayo 2 Super's reasoning outputs to simulated physical outcomes.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Train the Eyes-Off system to handle highway merge failures, emergency braking cascades, and sensor degradation scenarios without exposing test drivers or the public to risk.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(16,185,129,0.12)">🔁</div><span class="lib-badge badge-pipeline">Data Pipeline</span></div><div class="lib-name">Omniverse NuRec</div><div class="lib-tagline">Turn real fleet data into 3D training environments</div><div class="lib-desc">Reconstructs real-world driving data captured by fleet sensors into photorealistic, simulation-ready 3D environments. NuRec enables teams to replay, modify, and stress-test real scenarios in simulation without re-driving the route.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Convert existing Super Cruise fleet miles into structured simulation environments for Alpamayo 2 Super training and AlpaGym RL cycles.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🔮</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">AlpaSim</div><div class="lib-tagline">Open source AV simulation framework</div><div class="lib-desc">An open-source simulation environment for validating autonomous driving systems at scale, recreating real-world driving conditions from sensor physics to traffic agent behavior. AlpaSim provides the closed-loop test harness connecting OmniDreams scenario generation to Alpamayo 2 Super policy evaluation.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Validate Eyes-Off behavior across thousands of simulated highway scenarios before any physical testing begins.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">⚡</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE AGX Thor</div><div class="lib-tagline">Centralized AI compute for software-defined vehicles</div><div class="lib-desc">NVIDIA's next-generation vehicle compute platform consolidates sensor fusion, AI inference, and control logic into a single functional-safety-certified unit built to ISO 26262 ASIL-D, providing the compute foundation for 32B-parameter models in production vehicles.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Serves as the vehicle-side compute backbone for Cadillac Escalade IQ and next-generation platforms, enabling OTA updates to the Alpamayo 2 Super reasoning stack.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">🔷</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE Orin</div><div class="lib-tagline">254 TOPS AI compute SoC for safety-critical autonomy</div><div class="lib-desc">A system-on-chip delivering 254 TOPS specifically for automotive AI workloads, running perception, planning, and driving policy networks simultaneously with hardware-level redundancy for real-time Level 3 inference latency.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Powers concurrent execution of Alpamayo 2 Super inference alongside Super Cruise perception algorithms on vehicles transitioning from Orin to AGX Thor.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(29,158,117,0.12)">⚙️</div><span class="lib-badge badge-model">Inference</span></div><div class="lib-name">TensorRT</div><div class="lib-tagline">Deep learning inference optimizer for production deployment</div><div class="lib-desc">NVIDIA's inference optimization library compresses and optimizes trained models for real-time deployment on Orin and AGX hardware via quantization, layer fusion, and kernel auto-tuning, making 32B-parameter models practical within embedded vehicle compute budgets.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Compresses Alpamayo 2 Super inference to under 80ms on DRIVE AGX Thor — making full-stack chain-of-thought reasoning compatible with real-time vehicle control loops.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">🔷</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE AGX Orin</div><div class="lib-tagline">Current production compute — runs distilled Alpamayo today</div><div class="lib-desc">NVIDIA's current-generation automotive compute platform delivering 254 TOPS for safety-critical AI workloads. DRIVE AGX Orin is the production hardware GM is already developing on — and it can run distilled, compressed versions of the Alpamayo reasoning family, including Alpamayo 1.5 Nano, without waiting for a next-generation hardware transition. Hardware-level redundancy supports real-time Level 3 inference latency on existing platforms.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>The current integration target — GM engineering teams can begin deploying Alpamayo 1.5 Nano reasoning on Super Cruise platforms using Orin hardware that is already in development pipelines today.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon">🧠</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">Alpamayo 1.5 Nano</div><div class="lib-tagline">Distilled reasoning AI that runs on Orin today</div><div class="lib-desc">A 10B-parameter distilled version of the Alpamayo reasoning family, optimized to run on DRIVE AGX Orin generation compute. Provides chain-of-thought reasoning and trajectory planning without requiring next-generation hardware. Available on Hugging Face for non-commercial research and integration testing.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Allows GM to begin integrating Alpamayo reasoning into Super Cruise on current Orin hardware today without waiting for a Thor platform transition — the On Ramp step that begins the integration now.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🔮</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">AlpaSim</div><div class="lib-tagline">Open source AV simulation framework</div><div class="lib-desc">An open-source simulation environment for validating autonomous driving systems at scale, recreating real-world driving conditions from sensor physics to traffic agent behavior. AlpaSim is available today and provides the closed-loop test harness for validating Alpamayo reasoning outputs against simulated driving scenarios.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Initialize the simulation pipeline now — validate Alpamayo 1.5 Nano behavior across thousands of simulated highway scenarios on Orin hardware before physical testing begins.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(236,72,153,0.12)">📀</div><span class="lib-badge badge-data">Dataset</span></div><div class="lib-name">Physical AI AV Dataset</div><div class="lib-tagline">1,727 hours of annotated real-world driving for reasoning AI</div><div class="lib-desc">Curated real-world AV sensor data designed to train physical reasoning. Every scenario includes decision rationale, counterfactual alternatives, and chain-of-thought labels that teach models to reason across perception, planning, and action. Available now for training and fine-tuning.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Forms the real-world training foundation for both Alpamayo 1.5 Nano and Alpamayo 2 Super, with particular coverage of edge cases corresponding to documented Super Cruise disengagement events.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(29,158,117,0.12)">⚙️</div><span class="lib-badge badge-model">Inference</span></div><div class="lib-name">TensorRT</div><div class="lib-tagline">Deep learning inference optimizer for production deployment</div><div class="lib-desc">NVIDIA's inference optimization library compresses and optimizes trained models for real-time deployment on Orin and AGX hardware via quantization, layer fusion, and kernel auto-tuning. Available today — makes distilled reasoning models practical within embedded vehicle compute budgets at both the On Ramp and Full Stack phases.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Optimizes Alpamayo 1.5 Nano on Orin today, and scales to compress Alpamayo 2 Super to under 80ms on DRIVE AGX Thor in the full-stack phase.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(245,158,11,0.12)">🔭</div><span class="lib-badge badge-framework">Open Framework</span></div><div class="lib-name">TAO Toolkit</div><div class="lib-tagline">Customizable vision foundation models for automotive perception</div><div class="lib-desc">An open-source framework with 100-plus pretrained vision models covering detection, segmentation, classification, and depth estimation. Includes foundation models like C-RADIO v2, NV-DINO v2, and FoundationStereo. Enables teams to fine-tune perception models on their own fleet data without building from scratch.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Fine-tune perception models on Super Cruise disengagement data today to improve edge case detection — strengthening the perception layer before Alpamayo reasoning is added on top.</div></div>
+    </div>
+
+    <!-- NEAR TERM -->
+    <div class="lib-section-sep" style="margin-top:44px">
+      <span class="lib-section-sep-label nearterm">◈ &nbsp;Near Term — Full Stack</span>
+      <div class="lib-section-sep-line nearterm"></div>
+    </div>
+    <div class="lib-grid">
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">⚡</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE AGX Thor</div><div class="lib-tagline">Next-gen compute required for Alpamayo 2 Super at full 32B capability</div><div class="lib-desc">NVIDIA's next-generation vehicle compute platform — the required hardware to run Alpamayo 2 Super at full 32B-parameter capability. DRIVE AGX Thor consolidates sensor fusion, AI inference, and control logic into a single ISO 26262 ASIL-D certified unit and serves as the default compute layer for DRIVE Hyperion Level 4 deployments. Integration work begun on Orin today transfers directly to Thor as the platform transitions.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>The production compute backbone for Cadillac Escalade IQ and next-generation platforms in the full-stack phase — enabling OTA updates to the complete Alpamayo 2 Super reasoning stack at scale.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon">🧠</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">Alpamayo 2 Super</div><div class="lib-tagline">32B open reasoning VLA for full-stack Level 3/4 autonomy</div><div class="lib-desc">A 32B-parameter open multimodal Vision–Language–Action reasoning model that jointly reasons across perception, planning, and action. Announced at GTC Taipei in June 2026, Alpamayo 2 Super generates explicit chain-of-thought decision traces at each step and requires DRIVE AGX Thor for full-capability deployment. Teams beginning integration with Alpamayo 1.5 Nano on Orin today are building toward this full-stack configuration.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>The full-stack reasoning backbone for Eyes-Off highway autonomy — handling uncontrolled intersections, dynamic merge conflicts, and edge cases outside the rule-based system's training distribution at Level 3 and Level 4.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🌐</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">OmniDreams</div><div class="lib-tagline">Photorealistic world generation for AV simulation</div><div class="lib-desc">A generative world model that creates photorealistic, closed-loop driving scenarios at scale, enabling developers to simulate rare and long-tail events without real-world exposure. OmniDreams reconstructs environments with physically accurate lighting, weather, and sensor responses — part of the full-stack simulation pipeline shipping alongside Alpamayo 2 Super.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Generate millions of edge-case scenarios for Eyes-Off validation — signal outages, construction zone configurations, and pedestrian behavior variants — before a single physical test mile is driven.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(245,158,11,0.12)">🏋️</div><span class="lib-badge badge-framework">Training Framework</span></div><div class="lib-name">AlpaGym</div><div class="lib-tagline">Reinforcement learning from driving consequences</div><div class="lib-desc">A closed-loop reinforcement learning framework that trains AV models by simulating the real-world consequences of every driving decision before road deployment. AlpaGym connects Alpamayo 2 Super's reasoning outputs to simulated physical outcomes in the full-stack training pipeline.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Train the Eyes-Off system to handle highway merge failures, emergency braking cascades, and sensor degradation scenarios without exposing test drivers or the public to risk.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(16,185,129,0.12)">🔁</div><span class="lib-badge badge-pipeline">Data Pipeline</span></div><div class="lib-name">Omniverse NuRec</div><div class="lib-tagline">Turn real fleet data into 3D training environments</div><div class="lib-desc">Reconstructs real-world driving data captured by fleet sensors into photorealistic, simulation-ready 3D environments. NuRec enables teams to replay, modify, and stress-test real scenarios in simulation without re-driving the route — part of the near-term full-stack data pipeline.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Convert existing Super Cruise fleet miles into structured simulation environments for Alpamayo 2 Super training and AlpaGym RL cycles at scale.</div></div>
       <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(139,92,246,0.12)">🌌</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">Cosmos 3</div><div class="lib-tagline">First omni-model with native reasoning, world generation, and action generation</div><div class="lib-desc">The first omni-model built on Mixture-of-Transformers architecture, combining native reasoning, world generation, and action generation in a single foundation model. Available under the OpenMDW1.1 license through the Linux Foundation. Supports AV training through synthetic sensor data generation, multi-sensor view expansion, and closed-loop simulation.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Underpins OmniDreams and AlpaSim scenario generation with physically accurate environments, ensuring Alpamayo 2 Super trains on data consistent with real-world sensor behavior.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(236,72,153,0.12)">📀</div><span class="lib-badge badge-data">Dataset</span></div><div class="lib-name">Physical AI AV Dataset</div><div class="lib-tagline">1,727 hours of annotated real-world driving for reasoning AI</div><div class="lib-desc">Curated real-world AV sensor data designed to train physical reasoning. Every scenario includes decision rationale, counterfactual alternatives, and chain-of-thought labels that teach models to reason across perception, planning, and action.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Forms the real-world training foundation for Alpamayo 2 Super, with particular coverage of edge cases corresponding to documented Super Cruise disengagement events.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(29,158,117,0.12)">🤖</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">DRIVE Alpamayo-R1 (AR1)</div><div class="lib-tagline">Open VLA with chain-of-thought reasoning for Level 4 research</div><div class="lib-desc">An open vision-language-action model with chain-of-thought reasoning and path planning targeting Level 4 autonomy. Available on GitHub and Hugging Face for non-commercial research — meaning GM engineering teams can pull the weights today and begin integration testing without a commercial agreement in place.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Allows GM R&amp;D to run closed-course validation of Alpamayo reasoning on existing Super Cruise hardware before committing to a full production integration.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(245,158,11,0.12)">🔭</div><span class="lib-badge badge-framework">Open Framework</span></div><div class="lib-name">TAO Toolkit</div><div class="lib-tagline">Customizable vision foundation models for automotive perception</div><div class="lib-desc">An open-source framework with 100-plus pretrained vision models covering detection, segmentation, classification, and depth estimation. Includes foundation models like C-RADIO v2, NV-DINO v2, and FoundationStereo. Enables teams to fine-tune perception models on their own fleet data without building from scratch.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Fine-tune perception models on Super Cruise disengagement data to improve edge case detection before Alpamayo 2 Super handles the reasoning layer.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(29,158,117,0.12)">🤖</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">DRIVE Alpamayo-R1 (AR1)</div><div class="lib-tagline">Open VLA with chain-of-thought reasoning for Level 4 research</div><div class="lib-desc">An open vision-language-action model with chain-of-thought reasoning and path planning targeting Level 4 autonomy. Available on GitHub and Hugging Face for non-commercial research — meaning GM engineering teams can pull the weights and begin integration testing without a commercial agreement in place.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Allows GM R&amp;D to run closed-course validation of Alpamayo reasoning on existing Super Cruise hardware before committing to a full production integration.</div></div>
       <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(16,185,129,0.12)">🎙️</div><span class="lib-badge badge-framework">Open Framework</span></div><div class="lib-name">NeMo</div><div class="lib-tagline">Generative AI framework for in-cabin and speech applications</div><div class="lib-desc">NVIDIA's open framework for building, customizing, and deploying generative AI models — covering automated speech recognition, in-cabin assistants, and customer service applications. NeMo Data Designer Library is open-sourced under Apache 2.0 for synthetic dataset generation.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Powers next-generation in-cabin voice assistants and driver monitoring systems on Cadillac and GMC platforms alongside the Eyes-Off autonomy stack.</div></div>
-      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">📡</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">Omniverse Sensor RTX</div><div class="lib-tagline">Physically accurate sensor simulation for AV validation</div><div class="lib-desc">A physically-based sensor simulation and rendering library that models how cameras, LiDAR, and radar actually behave in real-world conditions — including noise, occlusion, weather interference, and lighting variation. Works alongside NuRec and OmniDreams in the simulation pipeline.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Validate how Super Cruise sensors perform in edge conditions — heavy rain, tunnel exits, direct sunlight — before physical testing.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">📡</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">Omniverse Sensor RTX</div><div class="lib-tagline">Physically accurate sensor simulation for AV validation</div><div class="lib-desc">A physically-based sensor simulation and rendering library that models how cameras, LiDAR, and radar actually behave in real-world conditions — including noise, occlusion, weather interference, and lighting variation. Works alongside NuRec and OmniDreams in the full-stack simulation pipeline.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Validate how Super Cruise sensors perform in edge conditions — heavy rain, tunnel exits, direct sunlight — before physical testing.</div></div>
     </div>
   </div>
 </div>
@@ -486,18 +568,18 @@
     </div>
     <div class="pitch-sections">
       <div class="pitch-section"><div class="pitch-icon gold">🏎️</div><div><div class="pitch-section-title">Why GM</div><div class="pitch-section-body">General Motors has built the most commercially deployed ADAS system in North America with Super Cruise — over 400,000 activated customers and 75 million cumulative miles of hands-free driving. That scale represents a structural advantage: a large, instrumented fleet generating real-world disengagement data, a trained customer base, and existing regulatory relationships. The gap is not distribution or brand — it is the reasoning capability required to move from Level 2 supervised assistance to Level 3 Eyes-Off autonomy.</div></div></div>
-      <div class="pitch-section"><div class="pitch-icon green">⚡</div><div><div class="pitch-section-title">Why Now</div><div class="pitch-section-body">The NHTSA's AV regulatory framework is entering a critical formation period. States with the largest Level 3 addressable markets — California, Texas, Nevada — are finalizing their frameworks. The OEM with certified Level 3 technology when these frameworks lock in will gain a structural first-mover position. Simultaneously, the compute economics of DRIVE AGX Thor and the availability of Alpamayo 2 Super as an open model have crossed the threshold where production-grade reasoning AI is deployable at automotive price points.</div></div></div>
+      <div class="pitch-section"><div class="pitch-icon green">⚡</div><div><div class="pitch-section-title">Why Now</div><div class="pitch-section-body">The on ramp exists today. GM does not need to wait for a Thor hardware transition or a full production agreement to begin. Alpamayo 1.5 Nano is available on Hugging Face, AlpaSim is open-source, and DRIVE AGX Orin is already in GM's development pipeline — meaning the first integration step can begin immediately on current hardware. The NHTSA's AV regulatory framework is simultaneously entering a critical formation period: states with the largest Level 3 addressable markets are finalizing their frameworks, and the OEM with certified Level 3 technology when those frameworks lock in will hold a structural first-mover position. Starting the On Ramp phase now puts GM ahead of that window.</div></div></div>
       <div class="pitch-section"><div class="pitch-icon purple">🟣</div><div><div class="pitch-section-title">Why NVIDIA</div><div class="pitch-section-body">Every serious AV program runs on NVIDIA infrastructure — not by coincidence, but because no other company offers a vertically integrated stack from silicon to simulation to foundation models. With Alpamayo 2 Super, OmniDreams, AlpaGym, Omniverse NuRec, and AlpaSim, NVIDIA has closed the development loop. For GM, adopting the NVIDIA stack does not require building simulation infrastructure, training frameworks, or world models from scratch — it means integrating a system that already exists.</div></div></div>
       <div class="pitch-section"><div class="pitch-icon blue">🔵</div><div><div class="pitch-section-title">The Capability Gap</div><div class="pitch-section-body">Super Cruise's disengagement events cluster in three categories: uncontrolled intersections, construction zones, and novel merge conflicts at highway speed. These are not perception failures — the sensors see the scenarios correctly. They are reasoning failures: the system has no mechanism to interpret a construction worker's hand signal, weigh cross-traffic gap probability, or plan a lane change with sub-second time-to-collision margins. Alpamayo 2 Super handles each of these by reasoning jointly across what it sees, what it plans, and what action it takes.</div></div></div>
     </div>
     <div class="timeline-wrapper">
       <div class="timeline-title">GM × Alpamayo Integration Timeline</div>
       <div class="timeline">
-        <div class="timeline-event"><div class="timeline-dot active"></div><div class="timeline-date">2024 — Active</div><div class="timeline-event-title">Super Cruise at Scale — Ceiling Measurable</div><div class="timeline-event-desc">Super Cruise exceeds 400K customers. Disengagement logs reveal consistent failure clusters: uncontrolled intersections, construction zone configurations, high-speed merge conflicts.</div></div>
-        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2025</div><div class="timeline-event-title">Alpamayo 1 Released — Integration Baseline Established</div><div class="timeline-event-desc">NVIDIA ships Alpamayo 1 (10B parameters) with the Physical AI AV Dataset. GM R&D establishes a closed-course integration baseline on Escalade IQ platforms.</div></div>
-        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">June 2026 — Milestone</div><div class="timeline-event-title">Alpamayo 2 Super Announced at GTC Taipei</div><div class="timeline-event-desc">NVIDIA releases Alpamayo 2 Super (32B open VLA) with OmniDreams, AlpaGym, and Omniverse NuRec. GM integration transitions to the Alpamayo 2 Super architecture.</div></div>
-        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2026–2027</div><div class="timeline-event-title">Shadow Mode Deployment &amp; Regulatory Submissions</div><div class="timeline-event-desc">Alpamayo 2 Super runs in shadow mode across the Super Cruise fleet, logging reasoning decisions that would have overridden the perception-only system.</div></div>
-        <div class="timeline-event"><div class="timeline-dot gold"></div><div class="timeline-date gold">Near-Term Target</div><div class="timeline-event-title">Eyes-Off Highway Autonomy — Geo-Fenced Deployment</div><div class="timeline-event-desc">Level 3 deployment on Cadillac platform, geo-fenced to certified highway corridors. Alpamayo 2 Super active as the production reasoning layer.</div></div>
+        <div class="timeline-event"><div class="timeline-dot active"></div><div class="timeline-date">Stage 1 — Active Now</div><div class="timeline-event-title">Super Cruise at Scale — Perception Ceiling Measurable</div><div class="timeline-event-desc">Super Cruise exceeds 400K customers and 75 million cumulative hands-free miles. Disengagement logs reveal consistent failure clusters — uncontrolled intersections, construction zone configurations, high-speed merge conflicts — that are reasoning failures, not perception failures.</div></div>
+        <div class="timeline-event"><div class="timeline-dot gold"></div><div class="timeline-date" style="color:var(--gold)">Stage 2 — On Ramp Available Now</div><div class="timeline-event-title">Alpamayo 1.5 Nano on DRIVE AGX Orin — Integration Begins</div><div class="timeline-event-desc">Alpamayo 1.5 Nano (10B distilled reasoning model) is available on Hugging Face. AlpaSim pipeline initialized. GM engineering teams can pull weights and begin closed-course integration testing on existing Orin hardware today — no hardware transition, no commercial agreement required. Reasoning layer runs alongside Super Cruise in shadow mode.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">Stage 3 — June 2026 Milestone</div><div class="timeline-event-title">Alpamayo 2 Super Announced at GTC Taipei</div><div class="timeline-event-desc">NVIDIA announces Alpamayo 2 Super (32B open VLA) at GTC Taipei. OmniDreams, AlpaGym, and Omniverse NuRec ship alongside. The full-stack toolchain is now complete — every component required for Level 3 and Level 4 production deployment is available.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">Stage 4 — Near Term</div><div class="timeline-event-title">Full Stack on DRIVE AGX Thor — Shadow Mode at Scale</div><div class="timeline-event-desc">Alpamayo 2 Super on DRIVE AGX Thor deployed in shadow mode across the Super Cruise fleet. Reasoning decisions logged against every disengagement event. OmniDreams synthetic scenarios fill coverage gaps. Regulatory submissions for Level 3 ODD filed with NHTSA and state authorities.</div></div>
+        <div class="timeline-event"><div class="timeline-dot gold"></div><div class="timeline-date gold">Stage 5 — Target</div><div class="timeline-event-title">Eyes-Off Level 3 Highway Autonomy — Geo-Fenced Deployment</div><div class="timeline-event-desc">Level 3 production deployment on Cadillac platform, geo-fenced to certified highway corridors. Alpamayo 2 Super active as the production reasoning layer. Driver may divert attention within the ODD. Integration work begun in Stage 2 on Orin is now running at full 32B capability on Thor.</div></div>
       </div>
     </div>
     <div style="text-align:center;margin-top:48px">
