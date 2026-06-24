@@ -58,40 +58,43 @@
   .btn-sm:hover{transform:translateY(-1px);box-shadow:0 0 36px var(--green-glow)}
 
   /* ── SIMULATION ── */
-  #sim-container{padding:32px 40px;max-width:1400px;margin:0 auto}
-  .sim-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+  #sim-container{padding:28px 32px 40px;max-width:1440px;margin:0 auto}
+  .sim-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px}
   .sim-scenarios{display:flex;gap:7px;flex-wrap:wrap}
-  .scenario-btn{padding:8px 16px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--gray);font-size:12px;font-weight:600;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+  .scenario-btn{padding:8px 18px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--gray);font-size:12px;font-weight:600;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s;white-space:nowrap}
   .scenario-btn:hover{border-color:var(--green);color:var(--white)}
   .scenario-btn.active{border-color:var(--green);background:var(--green-dim);color:var(--green);box-shadow:0 0 14px var(--green-glow)}
-  .sim-canvases{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
-  .canvas-wrapper{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative;background:#050505}
-  .canvas-wrapper.alp-border{border-color:rgba(29,158,117,0.28)}
-  .canvas-label{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 10px;border-radius:4px;z-index:10;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-  .canvas-label.legacy{background:rgba(90,90,110,0.4);color:#bbb;border:1px solid rgba(255,255,255,0.1)}
-  .canvas-label.alpamayo{background:rgba(29,158,117,0.28);color:var(--green);border:1px solid rgba(29,158,117,0.45)}
-  .sim-ended-overlay{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.62);z-index:20;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);gap:10px}
-  .sim-ended-overlay.show{display:flex}
-  .sim-ended-label{font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
-  canvas{display:block;width:100%}
-  .omnidreams-callout{display:flex;align-items:flex-start;gap:10px;padding:11px 16px;background:rgba(29,158,117,0.05);border:1px solid rgba(29,158,117,0.14);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.55;margin-bottom:14px}
-  .omnidreams-callout strong{color:var(--green);font-weight:600}
-  .callout-dot{color:var(--green);font-size:15px;flex-shrink:0;margin-top:1px}
-  .sim-bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .sim-panel{padding:18px 20px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
-  .sim-panel-title{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .disengagement-count{background:rgba(210,25,25,0.2);color:#ff6b6b;border:1px solid rgba(210,25,25,0.35);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;white-space:nowrap}
-  .scenario-desc{font-size:13px;color:var(--gray);line-height:1.65}
-  .cot-trace{font-size:11.5px;font-family:'Courier New',monospace;color:var(--green);line-height:1.8;min-height:80px;max-height:150px;overflow:hidden}
-  .cot-layer{opacity:0.55;font-size:10px;letter-spacing:0.06em}
-  .cot-cursor{display:inline-block;width:7px;height:11px;background:var(--green);margin-left:2px;animation:blink 0.8s step-end infinite;vertical-align:text-bottom}
+  .replay-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:7px;border:1px solid var(--green);background:rgba(29,158,117,0.1);color:var(--green);font-size:12px;font-weight:700;letter-spacing:0.08em;cursor:pointer;transition:all 0.22s}
+  .replay-btn:hover{background:rgba(29,158,117,0.22);box-shadow:0 0 18px var(--green-glow);transform:translateY(-1px)}
+  .sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+  .sim-panel-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#040404;display:flex;flex-direction:column}
+  .sim-panel-wrap.alp-wrap{border-color:rgba(29,158,117,0.25);background:#020706}
+  .sim-panel-wrap canvas{display:block;width:100%;height:460px}
+  /* Terminal */
+  .cot-terminal{background:#020906;border-top:1px solid rgba(29,158,117,0.18);padding:14px 18px 14px;height:162px;overflow:hidden;position:relative;flex-shrink:0}
+  .cot-terminal-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(29,158,117,0.1)}
+  .cot-dot-red{width:8px;height:8px;border-radius:50%;background:#ff5f57;flex-shrink:0}
+  .cot-dot-ylw{width:8px;height:8px;border-radius:50%;background:#febc2e;flex-shrink:0}
+  .cot-dot-grn{width:8px;height:8px;border-radius:50%;background:#28c840;flex-shrink:0}
+  .cot-terminal-title{font-size:9px;font-weight:700;letter-spacing:0.18em;color:rgba(29,158,117,0.5);text-transform:uppercase;margin-left:4px}
+  .cot-lines{display:flex;flex-direction:column;gap:0}
+  .cot-line{font-family:'Courier New',monospace;font-size:12px;line-height:1.7;color:rgba(29,158,117,0.92);opacity:0;transition:opacity 0.28s ease;white-space:pre}
+  .cot-line.show{opacity:1}
+  .cot-tag{color:rgba(29,158,117,0.42);font-size:11px}
+  .cot-cursor-el{display:inline-block;width:7px;height:13px;background:var(--green);vertical-align:text-bottom;margin-left:2px;animation:blink 0.75s step-end infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-  .sim-controls{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+  /* Info strip below canvases */
+  .sim-info-strip{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .sim-info-card{padding:16px 20px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
+  .sim-info-title{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+  .diseng-badge{background:rgba(210,25,25,0.18);color:#ff6b6b;border:1px solid rgba(210,25,25,0.3);border-radius:4px;padding:2px 9px;font-size:11px;font-weight:700}
+  .sim-desc{font-size:13px;color:var(--gray);line-height:1.65}
+  .sim-controls{display:flex;align-items:center;gap:9px;margin-top:12px;flex-wrap:wrap}
   .speed-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em}
-  .speed-btn{padding:5px 12px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
-  .speed-btn:hover,.speed-btn.active{border-color:var(--green);color:var(--green);background:var(--green-dim)}
-  .replay-btn{padding:5px 14px;border-radius:5px;border:1px solid rgba(29,158,117,0.35);background:rgba(29,158,117,0.08);color:var(--green);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.06em;margin-left:auto}
-  .replay-btn:hover{background:rgba(29,158,117,0.18);box-shadow:0 0 12px var(--green-glow)}
+  .speed-btn{padding:4px 11px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
+  .speed-btn.active,.speed-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+  .omnidreams-strip{margin-top:14px;display:flex;align-items:flex-start;gap:9px;padding:10px 15px;background:rgba(29,158,117,0.04);border:1px solid rgba(29,158,117,0.12);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.55}
+  .omnidreams-strip strong{color:var(--green)}
 
   /* ── STACK ── */
   #stack-container{padding:40px;max-width:1200px;margin:0 auto}
@@ -181,9 +184,9 @@
   footer span{color:var(--gray)}
   ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gray-dim);border-radius:3px}
 
-  @media(max-width:768px){
+  @media(max-width:860px){
     #nav{padding:0 14px}.nav-tab{padding:20px 10px;font-size:11px}
-    .sim-canvases,.stack-grid,.sim-bottom{grid-template-columns:1fr}
+    .sim-grid,.stack-grid,.sim-info-strip{grid-template-columns:1fr}
     .lib-grid{grid-template-columns:1fr}
     #sim-container,#stack-container,#lib-container,#pitch-container,.brief-wrap{padding:24px 18px}
   }
@@ -191,7 +194,7 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav id="nav">
   <div class="nav-brand">
     <div class="nav-brand-icon">GM</div>
@@ -207,29 +210,24 @@
   </div>
 </nav>
 
-<!-- ════════════════════════════════════
+<!-- ══════════════════════════════════════
      TAB 1 — ABOUT
-════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div id="tab-about" class="tab-content active">
   <div class="brief-wrap">
-
     <div class="brief-masthead">
       <div class="brief-title">GM × NVIDIA — Alpamayo 2 Super Reasoning Platform</div>
       <div class="brief-meta">Technical Brief · v2.0 · <span>Dean Guardanapo</span> · AI Strategy &amp; Automotive Systems</div>
     </div>
-
     <div class="brief-section">
       <div class="brief-h2">Overview</div>
       <div class="brief-p">This platform documents the technical integration pathway between General Motors' Super Cruise ADAS stack and NVIDIA's Alpamayo 2 Super reasoning model, targeting SAE J3016 Level 3 highway autonomy. It is structured as an interactive reference for engineering and product teams evaluating the architecture, capability gaps, and implementation requirements of this integration.</div>
-      <div class="brief-p">This platform is not a product announcement or confirmed roadmap commitment. It is an analytical framework for internal technical evaluation of the NVIDIA Physical AI toolchain applied to GM's autonomous driving program.</div>
     </div>
-
     <div class="brief-section">
       <div class="brief-h2">Technical Background</div>
       <div class="brief-p">Super Cruise, as currently deployed, operates as a perception-execution system. LiDAR, camera, and HD map inputs feed a rule-based planning layer that handles mapped highway environments reliably. The system does not maintain an internal world model, produce decision rationale, or generalize to scenarios outside its training distribution.</div>
       <div class="brief-p">SAE Level 3 requires the system — not the driver — to manage the full dynamic driving task within its operational design domain without supervision. The gap between Super Cruise's current capability and Level 3 compliance is primarily a reasoning gap: the ability to interpret ambiguous sensor inputs, simulate outcome probabilities, and produce defensible control decisions under novel conditions. Alpamayo 2 Super is an open 32B-parameter reasoning VLA model designed to address this gap by jointly reasoning across perception, planning, and action.</div>
     </div>
-
     <div class="brief-section">
       <div class="brief-h2">Alpamayo 2 Super — Key Parameters</div>
       <table class="brief-table">
@@ -246,119 +244,102 @@
         </tbody>
       </table>
     </div>
-
     <div class="brief-section">
       <div class="brief-h2">Platform Contents</div>
       <div class="brief-toc">
-        <div class="brief-toc-row">
-          <span class="brief-toc-num">01</span>
-          <div><div class="brief-toc-name">About</div><div class="brief-toc-desc">Platform scope, problem definition, and Alpamayo 2 Super parameters.</div></div>
-        </div>
-        <div class="brief-toc-row">
-          <span class="brief-toc-num">02</span>
-          <div><div class="brief-toc-name">Live Simulation</div><div class="brief-toc-desc">Side-by-side behind-the-car perspective simulation comparing Super Cruise (perception-only) and the Alpamayo 2 Super stack across two edge-case scenarios. Scenarios generated via OmniDreams photorealistic world modeling.</div></div>
-        </div>
-        <div class="brief-toc-row">
-          <span class="brief-toc-num">03</span>
-          <div><div class="brief-toc-name">Stack Comparison</div><div class="brief-toc-desc">Capability ratings across six dimensions for each stack configuration, including full-stack components.</div></div>
-        </div>
-        <div class="brief-toc-row">
-          <span class="brief-toc-num">04</span>
-          <div><div class="brief-toc-name">Library Reference</div><div class="brief-toc-desc">Component-level documentation for Alpamayo 2 Super, OmniDreams, AlpaGym, Omniverse NuRec, AlpaSim, DRIVE Orin/AGX, TensorRT, Cosmos, and the Physical AI AV Dataset.</div></div>
-        </div>
-        <div class="brief-toc-row">
-          <span class="brief-toc-num">05</span>
-          <div><div class="brief-toc-name">The Pitch</div><div class="brief-toc-desc">Strategic rationale for the GM–NVIDIA integration, GTC Taipei context, and development timeline.</div></div>
-        </div>
+        <div class="brief-toc-row"><span class="brief-toc-num">01</span><div><div class="brief-toc-name">About</div><div class="brief-toc-desc">Platform scope, problem definition, and Alpamayo 2 Super parameters.</div></div></div>
+        <div class="brief-toc-row"><span class="brief-toc-num">02</span><div><div class="brief-toc-name">Live Simulation</div><div class="brief-toc-desc">Side-by-side first-person road simulation comparing Super Cruise and Alpamayo 2 Super across two edge-case scenarios. Scenarios generated via OmniDreams photorealistic world modeling.</div></div></div>
+        <div class="brief-toc-row"><span class="brief-toc-num">03</span><div><div class="brief-toc-name">Stack Comparison</div><div class="brief-toc-desc">Capability ratings across six dimensions for each stack configuration.</div></div></div>
+        <div class="brief-toc-row"><span class="brief-toc-num">04</span><div><div class="brief-toc-name">Library Reference</div><div class="brief-toc-desc">Component-level documentation for all ten platform components.</div></div></div>
+        <div class="brief-toc-row"><span class="brief-toc-num">05</span><div><div class="brief-toc-name">The Pitch</div><div class="brief-toc-desc">Strategic rationale for the GM–NVIDIA integration and development timeline.</div></div></div>
       </div>
     </div>
-
     <div class="brief-cta">
       <button class="btn-sm" onclick="switchTab('simulation')">Open Simulation →</button>
-      <span style="font-size:12px;color:var(--gray)">Interactive dual-view scenario playback</span>
+      <span style="font-size:12px;color:var(--gray)">Interactive dual-panel scenario playback</span>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════
+<!-- ══════════════════════════════════════
      TAB 2 — SIMULATION
-════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div id="tab-simulation" class="tab-content">
   <div id="sim-container">
+
     <div class="sim-header">
       <div>
         <div class="section-title" style="margin-bottom:3px">Live Simulation</div>
-        <div style="font-size:19px;font-weight:700;color:var(--white)">Dual-System Scenario Playback</div>
+        <div style="font-size:19px;font-weight:700;color:var(--white)">Dual-Panel Scenario Playback</div>
       </div>
-      <div class="sim-scenarios">
-        <button class="scenario-btn active" data-scenario="0">Traffic Light Outage</button>
-        <button class="scenario-btn" data-scenario="1">Lane Cut-Off</button>
-      </div>
-    </div>
-
-    <div class="sim-canvases">
-      <div class="canvas-wrapper">
-        <div class="canvas-label legacy">⬤ Super Cruise — Perception Only</div>
-        <div class="sim-ended-overlay" id="legacyEnded"><span class="sim-ended-label">Scenario complete</span></div>
-        <canvas id="legacyCanvas" height="420"></canvas>
-      </div>
-      <div class="canvas-wrapper alp-border">
-        <div class="canvas-label alpamayo">◆ Alpamayo 2 Super — Reason · Plan · Act</div>
-        <div class="sim-ended-overlay" id="alpEnded"><span class="sim-ended-label">Scenario complete</span></div>
-        <canvas id="alpamayoCanvas" height="420"></canvas>
-      </div>
-    </div>
-
-    <div class="omnidreams-callout">
-      <span class="callout-dot">◈</span>
-      <span>Scenarios in this simulation were generated using <strong>NVIDIA OmniDreams</strong> photorealistic world modeling — constructing closed-loop synthetic driving environments from real-world fleet data, enabling edge-case validation without physical test exposure.</span>
-    </div>
-
-    <div class="sim-bottom">
-      <div class="sim-panel">
-        <div class="sim-panel-title">
-          Scenario
-          <div class="disengagement-count">Disengagements: <span id="disengageCount">0</span></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="sim-scenarios">
+          <button class="scenario-btn active" data-scenario="0">Traffic Light Outage</button>
+          <button class="scenario-btn" data-scenario="1">Lane Cut-Off</button>
         </div>
-        <div class="scenario-desc" id="scenarioDesc"></div>
+        <button class="replay-btn" onclick="replayScenario()">↺ Replay</button>
+      </div>
+    </div>
+
+    <div class="sim-grid">
+      <!-- Left: Super Cruise -->
+      <div class="sim-panel-wrap" id="legWrap">
+        <canvas id="legCanvas"></canvas>
+      </div>
+      <!-- Right: Alpamayo -->
+      <div class="sim-panel-wrap alp-wrap" id="alpWrap">
+        <canvas id="alpCanvas"></canvas>
+        <div class="cot-terminal" id="cotTerminal">
+          <div class="cot-terminal-hdr">
+            <span class="cot-dot-red"></span><span class="cot-dot-ylw"></span><span class="cot-dot-grn"></span>
+            <span class="cot-terminal-title">alpamayo 2 super — reasoning trace</span>
+          </div>
+          <div class="cot-lines" id="cotLines"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sim-info-strip">
+      <div class="sim-info-card">
+        <div class="sim-info-title">
+          Scenario
+          <span class="diseng-badge">Disengagements: <span id="disengCount">0</span></span>
+        </div>
+        <div class="sim-desc" id="simDesc"></div>
         <div class="sim-controls">
           <span class="speed-label">Speed:</span>
           <button class="speed-btn active" data-speed="1">1×</button>
-          <button class="speed-btn" data-speed="2">2×</button>
+          <button class="speed-btn" data-speed="1.5">1.5×</button>
           <button class="speed-btn" data-speed="0.5">0.5×</button>
-          <button class="replay-btn" onclick="replayScenario()">↺ Replay</button>
         </div>
       </div>
-      <div class="sim-panel">
-        <div class="sim-panel-title">Alpamayo 2 Super — Chain-of-Thought</div>
-        <div class="cot-trace" id="cotTrace"></div>
+      <div class="sim-info-card" style="display:flex;flex-direction:column;gap:6px">
+        <div class="sim-info-title">OmniDreams</div>
+        <div class="omnidreams-strip" style="margin-top:0">
+          <span style="color:var(--green);font-size:14px;flex-shrink:0">◈</span>
+          <span>Scenarios constructed using <strong>NVIDIA OmniDreams</strong> photorealistic world modeling — closed-loop synthetic environments built from real fleet data, enabling edge-case validation without physical test exposure.</span>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 
-<!-- ════════════════════════════════════
+<!-- ══════════════════════════════════════
      TAB 3 — STACK COMPARISON
-════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div id="tab-stack" class="tab-content">
   <div id="stack-container">
     <div class="section-title" style="margin-bottom:6px">Capability Analysis</div>
     <div class="section-headline">Stack Comparison</div>
     <div class="stack-grid">
-
-      <!-- LEGACY -->
       <div class="stack-card legacy">
         <div class="stack-card-header">
           <div class="stack-icon gray">🔬</div>
           <div><div class="stack-name">GM Super Cruise — Current</div><div class="stack-subtitle">Perception-first, rule-based autonomy</div></div>
         </div>
         <div class="stack-components">
-          <span class="component-tag gray">Mobileye EyeQ</span>
-          <span class="component-tag gray">LiDAR Arrays</span>
-          <span class="component-tag gray">HD Maps</span>
-          <span class="component-tag gray">Rule-Based Logic</span>
-          <span class="component-tag gray">Camera Fusion</span>
-          <span class="component-tag gray">GPS/GNSS</span>
+          <span class="component-tag gray">Mobileye EyeQ</span><span class="component-tag gray">LiDAR Arrays</span><span class="component-tag gray">HD Maps</span><span class="component-tag gray">Rule-Based Logic</span><span class="component-tag gray">Camera Fusion</span><span class="component-tag gray">GPS/GNSS</span>
         </div>
         <div class="capability-bars">
           <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score gray">2/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="20"></div></div></div>
@@ -369,24 +350,13 @@
           <div class="capability-row"><div class="cap-meta"><span class="cap-name">Level 3 Readiness</span><span class="cap-score gray">3/10</span></div><div class="cap-track"><div class="cap-fill gray" data-width="30"></div></div></div>
         </div>
       </div>
-
-      <!-- MODERN -->
       <div class="stack-card modern">
         <div class="stack-card-header">
           <div class="stack-icon green">🟢</div>
           <div><div class="stack-name">GM + NVIDIA Alpamayo 2 Super</div><div class="stack-subtitle">Full-stack Physical AI — Level 3/4 capable</div></div>
         </div>
         <div class="stack-components">
-          <span class="component-tag green">Alpamayo 2 Super (32B)</span>
-          <span class="component-tag green">OmniDreams</span>
-          <span class="component-tag green">AlpaGym</span>
-          <span class="component-tag green">Neural Reconstruction</span>
-          <span class="component-tag green">AlpaSim</span>
-          <span class="component-tag green">DRIVE Orin</span>
-          <span class="component-tag green">DRIVE AGX Thor</span>
-          <span class="component-tag green">TensorRT</span>
-          <span class="component-tag green">Cosmos</span>
-          <span class="component-tag green">Physical AI AV Dataset</span>
+          <span class="component-tag green">Alpamayo 2 Super (32B)</span><span class="component-tag green">OmniDreams</span><span class="component-tag green">AlpaGym</span><span class="component-tag green">Neural Reconstruction</span><span class="component-tag green">AlpaSim</span><span class="component-tag green">DRIVE Orin</span><span class="component-tag green">DRIVE AGX Thor</span><span class="component-tag green">TensorRT</span><span class="component-tag green">Cosmos</span><span class="component-tag green">Physical AI AV Dataset</span>
         </div>
         <div class="capability-bars">
           <div class="capability-row"><div class="cap-meta"><span class="cap-name">Reasoning Ability</span><span class="cap-score green">10/10</span></div><div class="cap-track"><div class="cap-fill green" data-width="100"></div></div></div>
@@ -401,260 +371,61 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════
+<!-- ══════════════════════════════════════
      TAB 4 — LIBRARY REFERENCE
-════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div id="tab-library" class="tab-content">
   <div id="lib-container">
     <div class="section-title" style="margin-bottom:6px">Technology Reference</div>
     <div class="section-headline">NVIDIA Platform Components</div>
     <div class="lib-grid">
-
-      <!-- 1. Alpamayo 2 Super — FIRST -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon">🧠</div>
-          <span class="lib-badge badge-open">Open Model</span>
-        </div>
-        <div class="lib-name">Alpamayo 2 Super</div>
-        <div class="lib-tagline">32B open reasoning VLA for full-stack Level 4 autonomy</div>
-        <div class="lib-desc">A 32B-parameter open multimodal Vision–Language–Action reasoning model that jointly reasons across perception, planning, and action for autonomous driving. Announced at GTC Taipei in June 2026, Alpamayo 2 Super generates explicit chain-of-thought decision traces at each step — enabling full interpretability of the driving stack from raw sensor input to vehicle control output.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Provides the cognitive backbone for Eyes-Off highway autonomy on Super Cruise platforms — reasoning through uncontrolled intersections, dynamic merge conflicts, and edge cases outside the rule-based system's training distribution.
-        </div>
-      </div>
-
-      <!-- 2. OmniDreams -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(99,102,241,0.12)">🌐</div>
-          <span class="lib-badge badge-sim">Simulator</span>
-        </div>
-        <div class="lib-name">OmniDreams</div>
-        <div class="lib-tagline">Photorealistic world generation for AV simulation</div>
-        <div class="lib-desc">A generative world model that creates photorealistic, closed-loop driving scenarios at scale, enabling developers to simulate rare and long-tail events without real-world exposure. OmniDreams reconstructs environments with physically accurate lighting, weather, and sensor responses, producing training and validation data indistinguishable from real fleet recordings.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Generate millions of edge-case scenarios for Eyes-Off validation — signal outages, construction zone configurations, and pedestrian behavior variants — before a single physical test mile is driven.
-        </div>
-      </div>
-
-      <!-- 3. AlpaGym -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(245,158,11,0.12)">🏋️</div>
-          <span class="lib-badge badge-framework">Training Framework</span>
-        </div>
-        <div class="lib-name">AlpaGym</div>
-        <div class="lib-tagline">Reinforcement learning from driving consequences</div>
-        <div class="lib-desc">A closed-loop reinforcement learning framework that trains AV models by simulating the real-world consequences of every driving decision before road deployment. AlpaGym connects Alpamayo 2 Super's reasoning outputs to simulated physical outcomes — allowing the model to learn from mistakes in simulation rather than on public roads.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Train the Eyes-Off system to handle highway merge failures, emergency braking cascades, and sensor degradation scenarios without exposing test drivers, vehicles, or the public to risk.
-        </div>
-      </div>
-
-      <!-- 4. Neural Reconstruction / NuRec -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(16,185,129,0.12)">🔁</div>
-          <span class="lib-badge badge-pipeline">Data Pipeline</span>
-        </div>
-        <div class="lib-name">Omniverse NuRec</div>
-        <div class="lib-tagline">Turn real fleet data into 3D training environments</div>
-        <div class="lib-desc">Reconstructs real-world driving data captured by fleet sensors into photorealistic, simulation-ready 3D environments. NuRec enables teams to replay, modify, and stress-test real scenarios in simulation — changing weather, sensor configurations, or traffic density — without needing to re-drive the route.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Convert existing Super Cruise fleet miles into structured simulation environments for Alpamayo 2 Super training and AlpaGym RL cycles, maximizing the value of already-collected real-world data.
-        </div>
-      </div>
-
-      <!-- 5. AlpaSim -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(99,102,241,0.12)">🔮</div>
-          <span class="lib-badge badge-sim">Simulator</span>
-        </div>
-        <div class="lib-name">AlpaSim</div>
-        <div class="lib-tagline">Open source AV simulation framework</div>
-        <div class="lib-desc">An open-source simulation environment for validating autonomous driving systems at scale, recreating real-world driving conditions from sensor physics to traffic agent behavior. AlpaSim provides the closed-loop test harness that connects OmniDreams scenario generation to Alpamayo 2 Super policy evaluation across thousands of concurrent scenarios.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Validate Eyes-Off behavior across thousands of simulated highway scenarios — including edge cases generated by OmniDreams — before any physical testing begins.
-        </div>
-      </div>
-
-      <!-- 6. DRIVE AGX -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(201,168,76,0.12)">⚡</div>
-          <span class="lib-badge badge-hw">Hardware</span>
-        </div>
-        <div class="lib-name">DRIVE AGX Thor</div>
-        <div class="lib-tagline">Centralized AI compute for software-defined vehicles</div>
-        <div class="lib-desc">NVIDIA's next-generation vehicle compute platform consolidates sensor fusion, AI inference, and control logic into a single functional-safety-certified unit. Built to ISO 26262 ASIL-D, DRIVE AGX Thor provides the secure, redundant compute foundation required for deploying 32B-parameter models in production vehicles with OTA update capability.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Serves as the vehicle-side compute backbone for Cadillac Escalade IQ and next-generation platforms, enabling post-production updates to the Alpamayo 2 Super reasoning stack.
-        </div>
-      </div>
-
-      <!-- 7. DRIVE Orin -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(201,168,76,0.12)">🔷</div>
-          <span class="lib-badge badge-hw">Hardware</span>
-        </div>
-        <div class="lib-name">DRIVE Orin</div>
-        <div class="lib-tagline">254 TOPS AI compute SoC for safety-critical autonomy</div>
-        <div class="lib-desc">A system-on-chip delivering 254 TOPS specifically for automotive AI workloads. Orin runs perception, planning, and driving policy networks simultaneously with hardware-level redundancy, enabling the real-time inference latency required for Level 3 operations in current and near-term vehicle platforms.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Powers concurrent execution of Alpamayo 2 Super inference alongside Super Cruise perception algorithms on vehicles that transition from Orin to AGX Thor across model years.
-        </div>
-      </div>
-
-      <!-- 8. TensorRT -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(29,158,117,0.12)">⚙️</div>
-          <span class="lib-badge badge-model">Inference</span>
-        </div>
-        <div class="lib-name">TensorRT</div>
-        <div class="lib-tagline">Deep learning inference optimizer for production deployment</div>
-        <div class="lib-desc">NVIDIA's inference optimization library compresses and optimizes trained models for real-time deployment on Orin and AGX hardware via quantization, layer fusion, and kernel auto-tuning. TensorRT makes 32B-parameter reasoning models practical within embedded vehicle compute budgets.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Compresses Alpamayo 2 Super inference to under 80ms on DRIVE AGX Thor — making full-stack chain-of-thought reasoning compatible with real-time vehicle control loops.
-        </div>
-      </div>
-
-      <!-- 9. Cosmos -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(139,92,246,0.12)">🌌</div>
-          <span class="lib-badge badge-sim">World Model</span>
-        </div>
-        <div class="lib-name">Cosmos</div>
-        <div class="lib-tagline">Physical world foundation model for simulation and training</div>
-        <div class="lib-desc">NVIDIA's world foundation model encodes the physical laws governing object behavior, material properties, and environmental dynamics. Cosmos generates training data that is physically plausible — scenarios include accurate physics, occlusion, and sensor noise rather than idealized geometric configurations.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Underpins OmniDreams and AlpaSim scenario generation with physically accurate environments, ensuring Alpamayo 2 Super trains on data consistent with real-world sensor behavior.
-        </div>
-      </div>
-
-      <!-- 10. Physical AI AV Dataset -->
-      <div class="lib-card">
-        <div class="lib-card-top">
-          <div class="lib-icon" style="background:rgba(236,72,153,0.12)">📀</div>
-          <span class="lib-badge badge-data">Dataset</span>
-        </div>
-        <div class="lib-name">Physical AI AV Dataset</div>
-        <div class="lib-tagline">1,727 hours of annotated real-world driving for reasoning AI</div>
-        <div class="lib-desc">Curated real-world AV sensor data designed to train physical reasoning. Every scenario includes decision rationale, counterfactual alternatives, and chain-of-thought labels that teach models to reason across perception, planning, and action — not just pattern-match on sensor inputs.</div>
-        <div class="lib-usecase">
-          <div class="lib-usecase-label">GM Use Case</div>
-          Forms the real-world training foundation for Alpamayo 2 Super, with particular coverage of edge cases corresponding to documented Super Cruise disengagement events.
-        </div>
-      </div>
-
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon">🧠</div><span class="lib-badge badge-open">Open Model</span></div><div class="lib-name">Alpamayo 2 Super</div><div class="lib-tagline">32B open reasoning VLA for full-stack Level 4 autonomy</div><div class="lib-desc">A 32B-parameter open multimodal Vision–Language–Action reasoning model that jointly reasons across perception, planning, and action for autonomous driving. Announced at GTC Taipei in June 2026, Alpamayo 2 Super generates explicit chain-of-thought decision traces at each step.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Provides the cognitive backbone for Eyes-Off highway autonomy on Super Cruise platforms — reasoning through uncontrolled intersections, dynamic merge conflicts, and edge cases outside the rule-based system's training distribution.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🌐</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">OmniDreams</div><div class="lib-tagline">Photorealistic world generation for AV simulation</div><div class="lib-desc">A generative world model that creates photorealistic, closed-loop driving scenarios at scale, enabling developers to simulate rare and long-tail events without real-world exposure. OmniDreams reconstructs environments with physically accurate lighting, weather, and sensor responses.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Generate millions of edge-case scenarios for Eyes-Off validation — signal outages, construction zone configurations, and pedestrian behavior variants — before a single physical test mile is driven.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(245,158,11,0.12)">🏋️</div><span class="lib-badge badge-framework">Training Framework</span></div><div class="lib-name">AlpaGym</div><div class="lib-tagline">Reinforcement learning from driving consequences</div><div class="lib-desc">A closed-loop reinforcement learning framework that trains AV models by simulating the real-world consequences of every driving decision before road deployment. AlpaGym connects Alpamayo 2 Super's reasoning outputs to simulated physical outcomes.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Train the Eyes-Off system to handle highway merge failures, emergency braking cascades, and sensor degradation scenarios without exposing test drivers or the public to risk.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(16,185,129,0.12)">🔁</div><span class="lib-badge badge-pipeline">Data Pipeline</span></div><div class="lib-name">Omniverse NuRec</div><div class="lib-tagline">Turn real fleet data into 3D training environments</div><div class="lib-desc">Reconstructs real-world driving data captured by fleet sensors into photorealistic, simulation-ready 3D environments. NuRec enables teams to replay, modify, and stress-test real scenarios in simulation without re-driving the route.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Convert existing Super Cruise fleet miles into structured simulation environments for Alpamayo 2 Super training and AlpaGym RL cycles.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(99,102,241,0.12)">🔮</div><span class="lib-badge badge-sim">Simulator</span></div><div class="lib-name">AlpaSim</div><div class="lib-tagline">Open source AV simulation framework</div><div class="lib-desc">An open-source simulation environment for validating autonomous driving systems at scale, recreating real-world driving conditions from sensor physics to traffic agent behavior. AlpaSim provides the closed-loop test harness connecting OmniDreams scenario generation to Alpamayo 2 Super policy evaluation.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Validate Eyes-Off behavior across thousands of simulated highway scenarios before any physical testing begins.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">⚡</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE AGX Thor</div><div class="lib-tagline">Centralized AI compute for software-defined vehicles</div><div class="lib-desc">NVIDIA's next-generation vehicle compute platform consolidates sensor fusion, AI inference, and control logic into a single functional-safety-certified unit built to ISO 26262 ASIL-D, providing the compute foundation for 32B-parameter models in production vehicles.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Serves as the vehicle-side compute backbone for Cadillac Escalade IQ and next-generation platforms, enabling OTA updates to the Alpamayo 2 Super reasoning stack.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(201,168,76,0.12)">🔷</div><span class="lib-badge badge-hw">Hardware</span></div><div class="lib-name">DRIVE Orin</div><div class="lib-tagline">254 TOPS AI compute SoC for safety-critical autonomy</div><div class="lib-desc">A system-on-chip delivering 254 TOPS specifically for automotive AI workloads, running perception, planning, and driving policy networks simultaneously with hardware-level redundancy for real-time Level 3 inference latency.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Powers concurrent execution of Alpamayo 2 Super inference alongside Super Cruise perception algorithms on vehicles transitioning from Orin to AGX Thor.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(29,158,117,0.12)">⚙️</div><span class="lib-badge badge-model">Inference</span></div><div class="lib-name">TensorRT</div><div class="lib-tagline">Deep learning inference optimizer for production deployment</div><div class="lib-desc">NVIDIA's inference optimization library compresses and optimizes trained models for real-time deployment on Orin and AGX hardware via quantization, layer fusion, and kernel auto-tuning, making 32B-parameter models practical within embedded vehicle compute budgets.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Compresses Alpamayo 2 Super inference to under 80ms on DRIVE AGX Thor — making full-stack chain-of-thought reasoning compatible with real-time vehicle control loops.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(139,92,246,0.12)">🌌</div><span class="lib-badge badge-sim">World Model</span></div><div class="lib-name">Cosmos</div><div class="lib-tagline">Physical world foundation model for simulation and training</div><div class="lib-desc">NVIDIA's world foundation model encodes the physical laws governing object behavior, material properties, and environmental dynamics. Cosmos generates training data that is physically plausible — scenarios include accurate physics, occlusion, and sensor noise.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Underpins OmniDreams and AlpaSim scenario generation with physically accurate environments, ensuring Alpamayo 2 Super trains on data consistent with real-world sensor behavior.</div></div>
+      <div class="lib-card"><div class="lib-card-top"><div class="lib-icon" style="background:rgba(236,72,153,0.12)">📀</div><span class="lib-badge badge-data">Dataset</span></div><div class="lib-name">Physical AI AV Dataset</div><div class="lib-tagline">1,727 hours of annotated real-world driving for reasoning AI</div><div class="lib-desc">Curated real-world AV sensor data designed to train physical reasoning. Every scenario includes decision rationale, counterfactual alternatives, and chain-of-thought labels that teach models to reason across perception, planning, and action.</div><div class="lib-usecase"><div class="lib-usecase-label">GM Use Case</div>Forms the real-world training foundation for Alpamayo 2 Super, with particular coverage of edge cases corresponding to documented Super Cruise disengagement events.</div></div>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     TAB 5 — THE PITCH
-════════════════════════════════════ -->
+<!-- ══════════════════════════════════════
+     TAB 5 — PITCH
+══════════════════════════════════════ -->
 <div id="tab-pitch" class="tab-content">
   <div id="pitch-container">
-
     <div class="pitch-hero">
       <div class="section-title" style="margin-bottom:12px;text-align:center">Strategic Rationale</div>
       <div class="pitch-hero-title">The Case for GM × NVIDIA</div>
       <div class="pitch-hero-sub">GM has the platform, the customer base, and the regulatory standing to deploy Level 3 autonomy at scale. The missing component is a reasoning layer that handles the scenarios perception alone cannot.</div>
     </div>
-
     <div class="gtc-callout">
       <div class="gtc-callout-label">GTC Taipei — June 2026</div>
       <div class="gtc-callout-text">NVIDIA announced <strong>Alpamayo 2 Super</strong> at GTC Taipei in June 2026 — a 32B-parameter open reasoning VLA model targeting Level 4 autonomous deployment. This release marks a significant step in the maturation of NVIDIA's automotive AI toolchain: moving from the 10B Alpamayo 1 architecture to a 32B open reasoning model in a single product cycle. GM's centralized compute transition — consolidating distributed ECU architectures toward DRIVE AGX Thor — aligns directly with the infrastructure requirements of this toolchain, positioning GM to adopt Alpamayo 2 Super as a production-grade component as the platform matures.</div>
     </div>
-
     <div class="pitch-sections">
-      <div class="pitch-section">
-        <div class="pitch-icon gold">🏎️</div>
-        <div>
-          <div class="pitch-section-title">Why GM</div>
-          <div class="pitch-section-body">General Motors has built the most commercially deployed ADAS system in North America with Super Cruise — over 400,000 activated customers and 75 million cumulative miles of hands-free driving. That scale represents a structural advantage: a large, instrumented fleet generating real-world disengagement data, a trained customer base, and existing regulatory relationships. The gap is not distribution or brand — it is the reasoning capability required to move from Level 2 supervised assistance to Level 3 Eyes-Off autonomy. Alpamayo 2 Super is designed to close that specific gap.</div>
-        </div>
-      </div>
-
-      <div class="pitch-section">
-        <div class="pitch-icon green">⚡</div>
-        <div>
-          <div class="pitch-section-title">Why Now</div>
-          <div class="pitch-section-body">The NHTSA's AV regulatory framework is entering a critical formation period. States with the largest Level 3 addressable markets — California, Texas, Nevada — are finalizing their frameworks. The OEM with certified Level 3 technology when these frameworks lock in will gain a structural first-mover position. Simultaneously, the compute economics of DRIVE AGX Thor and the availability of Alpamayo 2 Super as an open model have crossed the threshold where production-grade reasoning AI is deployable at automotive price points and at the scale required for a major OEM program. The gap between feasibility and deployment is narrowing rapidly.</div>
-        </div>
-      </div>
-
-      <div class="pitch-section">
-        <div class="pitch-icon purple">🟣</div>
-        <div>
-          <div class="pitch-section-title">Why NVIDIA</div>
-          <div class="pitch-section-body">Every serious AV program runs on NVIDIA infrastructure — not by coincidence, but because no other company offers a vertically integrated stack from silicon to simulation to foundation models. With Alpamayo 2 Super, OmniDreams, AlpaGym, Omniverse NuRec, and AlpaSim, NVIDIA has closed the development loop: generate photorealistic training scenarios, train reasoning across perception and action, validate in simulation at scale, deploy on certified hardware, and improve over the air. This integration is not available from any other vendor at this level of maturity. For GM, adopting the NVIDIA stack does not require building simulation infrastructure, training frameworks, or world models from scratch — it means integrating a system that already exists.</div>
-        </div>
-      </div>
-
-      <div class="pitch-section">
-        <div class="pitch-icon blue">🔵</div>
-        <div>
-          <div class="pitch-section-title">The Capability Gap</div>
-          <div class="pitch-section-body">Super Cruise's disengagement events cluster in three categories: uncontrolled intersections (no signal authority), construction zones (temporary traffic control, absent lane markings), and novel merge conflicts at highway speed. These are not perception failures — the sensors see the scenarios correctly. They are reasoning failures: the system has no mechanism to interpret a construction worker's hand signal, weigh cross-traffic gap probability, or plan a lane change with sub-second time-to-collision margins. Alpamayo 2 Super handles each of these by reasoning jointly across what it sees, what it plans, and what action it takes — producing an explicit decision trace at every step.</div>
-        </div>
-      </div>
+      <div class="pitch-section"><div class="pitch-icon gold">🏎️</div><div><div class="pitch-section-title">Why GM</div><div class="pitch-section-body">General Motors has built the most commercially deployed ADAS system in North America with Super Cruise — over 400,000 activated customers and 75 million cumulative miles of hands-free driving. That scale represents a structural advantage: a large, instrumented fleet generating real-world disengagement data, a trained customer base, and existing regulatory relationships. The gap is not distribution or brand — it is the reasoning capability required to move from Level 2 supervised assistance to Level 3 Eyes-Off autonomy.</div></div></div>
+      <div class="pitch-section"><div class="pitch-icon green">⚡</div><div><div class="pitch-section-title">Why Now</div><div class="pitch-section-body">The NHTSA's AV regulatory framework is entering a critical formation period. States with the largest Level 3 addressable markets — California, Texas, Nevada — are finalizing their frameworks. The OEM with certified Level 3 technology when these frameworks lock in will gain a structural first-mover position. Simultaneously, the compute economics of DRIVE AGX Thor and the availability of Alpamayo 2 Super as an open model have crossed the threshold where production-grade reasoning AI is deployable at automotive price points.</div></div></div>
+      <div class="pitch-section"><div class="pitch-icon purple">🟣</div><div><div class="pitch-section-title">Why NVIDIA</div><div class="pitch-section-body">Every serious AV program runs on NVIDIA infrastructure — not by coincidence, but because no other company offers a vertically integrated stack from silicon to simulation to foundation models. With Alpamayo 2 Super, OmniDreams, AlpaGym, Omniverse NuRec, and AlpaSim, NVIDIA has closed the development loop. For GM, adopting the NVIDIA stack does not require building simulation infrastructure, training frameworks, or world models from scratch — it means integrating a system that already exists.</div></div></div>
+      <div class="pitch-section"><div class="pitch-icon blue">🔵</div><div><div class="pitch-section-title">The Capability Gap</div><div class="pitch-section-body">Super Cruise's disengagement events cluster in three categories: uncontrolled intersections, construction zones, and novel merge conflicts at highway speed. These are not perception failures — the sensors see the scenarios correctly. They are reasoning failures: the system has no mechanism to interpret a construction worker's hand signal, weigh cross-traffic gap probability, or plan a lane change with sub-second time-to-collision margins. Alpamayo 2 Super handles each of these by reasoning jointly across what it sees, what it plans, and what action it takes.</div></div></div>
     </div>
-
     <div class="timeline-wrapper">
       <div class="timeline-title">GM × Alpamayo Integration Timeline</div>
       <div class="timeline">
-        <div class="timeline-event">
-          <div class="timeline-dot active"></div>
-          <div class="timeline-date">2024 — Active</div>
-          <div class="timeline-event-title">Super Cruise at Scale — Ceiling Measurable</div>
-          <div class="timeline-event-desc">Super Cruise exceeds 400K customers. Disengagement logs reveal consistent failure clusters: uncontrolled intersections, construction zone configurations, high-speed merge conflicts. The perception-only ceiling is quantifiable from production data.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot green"></div>
-          <div class="timeline-date" style="color:var(--green)">2025</div>
-          <div class="timeline-event-title">Alpamayo 1 Released — Integration Baseline Established</div>
-          <div class="timeline-event-desc">NVIDIA ships Alpamayo 1 (10B parameters) with the Physical AI AV Dataset. GM R&D establishes a closed-course integration baseline on Escalade IQ platforms. AlpaSim pipeline initialized for scenario validation.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot green"></div>
-          <div class="timeline-date" style="color:var(--green)">June 2026 — Milestone</div>
-          <div class="timeline-event-title">Alpamayo 2 Super Announced at GTC Taipei</div>
-          <div class="timeline-event-desc">NVIDIA releases Alpamayo 2 Super (32B open VLA) with OmniDreams, AlpaGym, and Omniverse NuRec. GM integration effort transitions to the Alpamayo 2 Super architecture. OmniDreams scenario generation begins for Eyes-Off validation coverage.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot green"></div>
-          <div class="timeline-date" style="color:var(--green)">2026–2027</div>
-          <div class="timeline-event-title">Shadow Mode Deployment &amp; Regulatory Submissions</div>
-          <div class="timeline-event-desc">Alpamayo 2 Super runs in shadow mode across the Super Cruise fleet, logging reasoning decisions that would have overridden the perception-only system. Data feeds regulatory submissions for Level 3 certification. AlpaSim coverage scales to millions of synthetic scenarios via OmniDreams.</div>
-        </div>
-        <div class="timeline-event">
-          <div class="timeline-dot gold"></div>
-          <div class="timeline-date gold">Near-Term Target</div>
-          <div class="timeline-event-title">Eyes-Off Highway Autonomy — Geo-Fenced Deployment</div>
-          <div class="timeline-event-desc">Level 3 deployment on Cadillac platform, geo-fenced to certified highway corridors. Eyes-Off operation within the operational design domain. Alpamayo 2 Super active as the production reasoning layer.</div>
-        </div>
+        <div class="timeline-event"><div class="timeline-dot active"></div><div class="timeline-date">2024 — Active</div><div class="timeline-event-title">Super Cruise at Scale — Ceiling Measurable</div><div class="timeline-event-desc">Super Cruise exceeds 400K customers. Disengagement logs reveal consistent failure clusters: uncontrolled intersections, construction zone configurations, high-speed merge conflicts.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2025</div><div class="timeline-event-title">Alpamayo 1 Released — Integration Baseline Established</div><div class="timeline-event-desc">NVIDIA ships Alpamayo 1 (10B parameters) with the Physical AI AV Dataset. GM R&D establishes a closed-course integration baseline on Escalade IQ platforms.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">June 2026 — Milestone</div><div class="timeline-event-title">Alpamayo 2 Super Announced at GTC Taipei</div><div class="timeline-event-desc">NVIDIA releases Alpamayo 2 Super (32B open VLA) with OmniDreams, AlpaGym, and Omniverse NuRec. GM integration transitions to the Alpamayo 2 Super architecture.</div></div>
+        <div class="timeline-event"><div class="timeline-dot green"></div><div class="timeline-date" style="color:var(--green)">2026–2027</div><div class="timeline-event-title">Shadow Mode Deployment &amp; Regulatory Submissions</div><div class="timeline-event-desc">Alpamayo 2 Super runs in shadow mode across the Super Cruise fleet, logging reasoning decisions that would have overridden the perception-only system.</div></div>
+        <div class="timeline-event"><div class="timeline-dot gold"></div><div class="timeline-date gold">Near-Term Target</div><div class="timeline-event-title">Eyes-Off Highway Autonomy — Geo-Fenced Deployment</div><div class="timeline-event-desc">Level 3 deployment on Cadillac platform, geo-fenced to certified highway corridors. Alpamayo 2 Super active as the production reasoning layer.</div></div>
       </div>
     </div>
-
     <div style="text-align:center;margin-top:48px">
       <button class="btn-sm" onclick="switchTab('simulation')" style="margin:0 auto">Run the Simulation →</button>
     </div>
-
   </div>
 </div>
 
@@ -662,23 +433,22 @@
   <span>GM × NVIDIA — Alpamayo 2 Super Reasoning Platform</span> &nbsp;·&nbsp; By <span>Dean Guardanapo</span> &nbsp;·&nbsp; AI Strategy &amp; Automotive Intelligence
 </footer>
 
-<!-- ════════════════════════════════════
+<!-- ══════════════════════════════════════
      JAVASCRIPT
-════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <script>
-// ── NAV ──────────────────────────────
-const tabs = document.querySelectorAll('.nav-tab');
+// ── NAV ─────────────────────────────────
+const tabs     = document.querySelectorAll('.nav-tab');
 const contents = document.querySelectorAll('.tab-content');
 const indicator = document.getElementById('navIndicator');
 let barsAnimated = false;
 
 function updateIndicator(t) {
-  const r = t.getBoundingClientRect();
+  const r  = t.getBoundingClientRect();
   const nr = document.getElementById('navTabs').getBoundingClientRect();
-  indicator.style.left = (r.left - nr.left) + 'px';
+  indicator.style.left  = (r.left - nr.left) + 'px';
   indicator.style.width = r.width + 'px';
 }
-
 function switchTab(name) {
   const t = document.querySelector(`[data-tab="${name}"]`);
   if (!t) return;
@@ -688,712 +458,680 @@ function switchTab(name) {
   document.getElementById(`tab-${name}`).classList.add('active');
   updateIndicator(t);
   if (name === 'stack') animateBars();
-  if (name === 'simulation') startSimulation();
+  if (name === 'simulation') initSim();
 }
-
 tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
 window.addEventListener('load', () => {
   const a = document.querySelector('.nav-tab.active');
   if (a) updateIndicator(a);
-  document.getElementById('scenarioDesc').textContent = SCENARIOS[0].desc;
+  document.getElementById('simDesc').textContent = SCENARIOS[0].desc;
 });
 window.addEventListener('resize', () => {
-  const a = document.querySelector('.nav-tab.active'); if (a) updateIndicator(a);
-  resizeCanvases();
+  const a = document.querySelector('.nav-tab.active');
+  if (a) updateIndicator(a);
+  fitCanvases();
 });
 
-// ── STACK BARS ───────────────────────
 function animateBars() {
   if (barsAnimated) return; barsAnimated = true;
-  setTimeout(() => {
-    document.querySelectorAll('.cap-fill').forEach(f => { f.style.width = f.dataset.width + '%'; });
-  }, 150);
+  setTimeout(() => document.querySelectorAll('.cap-fill').forEach(f => { f.style.width = f.dataset.width + '%'; }), 150);
 }
 
-// ═══════════════════════════════════════════════════════
-// COCKPIT SIMULATION ENGINE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════
+// ROAD SIMULATION ENGINE
+// ═══════════════════════════════════════════════════════════════════
 
-// Projection constants — road visible up to DASH_Y fraction
-const HY    = 0.345; // horizon Y fraction of H
-const DASH_Y = 0.68; // dashboard top as fraction of H
-const RFL   = 0.415;
-const RFR   = 0.585;
-const RNL   = 0.03;
-const RNR   = 0.97;
+// Viewport fractions (fraction of canvas height)
+const HOR_Y  = 0.375;  // horizon
+const HOOD_Y = 0.755;  // hood starts here
 
-// worldZ: 0=camera/near, 1=horizon/far   laneX: 0=left edge, 1=right edge
-function proj(wz, lx, w, h, vpx) {
-  const hy  = h * HY;
-  const dsy = h * DASH_Y; // project onto road area only
-  const t   = 1 - wz;
-  const sy  = hy + (dsy - hy) * t;
+// Project worldZ [0=near, 1=far] + laneX [0=left edge, 1=right edge]
+// vpx: vanishing-point X (default w/2, shifts on lane change)
+function P(wz, lx, w, h, vpx) {
+  vpx = (vpx === undefined) ? w / 2 : vpx;
+  const hY  = h * HOR_Y;
+  const bY  = h * HOOD_Y;
+  const t   = wz;                    // 0 = near, 1 = far
+  const y   = bY - (bY - hY) * t;
+  const hwN = w * 0.455;             // half-road-width near
+  const hwF = w * 0.058;             // half-road-width far
+  const hw  = hwN - (hwN - hwF) * t;
   const cx  = vpx + (w / 2 - vpx) * t;
-  const hfw = ((RFR - RFL) / 2) * w;
-  const hnw = ((RNR - RNL) / 2) * w;
-  const hw  = hfw + (hnw - hfw) * t;
   const rl  = cx - hw, rr = cx + hw;
-  return { x: rl + (rr - rl) * lx, y: sy, sc: t, rl, rr };
+  return { x: rl + (rr - rl) * lx, y, sc: 1 - t, cx, rl, rr };
 }
 
-// ── ROAD ─────────────────────────────
-function drawRoad(ctx, w, h, dist, vpx, isAlp, night) {
-  const hy   = h * HY;
-  const dashY = h * DASH_Y;
+// ── DRAW ROAD SCENE (sky + asphalt + markings) ────────────────────
+function drawScene(ctx, w, h, dist, vpx, isAlp) {
+  const hY = h * HOR_Y, bY = h * HOOD_Y;
 
-  // Sky — fill full canvas first
-  const s1 = night ? '#03030a' : (isAlp ? '#04100c' : '#040408');
-  const s2 = night ? '#07070f' : (isAlp ? '#081710' : '#0b0b0f');
-  const sg = ctx.createLinearGradient(0, 0, 0, hy);
-  sg.addColorStop(0, s1); sg.addColorStop(1, s2);
-  ctx.fillStyle = sg; ctx.fillRect(0, 0, w, hy);
+  // Sky gradient
+  const sg = ctx.createLinearGradient(0, 0, 0, hY);
+  sg.addColorStop(0, isAlp ? '#020408' : '#03030a');
+  sg.addColorStop(0.65, isAlp ? '#04090f' : '#060608');
+  sg.addColorStop(1,    isAlp ? '#06121a' : '#08080d');
+  ctx.fillStyle = sg; ctx.fillRect(0, 0, w, hY);
 
-  // Below horizon to dash: render as road area background
-  ctx.fillStyle = isAlp ? '#06100a' : '#0a0a10';
-  ctx.fillRect(0, hy, w, dashY - hy);
+  // Horizon glow
+  const hg = ctx.createLinearGradient(0, hY - 14, 0, hY + 5);
+  hg.addColorStop(0, 'transparent');
+  hg.addColorStop(0.5, isAlp ? 'rgba(29,140,90,0.10)' : 'rgba(80,80,100,0.05)');
+  hg.addColorStop(1, 'transparent');
+  ctx.fillStyle = hg; ctx.fillRect(0, hY - 14, w, 19);
 
+  // Stars (tiny dots in sky — only Alp side for subtle cinematic feel)
   if (isAlp) {
-    const hg = ctx.createLinearGradient(0, hy - 6, 0, hy + 6);
-    hg.addColorStop(0, 'transparent');
-    hg.addColorStop(0.5, 'rgba(29,158,117,0.1)');
-    hg.addColorStop(1, 'transparent');
-    ctx.fillStyle = hg; ctx.fillRect(0, hy - 6, w, 12);
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    // deterministic star positions via simple hash
+    for (let i = 0; i < 28; i++) {
+      const sx = ((i * 137.508 + 23) % 1) * w;
+      const sy = ((i * 97.33 + 7) % 1) * hY * 0.82;
+      const r  = 0.5 + ((i * 53.1) % 1) * 0.8;
+      ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI * 2); ctx.fill();
+    }
   }
 
   // Road trapezoid
-  const nL = proj(0, 0, w, h, vpx), nR = proj(0, 1, w, h, vpx);
-  const fL = proj(1, 0, w, h, vpx), fR = proj(1, 1, w, h, vpx);
-  ctx.beginPath();
-  ctx.moveTo(fL.x, fL.y); ctx.lineTo(fR.x, fR.y);
-  ctx.lineTo(nR.x, nR.y); ctx.lineTo(nL.x, nL.y);
-  ctx.closePath();
-  const rg = ctx.createLinearGradient(0, hy, 0, dashY);
-  if (night) { rg.addColorStop(0, '#151515'); rg.addColorStop(1, '#0d0d0d'); }
-  else if (isAlp) { rg.addColorStop(0, '#0e1e18'); rg.addColorStop(1, '#081410'); }
-  else { rg.addColorStop(0, '#1a1a1a'); rg.addColorStop(1, '#0e0e0e'); }
-  ctx.fillStyle = rg; ctx.fill();
+  const fL = P(1, 0, w, h, vpx), fR = P(1, 1, w, h, vpx);
+  const nL = P(0, 0, w, h, vpx), nR = P(0, 1, w, h, vpx);
 
-  // Off-road shoulders
-  ctx.fillStyle = isAlp ? '#060e0a' : '#090909';
-  ctx.beginPath();
-  ctx.moveTo(fL.x, fL.y); ctx.lineTo(0, fL.y);
-  ctx.lineTo(0, nL.y); ctx.lineTo(nL.x, nL.y); ctx.closePath(); ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(fR.x, fR.y); ctx.lineTo(w, fR.y);
-  ctx.lineTo(w, nR.y); ctx.lineTo(nR.x, nR.y); ctx.closePath(); ctx.fill();
+  // Shoulders
+  ctx.fillStyle = isAlp ? '#0b0c0b' : '#0d0d0d';
+  ctx.beginPath(); ctx.moveTo(0, hY); ctx.lineTo(fL.x, hY); ctx.lineTo(nL.x, bY); ctx.lineTo(0, bY); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(w, hY); ctx.lineTo(fR.x, hY); ctx.lineTo(nR.x, bY); ctx.lineTo(w, bY); ctx.closePath(); ctx.fill();
 
-  // Road edges
+  // Asphalt
+  const rg = ctx.createLinearGradient(0, hY, 0, bY);
+  rg.addColorStop(0, '#161616');
+  rg.addColorStop(0.55, isAlp ? '#191e19' : '#1c1c1c');
+  rg.addColorStop(1,    isAlp ? '#1b201c' : '#1e1e1e');
+  ctx.fillStyle = rg;
+  ctx.beginPath(); ctx.moveTo(fL.x, hY); ctx.lineTo(fR.x, hY); ctx.lineTo(nR.x, bY); ctx.lineTo(nL.x, bY); ctx.closePath(); ctx.fill();
+
+  // Subtle asphalt grain (horizontal bands)
+  for (let yi = 0; yi < 6; yi++) {
+    const yp = hY + (bY - hY) * (yi / 6);
+    ctx.fillStyle = `rgba(0,0,0,${0.04 + yi * 0.008})`;
+    ctx.fillRect(0, yp, w, (bY - hY) / 6);
+  }
+
+  // Road edges (solid white)
   ctx.setLineDash([]);
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.55)' : 'rgba(255,255,255,0.18)';
   ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(fL.x, fL.y); ctx.lineTo(nL.x, nL.y); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(fR.x, fR.y); ctx.lineTo(nR.x, nR.y); ctx.stroke();
+  ctx.strokeStyle = isAlp ? 'rgba(255,255,255,0.62)' : 'rgba(255,255,255,0.42)';
+  ctx.beginPath(); ctx.moveTo(fL.x, hY); ctx.lineTo(nL.x, bY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(fR.x, hY); ctx.lineTo(nR.x, bY); ctx.stroke();
 
-  // Scrolling dashed lane markers
-  const PERIOD = 28, SLEN = 12, VDIST = 200;
-  const base = Math.ceil(dist / PERIOD) * PERIOD;
-  for (let k = -1; k < VDIST / PERIOD + 2; k++) {
-    const p = base + k * PERIOD;
-    const d = p - dist;
-    if (d < 0 || d > VDIST + SLEN) continue;
-    const z1 = Math.max(0.03, d / VDIST);
-    const z2 = Math.min(0.99, (d + SLEN) / VDIST);
-    if (z1 >= z2) continue;
-    const mz = (z1 + z2) / 2;
-    ctx.lineWidth = Math.max(0.5, 2.6 * (1 - mz));
-    ctx.strokeStyle = isAlp
-      ? `rgba(29,158,117,${0.08 + 0.38 * (1 - mz)})`
-      : `rgba(255,255,255,${0.06 + 0.22 * (1 - mz)})`;
-    for (const lp of [1/3, 2/3]) {
-      const p1 = proj(z1, lp, w, h, vpx), p2 = proj(z2, lp, w, h, vpx);
-      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+  // Lane dividers (dashed)
+  const PER = 22, DLEN = 9, DEPTH = 180;
+  const base = Math.ceil(dist / PER) * PER;
+  for (const lx of [1/3, 2/3]) {
+    for (let k = -1; k <= DEPTH / PER + 2; k++) {
+      const wn = base + k * PER;
+      const wf = wn + DLEN;
+      const zn = (wn - dist) / DEPTH;
+      const zf = (wf - dist) / DEPTH;
+      if (zf < 0.002 || zn > 0.998) continue;
+      const nz = Math.max(0.003, Math.min(0.997, zn));
+      const fz = Math.max(0.003, Math.min(0.997, zf));
+      const p1 = P(fz, lx, w, h, vpx);
+      const p2 = P(nz, lx, w, h, vpx);
+      if (p1.y > bY || p2.y < hY) continue;
+      const mz = (nz + fz) / 2;
+      const alpha = isAlp ? 0.1 + (1 - mz) * 0.6 : 0.07 + (1 - mz) * 0.46;
+      ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+      ctx.lineWidth   = Math.max(0.6, (1 - mz) * 3.4);
+      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, Math.min(p2.y, bY)); ctx.stroke();
     }
   }
 
-  if (night) {
-    const cg = ctx.createRadialGradient(w/2, dashY, 10, w/2, hy + (dashY-hy)*0.3, (dashY-hy)*0.9);
-    cg.addColorStop(0, 'rgba(240,225,160,0.12)');
-    cg.addColorStop(0.5, 'rgba(240,225,160,0.03)');
-    cg.addColorStop(1, 'transparent');
-    ctx.fillStyle = cg; ctx.fillRect(0, hy, w, dashY - hy);
-  }
-
-  // Subtle road vignette
-  const vg = ctx.createRadialGradient(w/2, hy+(dashY-hy)*0.5, 0, w/2, hy+(dashY-hy)*0.5, w*0.65);
-  vg.addColorStop(0.4, 'transparent'); vg.addColorStop(1, 'rgba(0,0,0,0.42)');
-  ctx.fillStyle = vg; ctx.fillRect(0, hy, w, dashY - hy);
+  // Road vignette (darkens edges)
+  const vg = ctx.createRadialGradient(w/2, hY+(bY-hY)*0.52, 0, w/2, hY+(bY-hY)*0.52, w*0.62);
+  vg.addColorStop(0.38, 'transparent'); vg.addColorStop(1, 'rgba(0,0,0,0.5)');
+  ctx.fillStyle = vg; ctx.fillRect(0, hY, w, bY - hY);
 }
 
-// ── OBSTACLE SPRITES ─────────────────
-function drawVehicle(ctx, cx, cy, sz, color, lbl) {
-  const cw = sz * 36, ch = sz * 54;
+// ── CADILLAC ESCALADE HOOD ────────────────────────────────────────
+function drawHood(ctx, w, h, vpx, isAlp) {
+  const bY = h * HOOD_Y;
+
+  // Hood body gradient (charcoal with center lighter)
+  const hg = ctx.createLinearGradient(0, bY, 0, h);
+  hg.addColorStop(0,    isAlp ? '#1e2620' : '#1e1e1e');
+  hg.addColorStop(0.14, isAlp ? '#181e1a' : '#181818');
+  hg.addColorStop(0.55, isAlp ? '#131813' : '#141414');
+  hg.addColorStop(1,    '#080808');
+  ctx.fillStyle = hg; ctx.fillRect(0, bY, w, h - bY);
+
+  // Dark A-pillar fade on sides (mirrors angle of road edges)
+  const fadeW = w * 0.14;
+  const fl = ctx.createLinearGradient(0, 0, fadeW, 0);
+  fl.addColorStop(0, '#050505'); fl.addColorStop(1, 'transparent');
+  ctx.fillStyle = fl; ctx.fillRect(0, bY, fadeW, h - bY);
+  const fr = ctx.createLinearGradient(w, 0, w - fadeW, 0);
+  fr.addColorStop(0, '#050505'); fr.addColorStop(1, 'transparent');
+  ctx.fillStyle = fr; ctx.fillRect(w - fadeW, bY, fadeW, h - bY);
+
+  // Hood ridges (two symmetrical lines converging toward VP)
+  const ridges = [
+    [vpx - w * 0.022, w * 0.39],
+    [vpx + w * 0.022, w * 0.61],
+  ];
+  for (const [xt, xb] of ridges) {
+    const rg = ctx.createLinearGradient(0, bY, 0, bY + (h - bY) * 0.65);
+    rg.addColorStop(0, 'rgba(255,255,255,0)');
+    rg.addColorStop(0.07, 'rgba(255,255,255,0.07)');
+    rg.addColorStop(0.55, 'rgba(255,255,255,0.04)');
+    rg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.strokeStyle = rg; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(xt, bY); ctx.lineTo(xb, h); ctx.stroke();
+  }
+  // Center ridge
+  const cr = ctx.createLinearGradient(0, bY, 0, bY + (h - bY) * 0.5);
+  cr.addColorStop(0, 'rgba(255,255,255,0)');
+  cr.addColorStop(0.06, 'rgba(255,255,255,0.09)');
+  cr.addColorStop(0.45, 'rgba(255,255,255,0.05)');
+  cr.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.strokeStyle = cr; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(vpx, bY); ctx.lineTo(w / 2, h); ctx.stroke();
+
+  // Hood crease line at top
+  ctx.beginPath(); ctx.moveTo(w * 0.05, bY); ctx.lineTo(w * 0.95, bY);
+  if (isAlp) {
+    ctx.shadowColor = 'rgba(29,158,117,0.55)'; ctx.shadowBlur = 10;
+    ctx.strokeStyle = 'rgba(29,158,117,0.28)';
+  } else {
+    ctx.strokeStyle = 'rgba(220,220,220,0.16)';
+  }
+  ctx.lineWidth = 1.5; ctx.setLineDash([]); ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Side mirrors
+  const mirY = bY + (h - bY) * 0.09;
+  const mirH = (h - bY) * 0.26;
+  const mirW = w * 0.052;
+  ctx.fillStyle = isAlp ? '#0e1610' : '#111111';
+  ctx.beginPath(); ctx.roundRect(w * 0.09 - mirW, mirY, mirW, mirH, 2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(w * 0.91, mirY, mirW, mirH, 2); ctx.fill();
+  // Mirror glass sheen
+  ctx.fillStyle = 'rgba(80,100,140,0.15)';
+  ctx.beginPath(); ctx.roundRect(w * 0.09 - mirW + 2, mirY + 2, mirW - 4, mirH * 0.55, 1); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(w * 0.91 + 2, mirY + 2, mirW - 4, mirH * 0.55, 1); ctx.fill();
+}
+
+// ── OBSTACLE SPRITES ──────────────────────────────────────────────
+function drawCar(ctx, sx, sy, sz, color) {
+  if (sz < 0.04) return;
+  const vw = sz * 60, vh = sz * 88;
+  ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = sz * 16;
   // Body
   ctx.fillStyle = color;
-  ctx.beginPath(); ctx.roundRect(cx-cw/2, cy-ch*0.5, cw, ch, sz*5); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(sx - vw/2, sy - vh, vw, vh, sz * 5); ctx.fill();
+  ctx.shadowBlur = 0;
+  // Roof cab
+  ctx.fillStyle = color; ctx.globalAlpha = 0.88;
+  ctx.beginPath(); ctx.roundRect(sx - vw*0.3, sy - vh*1.22, vw*0.6, vh*0.27, sz*4); ctx.fill();
+  ctx.globalAlpha = 1;
   // Windshield
-  ctx.fillStyle = 'rgba(130,165,215,0.32)';
-  ctx.beginPath(); ctx.roundRect(cx-cw*0.34, cy-ch*0.44, cw*0.68, ch*0.22, sz*2); ctx.fill();
-  // Headlights
-  ctx.fillStyle = '#ffeebb'; ctx.shadowColor='rgba(255,245,160,0.9)'; ctx.shadowBlur=sz*8;
-  ctx.beginPath(); ctx.arc(cx-cw*0.3, cy-ch*0.48, sz*4, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(cx+cw*0.3, cy-ch*0.48, sz*4, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = 'rgba(110,150,210,0.3)';
+  ctx.beginPath(); ctx.roundRect(sx - vw*0.26, sy - vh*1.19, vw*0.52, vh*0.22, sz*2); ctx.fill();
+  // Tail lights
+  ctx.fillStyle = '#cc1111'; ctx.shadowColor='rgba(255,0,0,0.9)'; ctx.shadowBlur=sz*14;
+  ctx.beginPath(); ctx.roundRect(sx - vw*0.47, sy - vh*0.19, vw*0.2, vh*0.07, 2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(sx + vw*0.27, sy - vh*0.19, vw*0.2, vh*0.07, 2); ctx.fill();
   ctx.shadowBlur = 0;
-  // Roof
-  ctx.fillStyle = color; ctx.globalAlpha = 0.8;
-  ctx.beginPath(); ctx.roundRect(cx-cw*0.28, cy-ch*0.7, cw*0.56, ch*0.24, sz*3); ctx.fill();
-  ctx.globalAlpha = 1;
-  if (lbl && sz > 0.18) {
-    ctx.fillStyle='rgba(255,60,60,0.95)'; ctx.font=`bold ${sz*13}px sans-serif`;
-    ctx.textAlign='center'; ctx.fillText(lbl, cx, cy-ch*0.56);
-  }
 }
 
-function drawTrafficLight(ctx, cx, cy, sz) {
+function drawTrafficLight(ctx, sx, sy, sz, state) {
+  if (sz < 0.04) return;
   // Pole
-  ctx.strokeStyle='#2a2a2a'; ctx.lineWidth=sz*3.5;
-  ctx.beginPath(); ctx.moveTo(cx, cy+sz*28); ctx.lineTo(cx, cy-sz*8); ctx.stroke();
+  ctx.strokeStyle = '#2a2a2a'; ctx.lineWidth = Math.max(1.2, sz * 4);
+  ctx.beginPath(); ctx.moveTo(sx, sy + sz*26); ctx.lineTo(sx, sy - sz*6); ctx.stroke();
+  // Cross arm
+  ctx.lineWidth = Math.max(0.8, sz * 2);
+  ctx.beginPath(); ctx.moveTo(sx - sz*16, sy - sz*6); ctx.lineTo(sx + sz*2, sy - sz*6); ctx.stroke();
   // Housing
-  ctx.fillStyle='#141414';
-  ctx.beginPath(); ctx.roundRect(cx-sz*7, cy-sz*30, sz*14, sz*46, sz*2); ctx.fill();
-  // Dark lenses (no active lights = outage)
-  for (const oy of [-18, -4, 10]) {
-    ctx.beginPath(); ctx.arc(cx, cy+sz*oy, sz*4.8, 0, Math.PI*2);
-    ctx.fillStyle='#1c1c1c'; ctx.fill();
-  }
-  // Red X for outage
-  if (sz > 0.15) {
-    ctx.strokeStyle='rgba(255,55,55,0.9)'; ctx.lineWidth=sz*2.4;
-    ctx.beginPath(); ctx.moveTo(cx-sz*5,cy-sz*22); ctx.lineTo(cx+sz*5,cy-sz*10); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx+sz*5,cy-sz*22); ctx.lineTo(cx-sz*5,cy-sz*10); ctx.stroke();
-  }
-  if (sz > 0.25) {
-    ctx.fillStyle='rgba(255,60,60,0.8)'; ctx.font=`bold ${sz*7.5}px sans-serif`;
-    ctx.textAlign='center'; ctx.fillText('OUTAGE', cx, cy+sz*32);
-  }
-}
-
-// ── OBSTACLE DISPATCH ────────────────
-function drawObstacle(ctx, obs, w, h, vpx) {
-  if (obs.wz <= 0.04 || obs.wz >= 0.97) return;
-  const p = proj(obs.wz, obs.lx, w, h, vpx);
-  const dashY = h * DASH_Y;
-  if (p.y >= dashY) return; // occluded by dashboard
-  const sz = Math.max(0.06, p.sc);
-  ctx.globalAlpha = Math.min(1, 0.1 + sz * 1.4);
-  if (obs.type === 'car')   drawVehicle(ctx, p.x, p.y, sz, obs.color || '#883300', obs.label || '');
-  if (obs.type === 'light') drawTrafficLight(ctx, p.x, p.y, sz);
-  ctx.globalAlpha = 1;
-}
-
-// ── ALPAMAYO PERCEPTION OVERLAY ──────
-function drawPerceptionOverlay(ctx, obs, w, h, vpx) {
-  const dashY = h * DASH_Y;
-  obs.forEach(o => {
-    if (o.wz <= 0.06 || o.wz >= 0.95) return;
-    const p = proj(o.wz, o.lx, w, h, vpx);
-    if (p.y >= dashY - 4) return;
-    const sz = Math.max(0.07, p.sc);
-    const bw = sz * 58, bh = sz * 80;
-    const bx = p.x - bw/2, by = p.y - bh * 0.68;
-    const bx2 = bx + bw, by2 = by + bh;
-    const cl = Math.max(5, sz * 14);
-
-    // Dashed box
-    ctx.strokeStyle = 'rgba(29,158,117,0.7)';
-    ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]);
-    ctx.strokeRect(bx, by, bw, bh);
-    ctx.setLineDash([]);
-
-    // Solid corner accents
-    ctx.strokeStyle = '#1D9E75'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(bx, by+cl); ctx.lineTo(bx, by); ctx.lineTo(bx+cl, by); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(bx2-cl, by); ctx.lineTo(bx2, by); ctx.lineTo(bx2, by+cl); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(bx2, by2-cl); ctx.lineTo(bx2, by2); ctx.lineTo(bx2-cl, by2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(bx+cl, by2); ctx.lineTo(bx, by2); ctx.lineTo(bx, by2-cl); ctx.stroke();
-
-    // Label above
-    const dist = Math.round((1 - o.wz) * 130);
-    const tag = o.type === 'light' ? `SIG ${dist}m` : `VH-${('0'+(obs.indexOf(o)+1)).slice(-2)} ${dist}m`;
-    ctx.fillStyle = 'rgba(8,22,16,0.82)';
-    const tw = ctx.measureText(tag).width + 8;
-    ctx.fillRect(p.x - tw/2, by - 17, tw, 14);
-    ctx.fillStyle = '#4dd4a8';
-    ctx.font = `bold ${Math.max(8, sz*10)}px monospace`;
-    ctx.textAlign = 'center'; ctx.fillText(tag, p.x, by - 6);
-  });
-}
-
-// ── COCKPIT OVERLAY ──────────────────
-function drawCockpit(ctx, w, h, curLaneX, isAlp, braking, disengaged, speed) {
-  const dashY   = h * DASH_Y;
-  const pillarW = w * 0.095;
-
-  // Windshield subtle glare strip at top
-  const wg = ctx.createLinearGradient(0, 0, 0, h * 0.12);
-  wg.addColorStop(0, 'rgba(200,215,255,0.028)');
-  wg.addColorStop(1, 'transparent');
-  ctx.fillStyle = wg; ctx.fillRect(0, 0, w, h * 0.12);
-
-  // ── A-pillars ──
-  ctx.fillStyle = isAlp ? '#030a07' : '#07070e';
-  // Left pillar — tapers from narrow at top-left to wide at dashY
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(pillarW * 0.42, 0);
-  ctx.lineTo(pillarW * 1.55, dashY);
-  ctx.lineTo(0, dashY);
-  ctx.closePath(); ctx.fill();
-  // Right pillar
-  ctx.beginPath();
-  ctx.moveTo(w, 0);
-  ctx.lineTo(w - pillarW * 0.42, 0);
-  ctx.lineTo(w - pillarW * 1.55, dashY);
-  ctx.lineTo(w, dashY);
-  ctx.closePath(); ctx.fill();
-  // Inner-edge highlight
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.14)' : 'rgba(255,255,255,0.07)';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(pillarW*0.42, 0); ctx.lineTo(pillarW*1.55, dashY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w-pillarW*0.42, 0); ctx.lineTo(w-pillarW*1.55, dashY); ctx.stroke();
-
-  // ── Dashboard surface ──
-  const dg = ctx.createLinearGradient(0, dashY, 0, h);
-  dg.addColorStop(0,    isAlp ? '#0d1d14' : '#131320');
-  dg.addColorStop(0.38, isAlp ? '#09120e' : '#0d0d18');
-  dg.addColorStop(1,    '#040408');
-  ctx.fillStyle = dg;
-  ctx.beginPath();
-  ctx.moveTo(0, h); ctx.lineTo(w, h); ctx.lineTo(w, dashY);
-  ctx.quadraticCurveTo(w/2, dashY - h*0.027, 0, dashY);
-  ctx.closePath(); ctx.fill();
-
-  // Dash top-edge accent line
-  ctx.beginPath();
-  ctx.moveTo(0, dashY);
-  ctx.quadraticCurveTo(w/2, dashY - h*0.027, w, dashY);
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.52)' : 'rgba(255,255,255,0.11)';
-  ctx.lineWidth = 1.5; ctx.setLineDash([]); ctx.stroke();
-
-  // Subtle carbon-weave texture stripes on dash
-  ctx.globalAlpha = 0.04;
-  for (let xt = 0; xt < w; xt += 14) {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(xt, dashY, 7, h - dashY);
-  }
-  ctx.globalAlpha = 1;
-
-  // ── Hood ridge ──
-  const hoodMidY = dashY + (h - dashY) * 0.1;
-  const hoodW2 = w * 0.22;
-  ctx.beginPath();
-  ctx.moveTo(w/2 - hoodW2 * 0.55, h);
-  ctx.lineTo(w/2 + hoodW2 * 0.55, h);
-  ctx.lineTo(w/2 + hoodW2 * 0.22, hoodMidY);
-  ctx.lineTo(w/2 - hoodW2 * 0.22, hoodMidY);
-  ctx.closePath();
-  const hg2 = ctx.createLinearGradient(0, hoodMidY, 0, h);
-  hg2.addColorStop(0, isAlp ? '#0f1f16' : '#161628');
-  hg2.addColorStop(1, isAlp ? '#060e0a' : '#0a0a16');
-  ctx.fillStyle = hg2; ctx.fill();
-  // Hood center ridge line
-  ctx.beginPath(); ctx.moveTo(w/2, h*0.99); ctx.lineTo(w/2, hoodMidY);
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.12)' : 'rgba(255,255,255,0.06)';
-  ctx.lineWidth = 1; ctx.stroke();
-
-  // ── Speedometer cluster (left) ──
-  const clX = w * 0.2, clY = dashY + (h - dashY) * 0.44;
-  const clR = Math.min(w * 0.085, 42);
-  ctx.beginPath(); ctx.arc(clX, clY, clR, 0, Math.PI*2);
-  ctx.fillStyle = isAlp ? '#040d08' : '#080812'; ctx.fill();
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.28)' : 'rgba(255,255,255,0.1)';
-  ctx.lineWidth = 1; ctx.stroke();
-  // Tick marks
-  for (let i = 0; i <= 8; i++) {
-    const a = Math.PI * 0.75 + i * (Math.PI * 1.5 / 8);
-    const r1 = clR * 0.82, r2 = clR * (i % 2 === 0 ? 0.68 : 0.75);
-    ctx.beginPath();
-    ctx.moveTo(clX + Math.cos(a)*r1, clY + Math.sin(a)*r1);
-    ctx.lineTo(clX + Math.cos(a)*r2, clY + Math.sin(a)*r2);
-    ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.35)' : 'rgba(200,200,220,0.2)';
-    ctx.lineWidth = i % 2 === 0 ? 1.5 : 0.8; ctx.stroke();
-  }
-  // Speed arc
-  const mph = Math.round(speed * 70);
-  const arcA = Math.PI * 0.75 + (mph / 70) * Math.PI * 1.5;
-  ctx.beginPath();
-  ctx.arc(clX, clY, clR * 0.76, Math.PI * 0.75, arcA);
-  ctx.strokeStyle = braking ? '#ff3333' : (isAlp ? 'rgba(29,158,117,0.88)' : 'rgba(180,185,210,0.65)');
-  ctx.lineWidth = clR * 0.14; ctx.stroke();
-  // Speed needle
-  ctx.beginPath();
-  ctx.moveTo(clX, clY);
-  ctx.lineTo(clX + Math.cos(arcA) * clR * 0.65, clY + Math.sin(arcA) * clR * 0.65);
-  ctx.strokeStyle = braking ? '#ff6666' : (isAlp ? '#1D9E75' : '#aaaacc');
-  ctx.lineWidth = 1.5; ctx.stroke();
-  // Center hub
-  ctx.beginPath(); ctx.arc(clX, clY, clR * 0.1, 0, Math.PI*2);
-  ctx.fillStyle = isAlp ? '#1D9E75' : '#444458'; ctx.fill();
-  // Speed number
-  ctx.fillStyle = isAlp ? 'rgba(29,158,117,0.92)' : 'rgba(200,200,220,0.82)';
-  ctx.font = `bold ${Math.max(9, clR * 0.46)}px monospace`;
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText(mph, clX, clY + clR * 0.02);
-  ctx.font = `${Math.max(6, clR * 0.26)}px sans-serif`;
-  ctx.fillStyle = 'rgba(130,135,155,0.6)';
-  ctx.fillText('MPH', clX, clY + clR * 0.42);
-  ctx.textBaseline = 'alphabetic';
-
-  // ── Center info screen ──
-  const scW = w * 0.26, scH = (h - dashY) * 0.35;
-  const scX = w/2 - scW/2, scY = dashY + (h - dashY) * 0.12;
-  ctx.fillStyle = isAlp ? '#030c07' : '#050510';
-  ctx.beginPath(); ctx.roundRect(scX, scY, scW, scH, 4); ctx.fill();
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.35)' : 'rgba(255,255,255,0.09)';
-  ctx.lineWidth = 1; ctx.stroke();
-  // Screen label
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  const sysName = isAlp ? 'ALPAMAYO 2 SUPER' : 'SUPER CRUISE';
-  ctx.fillStyle = isAlp ? 'rgba(29,158,117,0.48)' : 'rgba(140,140,165,0.42)';
-  ctx.font = `bold ${Math.max(6, w * 0.017)}px monospace`;
-  ctx.fillText(sysName, w/2, scY + scH * 0.26);
-  // Status
-  const statusStr = disengaged ? '⚠ DISENGAGED' : (braking ? '● BRAKING' : (isAlp ? '◆ ENGAGED' : '● CRUISE'));
-  ctx.fillStyle = disengaged
-    ? 'rgba(255,65,65,0.95)'
-    : (braking ? 'rgba(255,140,30,0.9)' : (isAlp ? 'rgba(29,158,117,0.88)' : 'rgba(170,180,200,0.72)'));
-  ctx.font = `bold ${Math.max(8, w * 0.024)}px monospace`;
-  ctx.fillText(statusStr, w/2, scY + scH * 0.62);
-  ctx.textBaseline = 'alphabetic';
-
-  // ── ADAS indicator strip right of screen ──
-  const indX = scX + scW + w * 0.025, indY = scY + scH * 0.18;
-  const dotR = Math.max(3, w * 0.008);
-  const indLabels = isAlp
-    ? [['LIDAR','on'], ['CAMERA','on'], ['PLAN','on'], ['REASON','on']]
-    : [['LIDAR','on'], ['CAMERA','on'], ['PLAN','off'], ['REASON','off']];
-  indLabels.forEach(([label, state], i) => {
-    const iy = indY + i * (dotR * 2.6 + 3);
-    ctx.beginPath(); ctx.arc(indX, iy, dotR, 0, Math.PI*2);
-    ctx.fillStyle = state === 'on'
-      ? (isAlp ? 'rgba(29,158,117,0.9)' : 'rgba(160,180,200,0.7)')
-      : 'rgba(80,80,90,0.5)';
-    ctx.fill();
-    ctx.fillStyle = 'rgba(130,140,160,0.55)';
-    ctx.font = `${Math.max(6, w*0.016)}px monospace`;
-    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillText(label, indX + dotR + 4, iy);
-  });
-  ctx.textBaseline = 'alphabetic';
-
-  // ── Steering wheel ──
-  const steerAngle = (curLaneX - 0.5) * -Math.PI * 0.58;
-  const swCX = w / 2;
-  const swCY = h * 0.93;
-  const swR  = Math.min(w * 0.115, 52);
-
-  ctx.save();
-  ctx.translate(swCX, swCY);
-  ctx.rotate(steerAngle);
-
-  // Shadow
-  ctx.shadowColor = 'rgba(0,0,0,0.85)'; ctx.shadowBlur = 20;
-  // Rim
-  ctx.beginPath(); ctx.arc(0, 0, swR, 0, Math.PI * 2);
-  const rimG = ctx.createLinearGradient(-swR, -swR, swR, swR);
-  rimG.addColorStop(0, isAlp ? '#1e3528' : '#30304a');
-  rimG.addColorStop(0.5, isAlp ? '#0d1e14' : '#1c1c2e');
-  rimG.addColorStop(1, isAlp ? '#1e3528' : '#30304a');
-  ctx.strokeStyle = rimG;
-  ctx.lineWidth = swR * 0.19;
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-  // Rim highlight glint
-  ctx.beginPath(); ctx.arc(0, 0, swR * 0.94, -Math.PI * 0.18, Math.PI * 0.07);
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.55)' : 'rgba(210,215,240,0.22)';
-  ctx.lineWidth = swR * 0.055; ctx.stroke();
-  // 3 spokes
-  ctx.lineWidth = swR * 0.1;
+  ctx.fillStyle = '#0e0e0e';
+  ctx.beginPath(); ctx.roundRect(sx - sz*8.5, sy - sz*32, sz*17, sz*54, sz*2); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.5; ctx.stroke();
+  // Lenses
+  const lOY = [-20, -4, 12];
   for (let i = 0; i < 3; i++) {
-    const a = (i * Math.PI * 2 / 3) - Math.PI / 2;
-    const sg2 = ctx.createLinearGradient(0, 0, Math.cos(a)*swR*0.86, Math.sin(a)*swR*0.86);
-    sg2.addColorStop(0, isAlp ? '#1e3528' : '#2e2e45');
-    sg2.addColorStop(1, isAlp ? '#0a1610' : '#14141f');
-    ctx.strokeStyle = sg2;
-    ctx.beginPath();
-    ctx.moveTo(Math.cos(a)*swR*0.2, Math.sin(a)*swR*0.2);
-    ctx.lineTo(Math.cos(a)*swR*0.86, Math.sin(a)*swR*0.86);
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(sx, sy + sz * lOY[i], sz * 5.5, 0, Math.PI * 2);
+    ctx.fillStyle = i === 0 ? '#250000' : (i === 1 ? '#1f1600' : '#001900');
+    ctx.fill();
+    // Active green when state === 'green'
+    if (state === 'green' && i === 2) {
+      const ga = 1;
+      ctx.beginPath(); ctx.arc(sx, sy + sz * lOY[i], sz * 4.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,220,80,${ga})`;
+      ctx.shadowColor = 'rgba(0,255,80,0.85)'; ctx.shadowBlur = sz * 16;
+      ctx.fill(); ctx.shadowBlur = 0;
+    }
+    // Flicker: green lens strobes
+    if (state === 'flicker' && i === 2) {
+      const fa = 0.2 + Math.random() * 0.8;
+      ctx.beginPath(); ctx.arc(sx, sy + sz * lOY[i], sz * 4.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,180,60,${fa})`;
+      ctx.shadowColor = `rgba(0,240,80,${fa*0.7})`; ctx.shadowBlur = sz * 12;
+      ctx.fill(); ctx.shadowBlur = 0;
+    }
   }
-  // Center hub
-  ctx.beginPath(); ctx.arc(0, 0, swR * 0.2, 0, Math.PI * 2);
-  ctx.fillStyle = isAlp ? '#1D9E75' : '#282840'; ctx.fill();
-  ctx.fillStyle = '#ffffff';
-  ctx.font = `bold ${swR * 0.16}px sans-serif`;
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('GM', 0, 0.5);
-  ctx.textBaseline = 'alphabetic';
-  ctx.restore();
-
-  // ── Rearview mirror ──
-  const mirW = w * 0.2, mirH = h * 0.036;
-  const mirY = h * 0.024;
-  ctx.fillStyle = '#0a0a14';
-  ctx.beginPath(); ctx.roundRect(w/2 - mirW/2, mirY, mirW, mirH, 2); ctx.fill();
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.22)' : 'rgba(255,255,255,0.07)';
-  ctx.lineWidth = 1; ctx.stroke();
-  const mrg = ctx.createLinearGradient(w/2-mirW/2, 0, w/2+mirW/2, 0);
-  mrg.addColorStop(0, 'rgba(40,55,90,0.15)');
-  mrg.addColorStop(0.5, 'rgba(55,70,110,0.28)');
-  mrg.addColorStop(1, 'rgba(40,55,90,0.15)');
-  ctx.fillStyle = mrg;
-  ctx.beginPath(); ctx.roundRect(w/2 - mirW/2 + 1, mirY + 1, mirW - 2, mirH - 2, 2); ctx.fill();
-
-  // ── Braking glow on dash ──
-  if (braking) {
-    const bg = ctx.createLinearGradient(0, dashY, 0, dashY + (h-dashY) * 0.45);
-    bg.addColorStop(0, 'rgba(255,30,30,0.09)');
-    bg.addColorStop(1, 'transparent');
-    ctx.fillStyle = bg; ctx.fillRect(0, dashY, w, (h-dashY)*0.45);
+  // Outage X
+  if (state === 'dark') {
+    if (sz > 0.16) {
+      ctx.strokeStyle = 'rgba(255,55,55,0.95)'; ctx.lineWidth = Math.max(1, sz * 2.5);
+      ctx.beginPath(); ctx.moveTo(sx-sz*6,sy-sz*25); ctx.lineTo(sx+sz*6,sy-sz*12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(sx+sz*6,sy-sz*25); ctx.lineTo(sx-sz*6,sy-sz*12); ctx.stroke();
+    }
+    if (sz > 0.28) {
+      ctx.fillStyle = 'rgba(255,55,55,0.92)'; ctx.font = `bold ${Math.max(6,sz*7.5)}px sans-serif`;
+      ctx.textAlign = 'center'; ctx.fillText('OUTAGE', sx, sy + sz*40);
+    }
   }
-
-  // ── Disengaged alarm (on windshield view) ──
-  if (disengaged) {
-    const da = 0.22 + 0.16 * Math.sin(Date.now() / 105);
-    ctx.fillStyle = `rgba(215,18,18,${da})`;
-    ctx.fillRect(0, 0, w, dashY);
-    ctx.fillStyle = 'rgba(255,255,255,0.97)';
-    ctx.font = `bold ${Math.max(13, w * 0.044)}px sans-serif`;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('⚠  SYSTEM DISENGAGED', w/2, h * 0.31);
-    ctx.font = `${Math.max(9, w * 0.025)}px sans-serif`;
-    ctx.fillStyle = 'rgba(255,155,155,0.85)';
-    ctx.fillText('Driver intervention required', w/2, h * 0.31 + Math.max(13, w * 0.044) * 1.6);
-    ctx.textBaseline = 'alphabetic';
-  }
-
-  // ── Windshield corner vignette / curvature ──
-  const vg2 = ctx.createRadialGradient(w/2, dashY*0.5, dashY*0.1, w/2, dashY*0.5, w*0.72);
-  vg2.addColorStop(0.55, 'transparent');
-  vg2.addColorStop(1, 'rgba(0,0,0,0.5)');
-  ctx.fillStyle = vg2; ctx.fillRect(0, 0, w, dashY);
 }
 
-// ── SCENARIO DATA ─────────────────────
+// ── HUD OVERLAYS ──────────────────────────────────────────────────
+function drawHUD(ctx, w, h, isAlp, mph, status, disengaged, disengCount) {
+  const bY = h * HOOD_Y;
+
+  // Top label gradient
+  const tlg = ctx.createLinearGradient(0, 0, 0, 44);
+  tlg.addColorStop(0, 'rgba(0,0,0,0.75)'); tlg.addColorStop(1, 'transparent');
+  ctx.fillStyle = tlg; ctx.fillRect(0, 0, w, 44);
+
+  // System label
+  ctx.font = `700 ${Math.max(10, w * 0.026)}px -apple-system,sans-serif`;
+  ctx.textAlign = 'left'; ctx.fillStyle = isAlp ? 'rgba(29,158,117,0.95)' : 'rgba(200,205,220,0.85)';
+  ctx.fillText(isAlp ? '◆  ALPAMAYO 2 SUPER' : '⬤  SUPER CRUISE', 14, 26);
+
+  // Speed (top right)
+  ctx.textAlign = 'right';
+  ctx.font = `700 ${Math.max(22, w * 0.066)}px 'Courier New',monospace`;
+  ctx.fillStyle = disengaged ? '#ff5555' : (isAlp ? 'rgba(29,158,117,0.96)' : 'rgba(230,230,245,0.92)');
+  ctx.fillText(mph, w - 13, 30);
+  ctx.font = `600 ${Math.max(8, w * 0.022)}px -apple-system,sans-serif`;
+  ctx.fillStyle = 'rgba(130,140,160,0.7)';
+  ctx.fillText('MPH', w - 13, 42);
+
+  // Disengagement counter (left panel only)
+  if (!isAlp) {
+    ctx.textAlign = 'right';
+    ctx.font = `600 ${Math.max(8, w * 0.023)}px -apple-system,sans-serif`;
+    ctx.fillStyle = disengaged ? 'rgba(255,90,90,0.92)' : 'rgba(120,125,145,0.65)';
+    ctx.fillText(`DISENGAGEMENTS: ${disengCount}`, w - 13, 58);
+  }
+
+  // Status bar (bottom of road view)
+  const sY = bY - 34, sH = 30;
+  const sbg = ctx.createLinearGradient(0, sY, 0, sY + sH);
+  sbg.addColorStop(0, 'transparent'); sbg.addColorStop(1, 'rgba(0,0,0,0.78)');
+  ctx.fillStyle = sbg; ctx.fillRect(0, sY, w, sH);
+
+  const dotR = 4.5, dotX = 14, dotY = sY + sH / 2;
+  const dotC = disengaged ? '#ff3333' : (status === 'braking' ? '#ff9020' : (isAlp ? '#1D9E75' : '#9090b8'));
+  ctx.beginPath(); ctx.arc(dotX, dotY, dotR, 0, Math.PI * 2);
+  ctx.shadowColor = dotC; ctx.shadowBlur = 9;
+  ctx.fillStyle = dotC; ctx.fill(); ctx.shadowBlur = 0;
+
+  const statusLabel = disengaged ? 'DISENGAGED' : (status === 'braking' ? 'BRAKING' : (status === 'crawl' ? 'CREEPING  8 MPH' : 'ENGAGED'));
+  ctx.font = `700 ${Math.max(9, w * 0.025)}px -apple-system,sans-serif`;
+  ctx.textAlign = 'left';
+  ctx.fillStyle = disengaged ? 'rgba(255,100,100,0.95)' : (status === 'braking' ? 'rgba(255,160,40,0.9)' : (isAlp ? 'rgba(29,158,117,0.88)' : 'rgba(175,180,200,0.78)'));
+  ctx.fillText(statusLabel, dotX + dotR * 2 + 7, dotY + 4);
+}
+
+// ── DISENGAGED ALERT ──────────────────────────────────────────────
+function drawDisengaged(ctx, w, h) {
+  const bY = h * HOOD_Y;
+  const pulse = 0.72 + 0.28 * Math.sin(Date.now() / 115);
+
+  // Red wash over view
+  ctx.fillStyle = `rgba(195,8,8,${0.17 * pulse})`;
+  ctx.fillRect(0, 0, w, bY);
+
+  // Central alert box
+  const bw = Math.min(w * 0.76, 330), bh = 82;
+  const bx = w/2 - bw/2, by = h * 0.30 - bh/2;
+  ctx.fillStyle = `rgba(185,6,6,${0.86 * pulse})`;
+  ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 9); ctx.fill();
+  ctx.strokeStyle = `rgba(255,80,80,${0.55 * pulse})`; ctx.lineWidth = 1.5; ctx.stroke();
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = `900 ${Math.max(15, w * 0.045)}px -apple-system,sans-serif`;
+  ctx.fillText('⚠  DISENGAGED', w / 2, by + 32);
+  ctx.font = `500 ${Math.max(10, w * 0.027)}px -apple-system,sans-serif`;
+  ctx.fillStyle = 'rgba(255,200,200,0.92)';
+  ctx.fillText('Returning control to driver', w / 2, by + 58);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SCENARIOS
+// ═══════════════════════════════════════════════════════════════════
 const SCENARIOS = [
   {
     name: 'Traffic Light Outage',
-    desc: 'Signal failure at uncontrolled intersection [ID 4471]. No traffic light state receivable. Cross-traffic present with inconsistent gap behavior. Perception-only system disengages — no rule exists for uncontrolled intersection entry.',
-    nightMode: false,
+    desc: 'Signal failure at uncontrolled intersection [ID 4471]. Super Cruise cannot determine right-of-way without signal authority and disengages. Alpamayo 2 Super classifies the scenario, runs gap-acceptance simulation, and creeps through safely.',
     cot: [
-      '[PERCEPTION]  Signal state at [4471]: NULL — hardware fault confirmed',
-      '[PERCEPTION]  Cross-traffic: 2 vehicles, bearing 087° & 264°, v=19–24mph',
-      '[PLANNING]    Scenario class: uncontrolled 4-way — no signal authority',
-      '[PLANNING]    OmniDreams rollout: 847 gap-acceptance sims in 11ms...',
-      '[PLANNING]    Right-of-way confidence: 91.4% — creep-yield selected',
-      '[ACTION]      Decelerating: 60mph → 0mph at -0.18g over 3.2s...',
-      '[ACTION]      Gap confirmed: 3.8s window. Creeping at 4mph. ✓'
+      '[PERCEPTION]  Signal state at node 4471: NULL — hardware fault',
+      '[PERCEPTION]  Cross-traffic scan: no vehicles within 140m at any bearing',
+      '[PLANNING]    Scenario: uncontrolled 4-way — no signal authority present',
+      '[PLANNING]    OmniDreams rollout: 847 gap sims in 11ms... gap: 4.2s',
+      '[PLANNING]    Right-of-way confidence: 91.4% — creep-yield protocol selected',
+      '[ACTION]      Decelerating to 8mph... entering intersection...',
+      '[ACTION]      Intersection clear. Gap accepted. Resuming cruise. ✓',
     ],
-    getObs: (t) => [
-      { type:'light', wz: Math.max(0.02, 0.97 - t*0.13), lx: 0.5 },
-      { type:'car', color:'#7a5a00', wz: Math.max(0.02, 0.80 - t*0.055), lx: Math.max(0, (t*0.11) % 1.15) },
-    ],
-    alpBeh: (t, s) => {
-      if (t > 2.1) { s.speed = Math.max(0, 0.8 - (t-2.1)*0.55); s.braking = true; }
-      if (t > 3.6) { s.speed = 0; s.braking = true; }
-      if (t > 5.3) { s.speed = 0.72; s.braking = false; }
+    // Light position: worldZ starts far, approaches. lx=0.5 (center of road)
+    getLightWZ: (t, side) => {
+      if (side === 'leg') {
+        // Legacy car: approaches at 0.12/s, stops at t=3 (disengages)
+        const wz = Math.max(0, 0.92 - t * 0.12);
+        return t >= 3.0 ? Math.max(0.56, wz) : wz;
+      } else {
+        // Alp: continues slowly after t=3.5, then speeds through after t=5
+        if (t < 3.5) return Math.max(0.01, 0.92 - t * 0.12);
+        if (t < 5.0) return Math.max(0.01, 0.92 - 3.5*0.12 - (t-3.5)*0.025);
+        return Math.max(-0.5, 0.92 - 3.5*0.12 - 1.5*0.025 - (t-5.0)*0.14); // speeds up
+      }
     },
-    legBeh: (t, s) => {
-      // Immediately disengages — no rule for this scenario
-      if (t > 2.5 && !s.disengaged) { s.disengaged = true; }
-    }
+    getLightState: (t) => t < 1.6 ? 'green' : t < 2.4 ? 'flicker' : 'dark',
+    // Cross-traffic car (from right, passes through intersection)
+    getXCar: (t) => {
+      if (t < 2.8 || t > 5.5) return null;
+      const wz = Math.max(0.02, 0.72 - (t-2.8)*0.08);
+      const lx = 0.92 - (t-2.8)*0.06; // drifts left slightly
+      return { wz, lx: Math.min(1.0, lx), color:'#5a4400' };
+    },
+    // Left car state
+    legState: (t) => {
+      if (t < 2.8) return { speed:60, status:'engaged', disengaged:false, vpxOff:0 };
+      if (t < 3.0) return { speed:Math.max(30, 60-(t-2.8)*150), status:'braking', disengaged:false, vpxOff:0 };
+      return { speed:0, status:'braking', disengaged:true, vpxOff:0 };
+    },
+    // Right (Alp) car state
+    alpState: (t) => {
+      if (t < 2.8) return { speed:60, status:'engaged', disengaged:false, vpxOff:0 };
+      if (t < 3.5) return { speed:Math.max(8, 60-(t-2.8)*74), status:'braking', disengaged:false, vpxOff:0 };
+      if (t < 5.0) return { speed:8, status:'crawl', disengaged:false, vpxOff:0 };
+      return { speed:Math.min(60, 8+(t-5.0)*30), status:'engaged', disengaged:false, vpxOff:0 };
+    },
   },
   {
     name: 'Lane Cut-Off',
-    desc: 'Adjacent vehicle executing an unsafe merge at highway speed. TTC = 0.82s. Alpamayo 2 Super detects early and executes a smooth left-lane evasion. Perception-only system detects too late, panic-brakes, then disengages.',
-    nightMode: false,
+    desc: 'Vehicle merges from right lane at highway speed. TTC: 1.4s. Super Cruise brakes hard and disengages. Alpamayo 2 Super detects early, evaluates left-lane clearance, and executes a smooth lane change before conflict.',
     cot: [
-      '[PERCEPTION]  VH-02 lateral velocity: 1.82m/s toward ego lane. Conf: 98.7%',
-      '[PERCEPTION]  TTC to lane conflict: 0.82s — below 1.0s safety threshold',
-      '[PLANNING]    Evaluating: brake-only (insufficient margin), combined steer+brake',
-      '[PLANNING]    Left lane occupancy: CLEAR at 94m confirmed via LIDAR + camera',
-      '[PLANNING]    1,204 merge trajectories evaluated in 8ms via OmniDreams rollout',
-      '[ACTION]      Executing: steer 0.7m left at 0.12g + brake 0.18g simultaneously',
-      '[ACTION]      Lane change complete. Following distance: 2.9s. Resolved. ✓'
+      '[PERCEPTION]  VH-02: lateral velocity 1.8m/s toward ego lane. Conf: 98.7%',
+      '[PERCEPTION]  TTC to lane conflict: 1.4s — below 2.0s action threshold',
+      '[PLANNING]    Options: brake-only (TTC insufficient), steer-left, combined',
+      '[PLANNING]    Left lane occupancy: CLEAR at 94m — merge window: 2.8s',
+      '[PLANNING]    1,204 trajectories evaluated in 8ms via OmniDreams rollout',
+      '[ACTION]      Executing: steer left 0.7m at 0.12g + light brake 0.08g...',
+      '[ACTION]      Lane change complete. Following distance 3.1s. Resolved. ✓',
     ],
-    getObs: (t) => {
-      const mlx = t < 1.3 ? 0.84 : Math.max(0.50, 0.84 - (t-1.3)*0.24);
-      return [{ type:'car', color:'#b82800', wz: Math.max(0.04, 0.91 - t*0.135), lx: mlx, label: t>1.2&&t<2.8 ? '⚠' : '' }];
+    getLightWZ: () => -1, // no traffic light
+    getLightState: () => 'none',
+    getXCar: (t, side) => {
+      if (t < 1.2) return null;
+      const appear  = Math.max(0, (t - 1.2));
+      const baseWZ  = Math.max(0.01, 0.82 - appear * 0.13);
+      // Merges left (lx: 0.88 → 0.5) from t=2.0
+      let lx = 0.88;
+      if (t > 2.0) lx = Math.max(0.50, 0.88 - (t - 2.0) * 0.3);
+      // On Alp side, after car moves left it may clear (our car shifted left so perspective differs)
+      return { wz: baseWZ, lx, color:'#9a0000', warn: t > 1.8 && t < 3.5 };
     },
-    alpBeh: (t, s) => {
-      if (t > 1.3) { s.laneX = Math.max(0.17, 0.5-(t-1.3)*0.28); }
-      if (t > 3.1) { s.laneX = 0.5; }
+    legState: (t) => {
+      if (t < 2.4) return { speed:60, status:'engaged', disengaged:false, vpxOff:0 };
+      if (t < 2.8) return { speed:Math.max(4, 60-(t-2.4)*140), status:'braking', disengaged:false, vpxOff:0 };
+      return { speed:0, status:'braking', disengaged:true, vpxOff:0 };
     },
-    legBeh: (t, s) => {
-      // No reaction → late panic brake → disengage
-      if (t > 2.05 && t <= 2.4) { s.speed = Math.max(0.02, 0.8-(t-2.05)*2.4); s.braking = true; }
-      if (t > 2.4 && !s.disengaged) { s.disengaged = true; s.speed = 0; }
-    }
+    alpState: (t) => {
+      // Detects at t=1.8, begins lane change at t=2.0
+      const shift = t < 1.8 ? 0 : t < 3.2 ? Math.min(0.5, (t-1.8)*0.36) : Math.max(0, 0.5-(t-3.2)*0.3);
+      const s = t < 2.0
+        ? { speed:60, status:'engaged' }
+        : t < 2.4
+          ? { speed:Math.max(52, 60-(t-2.0)*12), status:'braking' }  // light brake
+          : { speed:Math.min(60, 52+(t-2.4)*10), status:'engaged' };
+      return { ...s, disengaged:false, vpxOff:-shift * 0.22 }; // negative = shift VP left
+    },
   }
 ];
 
-// ── SIM STATE ────────────────────────
-const SCENARIO_DUR = 7.5; // seconds per scenario — no auto-loop
+// ═══════════════════════════════════════════════════════════════════
+// SIM STATE & LOOP
+// ═══════════════════════════════════════════════════════════════════
+const DUR = 8.5; // scenario duration in seconds
 
 let SIM = {
-  scenario: 0, t: 0, frame: 0, speedMult: 1, running: false, ended: false, rafId: null,
-  disengagements: 0, legWasDis: false, cotIdx: 0, cotTimer: null,
-  alp: { speed:0.8, laneX:0.5, curLaneX:0.5, dist:0, braking:false, disengaged:false },
-  leg: { speed:0.8, laneX:0.5, curLaneX:0.5, dist:0, braking:false, disengaged:false }
+  scenario: 0, t: 0, running: false, ended: false,
+  speedMult: 1, rafId: null, disengagements: 0, legWasDis: false,
+  legDist: 0, alpDist: 0, cotIdx: 0, cotTimer: null,
 };
 
-const legC = document.getElementById('legacyCanvas');
-const alpC = document.getElementById('alpamayoCanvas');
+const legC = document.getElementById('legCanvas');
+const alpC = document.getElementById('alpCanvas');
 const legX = legC.getContext('2d');
 const alpX = alpC.getContext('2d');
 
-function resizeCanvases() {
-  [legC, alpC].forEach(c => { c.width = c.parentElement.clientWidth; c.height = 420; });
-}
-
-function resetSideState(s) {
-  s.speed=0.8; s.laneX=0.5; s.curLaneX=0.5; s.dist=0; s.braking=false; s.disengaged=false;
-}
-
-function setEndedOverlays(visible) {
-  document.getElementById('legacyEnded').classList.toggle('show', visible);
-  document.getElementById('alpEnded').classList.toggle('show', visible);
+function fitCanvases() {
+  for (const c of [legC, alpC]) {
+    c.width  = c.parentElement.clientWidth;
+    c.height = 460;
+  }
 }
 
 let lastTS = 0;
-function simLoop(ts) {
+
+function tick(ts) {
   if (!SIM.running) return;
-  const rawDt = (ts - lastTS) / 1000;
+  const raw = (ts - lastTS) / 1000;
   lastTS = ts;
-  const dt = Math.min(0.05, rawDt) * SIM.speedMult;
-  SIM.t = Math.min(SIM.t + dt, SCENARIO_DUR);
-  SIM.frame++;
+  const dt = Math.min(0.05, raw) * SIM.speedMult;
+  SIM.t = Math.min(SIM.t + dt, DUR);
 
-  // Stop (do not loop) when scenario ends
-  if (SIM.t >= SCENARIO_DUR && !SIM.ended) {
-    SIM.ended = true;
-    SIM.running = false;
-    setEndedOverlays(true);
+  if (SIM.t >= DUR && !SIM.ended) {
+    SIM.ended = true; SIM.running = false;
     clearTimeout(SIM.cotTimer);
-    return;
+    // Draw one last frame then stop
   }
 
-  const sc = SCENARIOS[SIM.scenario];
-  const t  = SIM.t;
+  render();
 
-  // Behavior update
-  sc.alpBeh(t, SIM.alp);
-  sc.legBeh(t, SIM.leg);
-
-  // Smooth lateral position
-  SIM.alp.curLaneX += (SIM.alp.laneX - SIM.alp.curLaneX) * 0.07;
-  SIM.leg.curLaneX += (SIM.leg.laneX - SIM.leg.curLaneX) * 0.05;
-
-  // Advance odometer
-  SIM.alp.dist += SIM.alp.speed * dt * 80;
-  if (!SIM.leg.disengaged) SIM.leg.dist += SIM.leg.speed * dt * 80;
-
-  // Disengagement counter (once per run)
-  if (SIM.leg.disengaged && !SIM.legWasDis) {
-    SIM.legWasDis = true;
-    SIM.disengagements++;
-    document.getElementById('disengageCount').textContent = SIM.disengagements;
-  }
-
-  const obs = sc.getObs(t);
-  const w1=legC.width, h1=legC.height, w2=alpC.width, h2=alpC.height;
-
-  // ── Legacy canvas ──
-  const lvpx = w1/2 + (SIM.leg.curLaneX - 0.5) * w1 * 0.2;
-  legX.clearRect(0, 0, w1, h1);
-  drawRoad(legX, w1, h1, SIM.leg.dist, lvpx, false, sc.nightMode);
-  obs.forEach(o => drawObstacle(legX, o, w1, h1, lvpx));
-  drawCockpit(legX, w1, h1, SIM.leg.curLaneX, false, SIM.leg.braking, SIM.leg.disengaged, SIM.leg.speed);
-
-  // ── Alpamayo canvas ──
-  const avpx = w2/2 + (SIM.alp.curLaneX - 0.5) * w2 * 0.2;
-  alpX.clearRect(0, 0, w2, h2);
-  drawRoad(alpX, w2, h2, SIM.alp.dist, avpx, true, sc.nightMode);
-  obs.forEach(o => drawObstacle(alpX, o, w2, h2, avpx));
-  drawPerceptionOverlay(alpX, obs, w2, h2, avpx);
-  drawCockpit(alpX, w2, h2, SIM.alp.curLaneX, true, SIM.alp.braking, false, SIM.alp.speed);
-
-  SIM.rafId = requestAnimationFrame(simLoop);
+  if (SIM.running) SIM.rafId = requestAnimationFrame(tick);
 }
 
-function startSimulation() {
+function render() {
+  const sc  = SCENARIOS[SIM.scenario];
+  const t   = SIM.t;
+  const legS = sc.legState(t);
+  const alpS = sc.alpState(t);
+
+  // Advance scroll distance
+  SIM.legDist += (legS.speed / 60) * (1 / 60) * 12;
+  SIM.alpDist += (alpS.speed / 60) * (1 / 60) * 12;
+
+  // Disengagement counter
+  if (legS.disengaged && !SIM.legWasDis) {
+    SIM.legWasDis = true;
+    SIM.disengagements++;
+    document.getElementById('disengCount').textContent = SIM.disengagements;
+  }
+
+  const w1 = legC.width, h1 = legC.height;
+  const w2 = alpC.width, h2 = alpC.height;
+  const lightWZ_leg = sc.getLightWZ(t, 'leg');
+  const lightWZ_alp = sc.getLightWZ(t, 'alp');
+  const lightState  = sc.getLightState(t);
+  const xcar        = sc.getXCar(t, 'both');
+
+  // ── LEFT CANVAS (Super Cruise) ──
+  const vpxL = w1 / 2;
+  legX.clearRect(0, 0, w1, h1);
+  drawScene(legX, w1, h1, SIM.legDist, vpxL, false);
+  // Traffic light
+  if (lightWZ_leg > 0.01 && lightWZ_leg < 0.98) {
+    const lp = P(lightWZ_leg, 0.5, w1, h1, vpxL);
+    if (lp.y < h1 * HOOD_Y) {
+      legX.globalAlpha = Math.min(1, 0.12 + lp.sc * 1.4);
+      drawTrafficLight(legX, lp.x, lp.y, lp.sc, lightState);
+      legX.globalAlpha = 1;
+    }
+  }
+  // Cross-traffic / cut-off car
+  if (xcar) {
+    const cp = P(xcar.wz, xcar.lx, w1, h1, vpxL);
+    if (cp.y < h1 * HOOD_Y) {
+      legX.globalAlpha = Math.min(1, 0.12 + cp.sc * 1.4);
+      drawCar(legX, cp.x, cp.y, cp.sc, xcar.color);
+      if (xcar.warn) {
+        legX.globalAlpha = Math.min(1, cp.sc * 1.5);
+        legX.font = `bold ${Math.max(10, cp.sc * 16)}px sans-serif`;
+        legX.fillStyle = '#ff4444'; legX.textAlign = 'center';
+        legX.fillText('⚠', cp.x, cp.y - cp.sc * 60);
+      }
+      legX.globalAlpha = 1;
+    }
+  }
+  drawHood(legX, w1, h1, vpxL, false);
+  drawHUD(legX, w1, h1, false, Math.round(legS.speed), legS.status, legS.disengaged, SIM.disengagements);
+  if (legS.disengaged) drawDisengaged(legX, w1, h1);
+
+  // ── RIGHT CANVAS (Alpamayo) ──
+  const vpxR = w2 / 2 + alpS.vpxOff * w2;
+  alpX.clearRect(0, 0, w2, h2);
+  drawScene(alpX, w2, h2, SIM.alpDist, vpxR, true);
+  // Traffic light
+  if (lightWZ_alp > 0.01 && lightWZ_alp < 0.98) {
+    const lp = P(lightWZ_alp, 0.5, w2, h2, vpxR);
+    if (lp.y < h2 * HOOD_Y) {
+      alpX.globalAlpha = Math.min(1, 0.12 + lp.sc * 1.4);
+      drawTrafficLight(alpX, lp.x, lp.y, lp.sc, lightState);
+      alpX.globalAlpha = 1;
+    }
+  }
+  // Cross-traffic / cut-off car
+  if (xcar) {
+    const cp = P(xcar.wz, xcar.lx, w2, h2, vpxR);
+    if (cp.y < h2 * HOOD_Y) {
+      alpX.globalAlpha = Math.min(1, 0.12 + cp.sc * 1.4);
+      drawCar(alpX, cp.x, cp.y, cp.sc, xcar.color);
+      // Perception bounding box (Alp only)
+      if (cp.sc > 0.1) {
+        const bw = cp.sc * 68, bh = cp.sc * 96;
+        const bx = cp.x - bw/2, by = cp.y - bh;
+        alpX.globalAlpha = Math.min(0.9, cp.sc * 1.3);
+        alpX.strokeStyle = 'rgba(29,158,117,0.75)'; alpX.lineWidth = 1.5;
+        alpX.setLineDash([4, 3]); alpX.strokeRect(bx, by, bw, bh); alpX.setLineDash([]);
+        const cl = Math.max(5, cp.sc * 12);
+        alpX.strokeStyle = '#1D9E75'; alpX.lineWidth = 2;
+        alpX.beginPath(); alpX.moveTo(bx,by+cl); alpX.lineTo(bx,by); alpX.lineTo(bx+cl,by); alpX.stroke();
+        alpX.beginPath(); alpX.moveTo(bx+bw-cl,by); alpX.lineTo(bx+bw,by); alpX.lineTo(bx+bw,by+cl); alpX.stroke();
+        alpX.beginPath(); alpX.moveTo(bx+bw,by+bh-cl); alpX.lineTo(bx+bw,by+bh); alpX.lineTo(bx+bw-cl,by+bh); alpX.stroke();
+        alpX.beginPath(); alpX.moveTo(bx+cl,by+bh); alpX.lineTo(bx,by+bh); alpX.lineTo(bx,by+bh-cl); alpX.stroke();
+        // Label
+        const dist = Math.round((1-xcar.wz)*130);
+        alpX.font = `bold ${Math.max(8,cp.sc*11)}px monospace`;
+        alpX.fillStyle = '#4dd4a8'; alpX.textAlign = 'center';
+        alpX.fillText(`VH-02  ${dist}m`, cp.x, by - 5);
+      }
+      alpX.globalAlpha = 1;
+    }
+  }
+  drawHood(alpX, w2, h2, vpxR, true);
+  drawHUD(alpX, w2, h2, true, Math.round(alpS.speed), alpS.status, false, 0);
+}
+
+// ── TERMINAL (CoT) ────────────────────────────────────────────────
+function startCOT() {
+  clearTimeout(SIM.cotTimer);
+  const el = document.getElementById('cotLines');
+  el.innerHTML = '';
+  SIM.cotIdx = 0;
+  nextCOT();
+}
+
+function nextCOT() {
+  const lines = SCENARIOS[SIM.scenario].cot;
+  if (SIM.cotIdx >= lines.length) {
+    // Show idle cursor after last line
+    const el = document.getElementById('cotLines');
+    const last = el.lastElementChild;
+    if (last) {
+      const cur = document.createElement('span');
+      cur.className = 'cot-cursor-el'; last.appendChild(cur);
+    }
+    return;
+  }
+  const el = document.getElementById('cotLines');
+  // Remove cursor from previous line
+  el.querySelectorAll('.cot-cursor-el').forEach(c => c.remove());
+
+  const line = SCENARIOS[SIM.scenario].cot[SIM.cotIdx];
+  const div = document.createElement('div');
+  div.className = 'cot-line';
+
+  // Parse [TAG] prefix
+  const m = line.match(/^(\[[\w]+\])\s*(.*)/s);
+  if (m) {
+    const tag = document.createElement('span');
+    tag.className = 'cot-tag'; tag.textContent = m[1] + '  ';
+    div.appendChild(tag);
+    div.appendChild(document.createTextNode(m[2]));
+  } else {
+    div.textContent = line;
+  }
+
+  // Cursor on active line
+  const cur = document.createElement('span');
+  cur.className = 'cot-cursor-el'; div.appendChild(cur);
+
+  el.appendChild(div);
+  requestAnimationFrame(() => { div.classList.add('show'); });
+  el.scrollTop = el.scrollHeight;
+
+  SIM.cotIdx++;
+  const delay = (680 + Math.random() * 520) / SIM.speedMult;
+  SIM.cotTimer = setTimeout(nextCOT, delay);
+}
+
+// ── CONTROLS ──────────────────────────────────────────────────────
+function initSim() {
   cancelAnimationFrame(SIM.rafId);
   clearTimeout(SIM.cotTimer);
-  resizeCanvases();
-  SIM.t=0; SIM.frame=0; SIM.legWasDis=false; SIM.ended=false;
-  resetSideState(SIM.alp); resetSideState(SIM.leg);
-  setEndedOverlays(false);
-  document.getElementById('scenarioDesc').textContent = SCENARIOS[SIM.scenario].desc;
-  SIM.running = true;
-  lastTS = performance.now();
-  SIM.rafId = requestAnimationFrame(simLoop);
+  fitCanvases();
+  SIM.t = 0; SIM.running = false; SIM.ended = false;
+  SIM.legWasDis = false; SIM.legDist = 0; SIM.alpDist = 0;
+  document.getElementById('simDesc').textContent = SCENARIOS[SIM.scenario].desc;
+  // Draw initial static frame
+  render();
+  // Start after brief pause
+  setTimeout(() => {
+    SIM.running = true; lastTS = performance.now();
+    SIM.rafId = requestAnimationFrame(tick);
+  }, 380);
   startCOT();
 }
 
 function replayScenario() {
   cancelAnimationFrame(SIM.rafId);
   clearTimeout(SIM.cotTimer);
-  SIM.t=0; SIM.frame=0; SIM.legWasDis=false; SIM.ended=false;
-  resetSideState(SIM.alp); resetSideState(SIM.leg);
-  setEndedOverlays(false);
+  SIM.t = 0; SIM.ended = false; SIM.legWasDis = false;
+  SIM.legDist = 0; SIM.alpDist = 0;
   SIM.running = true;
   lastTS = performance.now();
-  SIM.rafId = requestAnimationFrame(simLoop);
+  SIM.rafId = requestAnimationFrame(tick);
   startCOT();
 }
 
-// ── CHAIN OF THOUGHT ─────────────────
-function startCOT() {
-  clearTimeout(SIM.cotTimer);
-  const el = document.getElementById('cotTrace');
-  el.innerHTML = '<span class="cot-cursor"></span>';
-  SIM.cotIdx = 0;
-  cotNext();
-}
-
-function cotNext() {
-  const lines = SCENARIOS[SIM.scenario].cot;
-  if (SIM.cotIdx >= lines.length) return;
-  const el = document.getElementById('cotTrace');
-  const cur = el.querySelector('.cot-cursor'); if (cur) cur.remove();
-  const d = document.createElement('div');
-  // Color the [LAYER] prefix differently
-  const raw = lines[SIM.cotIdx];
-  const m = raw.match(/^(\[[\w]+\])\s*(.*)/);
-  if (m) {
-    const tag = document.createElement('span');
-    tag.className = 'cot-layer'; tag.textContent = m[1] + '  ';
-    d.appendChild(tag);
-    d.appendChild(document.createTextNode(m[2]));
-  } else {
-    d.textContent = raw;
-  }
-  d.style.opacity='0'; d.style.transition='opacity 0.3s';
-  el.appendChild(d);
-  setTimeout(() => d.style.opacity='1', 12);
-  const c2=document.createElement('span'); c2.className='cot-cursor'; el.appendChild(c2);
-  el.scrollTop = el.scrollHeight;
-  SIM.cotIdx++;
-  SIM.cotTimer = setTimeout(cotNext, (780 + Math.random()*520) / SIM.speedMult);
-}
-
-// ── CONTROLS ─────────────────────────
 document.querySelectorAll('.scenario-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     SIM.scenario = parseInt(btn.dataset.scenario);
-    replayScenario();
-    document.getElementById('scenarioDesc').textContent = SCENARIOS[SIM.scenario].desc;
+    document.getElementById('simDesc').textContent = SCENARIOS[SIM.scenario].desc;
+    initSim();
   });
 });
 
