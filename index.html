@@ -70,8 +70,9 @@
   .canvas-label{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 10px;border-radius:4px;z-index:10;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
   .canvas-label.legacy{background:rgba(90,90,110,0.4);color:#bbb;border:1px solid rgba(255,255,255,0.1)}
   .canvas-label.alpamayo{background:rgba(29,158,117,0.28);color:var(--green);border:1px solid rgba(29,158,117,0.45)}
-  .canvas-disengaged{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(210,25,25,0.96);color:#fff;font-size:13px;font-weight:900;letter-spacing:0.16em;padding:10px 24px;border-radius:6px;display:none;z-index:20;text-transform:uppercase;box-shadow:0 0 32px rgba(210,25,25,0.65);animation:pulsered 0.85s infinite}
-  @keyframes pulsered{0%,100%{opacity:1}50%{opacity:0.6}}
+  .sim-ended-overlay{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.62);z-index:20;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);gap:10px}
+  .sim-ended-overlay.show{display:flex}
+  .sim-ended-label{font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
   canvas{display:block;width:100%}
   .omnidreams-callout{display:flex;align-items:flex-start;gap:10px;padding:11px 16px;background:rgba(29,158,117,0.05);border:1px solid rgba(29,158,117,0.14);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.55;margin-bottom:14px}
   .omnidreams-callout strong{color:var(--green);font-weight:600}
@@ -298,12 +299,13 @@
     <div class="sim-canvases">
       <div class="canvas-wrapper">
         <div class="canvas-label legacy">⬤ Super Cruise — Perception Only</div>
-        <div class="canvas-disengaged" id="legacyDisengaged">⚠ DISENGAGED</div>
-        <canvas id="legacyCanvas" height="360"></canvas>
+        <div class="sim-ended-overlay" id="legacyEnded"><span class="sim-ended-label">Scenario complete</span></div>
+        <canvas id="legacyCanvas" height="420"></canvas>
       </div>
       <div class="canvas-wrapper alp-border">
         <div class="canvas-label alpamayo">◆ Alpamayo 2 Super — Reason · Plan · Act</div>
-        <canvas id="alpamayoCanvas" height="360"></canvas>
+        <div class="sim-ended-overlay" id="alpEnded"><span class="sim-ended-label">Scenario complete</span></div>
+        <canvas id="alpamayoCanvas" height="420"></canvas>
       </div>
     </div>
 
@@ -709,23 +711,23 @@ function animateBars() {
 }
 
 // ═══════════════════════════════════════════════════════
-// PERSPECTIVE SIMULATION ENGINE
+// COCKPIT SIMULATION ENGINE
 // ═══════════════════════════════════════════════════════
 
-// Projection constants
-const HY    = 0.36;  // horizon Y fraction of H
-const RFL   = 0.415; // road far-left (fraction of W)
-const RFR   = 0.585; // road far-right
-const RNL   = 0.03;  // road near-left
-const RNR   = 0.97;  // road near-right
+// Projection constants — road visible up to DASH_Y fraction
+const HY    = 0.345; // horizon Y fraction of H
+const DASH_Y = 0.68; // dashboard top as fraction of H
+const RFL   = 0.415;
+const RFR   = 0.585;
+const RNL   = 0.03;
+const RNR   = 0.97;
 
-// worldZ: 0=camera/near(bottom), 1=horizon/far(top)
-// laneX:  0=left road edge, 1=right road edge
-// vpx:    vanishing point X (shifts with lane changes)
+// worldZ: 0=camera/near, 1=horizon/far   laneX: 0=left edge, 1=right edge
 function proj(wz, lx, w, h, vpx) {
   const hy  = h * HY;
-  const t   = 1 - wz;   // 0 at horizon, 1 at camera
-  const sy  = hy + (h - hy) * t;
+  const dsy = h * DASH_Y; // project onto road area only
+  const t   = 1 - wz;
+  const sy  = hy + (dsy - hy) * t;
   const cx  = vpx + (w / 2 - vpx) * t;
   const hfw = ((RFR - RFL) / 2) * w;
   const hnw = ((RNR - RNL) / 2) * w;
@@ -736,22 +738,26 @@ function proj(wz, lx, w, h, vpx) {
 
 // ── ROAD ─────────────────────────────
 function drawRoad(ctx, w, h, dist, vpx, isAlp, night) {
-  const hy = h * HY;
+  const hy   = h * HY;
+  const dashY = h * DASH_Y;
 
-  // Sky
-  const s1 = night ? '#03030a' : (isAlp ? '#05100d' : '#050505');
-  const s2 = night ? '#07070f' : (isAlp ? '#091a13' : '#0d0d0d');
+  // Sky — fill full canvas first
+  const s1 = night ? '#03030a' : (isAlp ? '#04100c' : '#040408');
+  const s2 = night ? '#07070f' : (isAlp ? '#081710' : '#0b0b0f');
   const sg = ctx.createLinearGradient(0, 0, 0, hy);
   sg.addColorStop(0, s1); sg.addColorStop(1, s2);
   ctx.fillStyle = sg; ctx.fillRect(0, 0, w, hy);
 
-  // Alpamayo horizon glow
+  // Below horizon to dash: render as road area background
+  ctx.fillStyle = isAlp ? '#06100a' : '#0a0a10';
+  ctx.fillRect(0, hy, w, dashY - hy);
+
   if (isAlp) {
-    const hg = ctx.createLinearGradient(0, hy - 8, 0, hy + 8);
+    const hg = ctx.createLinearGradient(0, hy - 6, 0, hy + 6);
     hg.addColorStop(0, 'transparent');
-    hg.addColorStop(0.5, 'rgba(29,158,117,0.07)');
+    hg.addColorStop(0.5, 'rgba(29,158,117,0.1)');
     hg.addColorStop(1, 'transparent');
-    ctx.fillStyle = hg; ctx.fillRect(0, hy - 8, w, 16);
+    ctx.fillStyle = hg; ctx.fillRect(0, hy - 6, w, 12);
   }
 
   // Road trapezoid
@@ -761,184 +767,415 @@ function drawRoad(ctx, w, h, dist, vpx, isAlp, night) {
   ctx.moveTo(fL.x, fL.y); ctx.lineTo(fR.x, fR.y);
   ctx.lineTo(nR.x, nR.y); ctx.lineTo(nL.x, nL.y);
   ctx.closePath();
-  const rg = ctx.createLinearGradient(0, hy, 0, h);
-  if (night) { rg.addColorStop(0, '#111'); rg.addColorStop(1, '#080808'); }
-  else if (isAlp) { rg.addColorStop(0, '#0d1c16'); rg.addColorStop(1, '#07100c'); }
-  else { rg.addColorStop(0, '#161616'); rg.addColorStop(1, '#0d0d0d'); }
+  const rg = ctx.createLinearGradient(0, hy, 0, dashY);
+  if (night) { rg.addColorStop(0, '#151515'); rg.addColorStop(1, '#0d0d0d'); }
+  else if (isAlp) { rg.addColorStop(0, '#0e1e18'); rg.addColorStop(1, '#081410'); }
+  else { rg.addColorStop(0, '#1a1a1a'); rg.addColorStop(1, '#0e0e0e'); }
   ctx.fillStyle = rg; ctx.fill();
+
+  // Off-road shoulders
+  ctx.fillStyle = isAlp ? '#060e0a' : '#090909';
+  ctx.beginPath();
+  ctx.moveTo(fL.x, fL.y); ctx.lineTo(0, fL.y);
+  ctx.lineTo(0, nL.y); ctx.lineTo(nL.x, nL.y); ctx.closePath(); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(fR.x, fR.y); ctx.lineTo(w, fR.y);
+  ctx.lineTo(w, nR.y); ctx.lineTo(nR.x, nR.y); ctx.closePath(); ctx.fill();
 
   // Road edges
   ctx.setLineDash([]);
-  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.48)' : 'rgba(255,255,255,0.16)';
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.55)' : 'rgba(255,255,255,0.18)';
   ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(fL.x, fL.y); ctx.lineTo(nL.x, nL.y); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(fR.x, fR.y); ctx.lineTo(nR.x, nR.y); ctx.stroke();
 
-  // Scrolling lane markers
-  const PERIOD = 30, SLEN = 13, VDIST = 220;
+  // Scrolling dashed lane markers
+  const PERIOD = 28, SLEN = 12, VDIST = 200;
   const base = Math.ceil(dist / PERIOD) * PERIOD;
   for (let k = -1; k < VDIST / PERIOD + 2; k++) {
     const p = base + k * PERIOD;
     const d = p - dist;
     if (d < 0 || d > VDIST + SLEN) continue;
-    const z1 = Math.max(0.02, d / VDIST);
+    const z1 = Math.max(0.03, d / VDIST);
     const z2 = Math.min(0.99, (d + SLEN) / VDIST);
     if (z1 >= z2) continue;
     const mz = (z1 + z2) / 2;
-    ctx.lineWidth = Math.max(0.5, 2.8 * (1 - mz));
+    ctx.lineWidth = Math.max(0.5, 2.6 * (1 - mz));
     ctx.strokeStyle = isAlp
-      ? `rgba(29,158,117,${0.07 + 0.36 * (1 - mz)})`
-      : `rgba(255,255,255,${0.05 + 0.2 * (1 - mz)})`;
+      ? `rgba(29,158,117,${0.08 + 0.38 * (1 - mz)})`
+      : `rgba(255,255,255,${0.06 + 0.22 * (1 - mz)})`;
     for (const lp of [1/3, 2/3]) {
       const p1 = proj(z1, lp, w, h, vpx), p2 = proj(z2, lp, w, h, vpx);
       ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
     }
   }
 
-  // Night headlight cone
   if (night) {
-    const cg = ctx.createRadialGradient(w/2, h, 20, w/2, hy + (h-hy)*0.35, (h-hy)*0.95);
-    cg.addColorStop(0, 'rgba(240,225,180,0.1)');
-    cg.addColorStop(0.5, 'rgba(240,225,180,0.028)');
+    const cg = ctx.createRadialGradient(w/2, dashY, 10, w/2, hy + (dashY-hy)*0.3, (dashY-hy)*0.9);
+    cg.addColorStop(0, 'rgba(240,225,160,0.12)');
+    cg.addColorStop(0.5, 'rgba(240,225,160,0.03)');
     cg.addColorStop(1, 'transparent');
-    ctx.fillStyle = cg; ctx.fillRect(0, hy, w, h - hy);
+    ctx.fillStyle = cg; ctx.fillRect(0, hy, w, dashY - hy);
   }
 
-  // Vignette
-  const vg = ctx.createRadialGradient(w/2, h/2, h*0.18, w/2, h/2, w*0.72);
-  vg.addColorStop(0, 'transparent'); vg.addColorStop(1, 'rgba(0,0,0,0.38)');
-  ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
-}
-
-// ── EGO CAR (rear view) ──────────────
-function drawEgoCar(ctx, w, h, lx, vpx, isAlp, braking, disengaged) {
-  const nL = proj(0, 0, w, h, vpx), nR = proj(0, 1, w, h, vpx);
-  const rw = nR.x - nL.x;
-  const cx = nL.x + rw * lx;
-  const cw = rw * 0.27, ch = cw * 0.60;
-  const bot = h + 8, top = bot - ch;
-
-  ctx.shadowColor = isAlp ? 'rgba(29,158,117,0.28)' : 'rgba(0,0,0,0.65)';
-  ctx.shadowBlur = 24;
-
-  // Body
-  ctx.fillStyle = isAlp ? '#0c1e16' : '#1a1a26';
-  ctx.beginPath();
-  ctx.moveTo(cx - cw/2, bot);
-  ctx.lineTo(cx - cw/2, top + ch*0.3);
-  ctx.quadraticCurveTo(cx - cw*0.42, top + ch*0.1, cx - cw*0.25, top + ch*0.01);
-  ctx.lineTo(cx + cw*0.25, top + ch*0.01);
-  ctx.quadraticCurveTo(cx + cw*0.42, top + ch*0.1, cx + cw/2, top + ch*0.3);
-  ctx.lineTo(cx + cw/2, bot);
-  ctx.closePath(); ctx.fill();
-  ctx.shadowBlur = 0;
-
-  // Roof
-  ctx.fillStyle = isAlp ? '#081410' : '#12121c';
-  ctx.beginPath(); ctx.roundRect(cx - cw*0.25, top, cw*0.5, ch*0.12, [6,6,0,0]); ctx.fill();
-
-  // Rear window
-  ctx.fillStyle = isAlp ? 'rgba(25,115,80,0.2)' : 'rgba(45,55,85,0.22)';
-  ctx.beginPath(); ctx.roundRect(cx - cw*0.2, top + ch*0.03, cw*0.4, ch*0.18, 3); ctx.fill();
-
-  // Chrome bumper
-  const bG = ctx.createLinearGradient(cx - cw*0.46, 0, cx + cw*0.46, 0);
-  bG.addColorStop(0,'#252525'); bG.addColorStop(0.5,'#606060'); bG.addColorStop(1,'#252525');
-  ctx.fillStyle = bG;
-  ctx.beginPath(); ctx.roundRect(cx - cw*0.46, bot - ch*0.13, cw*0.92, ch*0.11, [0,0,3,3]); ctx.fill();
-
-  // Taillights — Cadillac horizontal strip
-  const tlY = top + ch*0.3, tlH = ch*0.055, tlW = cw*0.34;
-  const tlC = braking ? '#ff1111' : '#be2200';
-  ctx.shadowColor = 'rgba(255,20,20,0.95)'; ctx.shadowBlur = braking ? 24 : 7;
-  ctx.fillStyle = tlC;
-  ctx.beginPath(); ctx.roundRect(cx - cw*0.46, tlY, tlW, tlH, 2); ctx.fill();
-  ctx.beginPath(); ctx.roundRect(cx + cw*0.46 - tlW, tlY, tlW, tlH, 2); ctx.fill();
-  if (braking) {
-    ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.shadowColor = 'rgba(255,255,255,0.6)'; ctx.shadowBlur = 14;
-    ctx.beginPath(); ctx.roundRect(cx - cw*0.07, tlY, cw*0.04, tlH, 1); ctx.fill();
-    ctx.beginPath(); ctx.roundRect(cx + cw*0.03, tlY, cw*0.04, tlH, 1); ctx.fill();
-  }
-  ctx.shadowBlur = 0;
-
-  // License plate
-  ctx.fillStyle = '#d5d8df';
-  ctx.beginPath(); ctx.roundRect(cx - cw*0.1, bot - ch*0.1, cw*0.2, ch*0.065, 2); ctx.fill();
-  ctx.fillStyle = '#1a1a28'; ctx.font = `bold ${Math.max(7, cw*0.048)}px sans-serif`;
-  ctx.textAlign = 'center'; ctx.fillText('CADILLAC', cx, bot - ch*0.068);
-
-  // Mirrors
-  ctx.fillStyle = isAlp ? '#0a1610' : '#141420';
-  ctx.beginPath(); ctx.roundRect(cx - cw/2 - cw*0.065, top + ch*0.22, cw*0.07, ch*0.1, 2); ctx.fill();
-  ctx.beginPath(); ctx.roundRect(cx + cw/2 - cw*0.005, top + ch*0.22, cw*0.07, ch*0.1, 2); ctx.fill();
-
-  // Alpamayo outline glow
-  if (isAlp) {
-    ctx.strokeStyle = 'rgba(29,158,117,0.52)'; ctx.lineWidth = 1.5;
-    ctx.shadowColor = 'rgba(29,158,117,0.6)'; ctx.shadowBlur = 18;
-    ctx.beginPath();
-    ctx.moveTo(cx - cw/2, bot); ctx.lineTo(cx - cw/2, top + ch*0.3);
-    ctx.quadraticCurveTo(cx - cw*0.42, top + ch*0.1, cx - cw*0.25, top + ch*0.01);
-    ctx.lineTo(cx + cw*0.25, top + ch*0.01);
-    ctx.quadraticCurveTo(cx + cw*0.42, top + ch*0.1, cx + cw/2, top + ch*0.3);
-    ctx.lineTo(cx + cw/2, bot); ctx.stroke();
-    ctx.shadowBlur = 0;
-  }
-
-  // Disengaged pulse
-  if (disengaged) {
-    const a = 0.16 + 0.14 * Math.sin(Date.now() / 120);
-    ctx.fillStyle = `rgba(210,0,0,${a})`; ctx.fillRect(0, 0, w, h);
-  }
+  // Subtle road vignette
+  const vg = ctx.createRadialGradient(w/2, hy+(dashY-hy)*0.5, 0, w/2, hy+(dashY-hy)*0.5, w*0.65);
+  vg.addColorStop(0.4, 'transparent'); vg.addColorStop(1, 'rgba(0,0,0,0.42)');
+  ctx.fillStyle = vg; ctx.fillRect(0, hy, w, dashY - hy);
 }
 
 // ── OBSTACLE SPRITES ─────────────────
 function drawVehicle(ctx, cx, cy, sz, color, lbl) {
-  const cw = sz*34, ch = sz*50;
+  const cw = sz * 36, ch = sz * 54;
+  // Body
   ctx.fillStyle = color;
-  ctx.beginPath(); ctx.roundRect(cx-cw/2, cy-ch/2, cw, ch, sz*4); ctx.fill();
-  ctx.fillStyle = 'rgba(130,170,220,0.28)';
-  ctx.beginPath(); ctx.roundRect(cx-cw*0.35, cy-ch*0.42, cw*0.7, ch*0.22, sz*2); ctx.fill();
-  ctx.fillStyle = '#ffe'; ctx.shadowColor='rgba(255,250,180,0.9)'; ctx.shadowBlur=sz*6;
-  ctx.beginPath(); ctx.arc(cx-cw*0.28, cy-ch*0.47, sz*3.5, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(cx+cw*0.28, cy-ch*0.47, sz*3.5, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(cx-cw/2, cy-ch*0.5, cw, ch, sz*5); ctx.fill();
+  // Windshield
+  ctx.fillStyle = 'rgba(130,165,215,0.32)';
+  ctx.beginPath(); ctx.roundRect(cx-cw*0.34, cy-ch*0.44, cw*0.68, ch*0.22, sz*2); ctx.fill();
+  // Headlights
+  ctx.fillStyle = '#ffeebb'; ctx.shadowColor='rgba(255,245,160,0.9)'; ctx.shadowBlur=sz*8;
+  ctx.beginPath(); ctx.arc(cx-cw*0.3, cy-ch*0.48, sz*4, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx+cw*0.3, cy-ch*0.48, sz*4, 0, Math.PI*2); ctx.fill();
   ctx.shadowBlur = 0;
-  if (lbl && sz > 0.2) {
-    ctx.fillStyle='rgba(255,60,60,0.95)'; ctx.font=`bold ${sz*12}px sans-serif`;
-    ctx.textAlign='center'; ctx.fillText(lbl, cx, cy-ch*0.58);
+  // Roof
+  ctx.fillStyle = color; ctx.globalAlpha = 0.8;
+  ctx.beginPath(); ctx.roundRect(cx-cw*0.28, cy-ch*0.7, cw*0.56, ch*0.24, sz*3); ctx.fill();
+  ctx.globalAlpha = 1;
+  if (lbl && sz > 0.18) {
+    ctx.fillStyle='rgba(255,60,60,0.95)'; ctx.font=`bold ${sz*13}px sans-serif`;
+    ctx.textAlign='center'; ctx.fillText(lbl, cx, cy-ch*0.56);
   }
 }
 
 function drawTrafficLight(ctx, cx, cy, sz) {
-  ctx.strokeStyle='#3a3a3a'; ctx.lineWidth=sz*3;
-  ctx.beginPath(); ctx.moveTo(cx, cy+sz*32); ctx.lineTo(cx, cy); ctx.stroke();
-  ctx.fillStyle='#181818';
-  ctx.beginPath(); ctx.roundRect(cx-sz*7, cy-sz*24, sz*14, sz*42, sz*2); ctx.fill();
-  ctx.fillStyle='#222';
-  for (const oy of [-15, -2, 11]) {
-    ctx.beginPath(); ctx.arc(cx, cy+sz*oy, sz*4.5, 0, Math.PI*2); ctx.fill();
+  // Pole
+  ctx.strokeStyle='#2a2a2a'; ctx.lineWidth=sz*3.5;
+  ctx.beginPath(); ctx.moveTo(cx, cy+sz*28); ctx.lineTo(cx, cy-sz*8); ctx.stroke();
+  // Housing
+  ctx.fillStyle='#141414';
+  ctx.beginPath(); ctx.roundRect(cx-sz*7, cy-sz*30, sz*14, sz*46, sz*2); ctx.fill();
+  // Dark lenses (no active lights = outage)
+  for (const oy of [-18, -4, 10]) {
+    ctx.beginPath(); ctx.arc(cx, cy+sz*oy, sz*4.8, 0, Math.PI*2);
+    ctx.fillStyle='#1c1c1c'; ctx.fill();
   }
-  // X marker for outage
-  if (sz > 0.18) {
-    ctx.strokeStyle='rgba(255,55,55,0.85)'; ctx.lineWidth=sz*2.2;
-    ctx.beginPath(); ctx.moveTo(cx-sz*4.5,cy-sz*20); ctx.lineTo(cx+sz*4.5,cy-sz*9); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx+sz*4.5,cy-sz*20); ctx.lineTo(cx-sz*4.5,cy-sz*9); ctx.stroke();
+  // Red X for outage
+  if (sz > 0.15) {
+    ctx.strokeStyle='rgba(255,55,55,0.9)'; ctx.lineWidth=sz*2.4;
+    ctx.beginPath(); ctx.moveTo(cx-sz*5,cy-sz*22); ctx.lineTo(cx+sz*5,cy-sz*10); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx+sz*5,cy-sz*22); ctx.lineTo(cx-sz*5,cy-sz*10); ctx.stroke();
   }
-  if (sz > 0.28) {
-    ctx.fillStyle='rgba(255,60,60,0.8)'; ctx.font=`bold ${sz*8}px sans-serif`;
-    ctx.textAlign='center'; ctx.fillText('OUTAGE', cx, cy+sz*34);
+  if (sz > 0.25) {
+    ctx.fillStyle='rgba(255,60,60,0.8)'; ctx.font=`bold ${sz*7.5}px sans-serif`;
+    ctx.textAlign='center'; ctx.fillText('OUTAGE', cx, cy+sz*32);
   }
 }
 
 // ── OBSTACLE DISPATCH ────────────────
-function drawObstacle(ctx, obs, w, h, vpx, frame) {
-  if (obs.wz <= 0.01 || obs.wz >= 0.995) return;
+function drawObstacle(ctx, obs, w, h, vpx) {
+  if (obs.wz <= 0.04 || obs.wz >= 0.97) return;
   const p = proj(obs.wz, obs.lx, w, h, vpx);
-  const sz = Math.max(0.05, p.sc);
-  ctx.globalAlpha = Math.min(1, 0.15 + sz * 1.3);
+  const dashY = h * DASH_Y;
+  if (p.y >= dashY) return; // occluded by dashboard
+  const sz = Math.max(0.06, p.sc);
+  ctx.globalAlpha = Math.min(1, 0.1 + sz * 1.4);
   if (obs.type === 'car')   drawVehicle(ctx, p.x, p.y, sz, obs.color || '#883300', obs.label || '');
   if (obs.type === 'light') drawTrafficLight(ctx, p.x, p.y, sz);
   ctx.globalAlpha = 1;
+}
+
+// ── ALPAMAYO PERCEPTION OVERLAY ──────
+function drawPerceptionOverlay(ctx, obs, w, h, vpx) {
+  const dashY = h * DASH_Y;
+  obs.forEach(o => {
+    if (o.wz <= 0.06 || o.wz >= 0.95) return;
+    const p = proj(o.wz, o.lx, w, h, vpx);
+    if (p.y >= dashY - 4) return;
+    const sz = Math.max(0.07, p.sc);
+    const bw = sz * 58, bh = sz * 80;
+    const bx = p.x - bw/2, by = p.y - bh * 0.68;
+    const bx2 = bx + bw, by2 = by + bh;
+    const cl = Math.max(5, sz * 14);
+
+    // Dashed box
+    ctx.strokeStyle = 'rgba(29,158,117,0.7)';
+    ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]);
+    ctx.strokeRect(bx, by, bw, bh);
+    ctx.setLineDash([]);
+
+    // Solid corner accents
+    ctx.strokeStyle = '#1D9E75'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(bx, by+cl); ctx.lineTo(bx, by); ctx.lineTo(bx+cl, by); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(bx2-cl, by); ctx.lineTo(bx2, by); ctx.lineTo(bx2, by+cl); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(bx2, by2-cl); ctx.lineTo(bx2, by2); ctx.lineTo(bx2-cl, by2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(bx+cl, by2); ctx.lineTo(bx, by2); ctx.lineTo(bx, by2-cl); ctx.stroke();
+
+    // Label above
+    const dist = Math.round((1 - o.wz) * 130);
+    const tag = o.type === 'light' ? `SIG ${dist}m` : `VH-${('0'+(obs.indexOf(o)+1)).slice(-2)} ${dist}m`;
+    ctx.fillStyle = 'rgba(8,22,16,0.82)';
+    const tw = ctx.measureText(tag).width + 8;
+    ctx.fillRect(p.x - tw/2, by - 17, tw, 14);
+    ctx.fillStyle = '#4dd4a8';
+    ctx.font = `bold ${Math.max(8, sz*10)}px monospace`;
+    ctx.textAlign = 'center'; ctx.fillText(tag, p.x, by - 6);
+  });
+}
+
+// ── COCKPIT OVERLAY ──────────────────
+function drawCockpit(ctx, w, h, curLaneX, isAlp, braking, disengaged, speed) {
+  const dashY   = h * DASH_Y;
+  const pillarW = w * 0.095;
+
+  // Windshield subtle glare strip at top
+  const wg = ctx.createLinearGradient(0, 0, 0, h * 0.12);
+  wg.addColorStop(0, 'rgba(200,215,255,0.028)');
+  wg.addColorStop(1, 'transparent');
+  ctx.fillStyle = wg; ctx.fillRect(0, 0, w, h * 0.12);
+
+  // ── A-pillars ──
+  ctx.fillStyle = isAlp ? '#030a07' : '#07070e';
+  // Left pillar — tapers from narrow at top-left to wide at dashY
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(pillarW * 0.42, 0);
+  ctx.lineTo(pillarW * 1.55, dashY);
+  ctx.lineTo(0, dashY);
+  ctx.closePath(); ctx.fill();
+  // Right pillar
+  ctx.beginPath();
+  ctx.moveTo(w, 0);
+  ctx.lineTo(w - pillarW * 0.42, 0);
+  ctx.lineTo(w - pillarW * 1.55, dashY);
+  ctx.lineTo(w, dashY);
+  ctx.closePath(); ctx.fill();
+  // Inner-edge highlight
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.14)' : 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pillarW*0.42, 0); ctx.lineTo(pillarW*1.55, dashY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w-pillarW*0.42, 0); ctx.lineTo(w-pillarW*1.55, dashY); ctx.stroke();
+
+  // ── Dashboard surface ──
+  const dg = ctx.createLinearGradient(0, dashY, 0, h);
+  dg.addColorStop(0,    isAlp ? '#0d1d14' : '#131320');
+  dg.addColorStop(0.38, isAlp ? '#09120e' : '#0d0d18');
+  dg.addColorStop(1,    '#040408');
+  ctx.fillStyle = dg;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(w, h); ctx.lineTo(w, dashY);
+  ctx.quadraticCurveTo(w/2, dashY - h*0.027, 0, dashY);
+  ctx.closePath(); ctx.fill();
+
+  // Dash top-edge accent line
+  ctx.beginPath();
+  ctx.moveTo(0, dashY);
+  ctx.quadraticCurveTo(w/2, dashY - h*0.027, w, dashY);
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.52)' : 'rgba(255,255,255,0.11)';
+  ctx.lineWidth = 1.5; ctx.setLineDash([]); ctx.stroke();
+
+  // Subtle carbon-weave texture stripes on dash
+  ctx.globalAlpha = 0.04;
+  for (let xt = 0; xt < w; xt += 14) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(xt, dashY, 7, h - dashY);
+  }
+  ctx.globalAlpha = 1;
+
+  // ── Hood ridge ──
+  const hoodMidY = dashY + (h - dashY) * 0.1;
+  const hoodW2 = w * 0.22;
+  ctx.beginPath();
+  ctx.moveTo(w/2 - hoodW2 * 0.55, h);
+  ctx.lineTo(w/2 + hoodW2 * 0.55, h);
+  ctx.lineTo(w/2 + hoodW2 * 0.22, hoodMidY);
+  ctx.lineTo(w/2 - hoodW2 * 0.22, hoodMidY);
+  ctx.closePath();
+  const hg2 = ctx.createLinearGradient(0, hoodMidY, 0, h);
+  hg2.addColorStop(0, isAlp ? '#0f1f16' : '#161628');
+  hg2.addColorStop(1, isAlp ? '#060e0a' : '#0a0a16');
+  ctx.fillStyle = hg2; ctx.fill();
+  // Hood center ridge line
+  ctx.beginPath(); ctx.moveTo(w/2, h*0.99); ctx.lineTo(w/2, hoodMidY);
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.12)' : 'rgba(255,255,255,0.06)';
+  ctx.lineWidth = 1; ctx.stroke();
+
+  // ── Speedometer cluster (left) ──
+  const clX = w * 0.2, clY = dashY + (h - dashY) * 0.44;
+  const clR = Math.min(w * 0.085, 42);
+  ctx.beginPath(); ctx.arc(clX, clY, clR, 0, Math.PI*2);
+  ctx.fillStyle = isAlp ? '#040d08' : '#080812'; ctx.fill();
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.28)' : 'rgba(255,255,255,0.1)';
+  ctx.lineWidth = 1; ctx.stroke();
+  // Tick marks
+  for (let i = 0; i <= 8; i++) {
+    const a = Math.PI * 0.75 + i * (Math.PI * 1.5 / 8);
+    const r1 = clR * 0.82, r2 = clR * (i % 2 === 0 ? 0.68 : 0.75);
+    ctx.beginPath();
+    ctx.moveTo(clX + Math.cos(a)*r1, clY + Math.sin(a)*r1);
+    ctx.lineTo(clX + Math.cos(a)*r2, clY + Math.sin(a)*r2);
+    ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.35)' : 'rgba(200,200,220,0.2)';
+    ctx.lineWidth = i % 2 === 0 ? 1.5 : 0.8; ctx.stroke();
+  }
+  // Speed arc
+  const mph = Math.round(speed * 70);
+  const arcA = Math.PI * 0.75 + (mph / 70) * Math.PI * 1.5;
+  ctx.beginPath();
+  ctx.arc(clX, clY, clR * 0.76, Math.PI * 0.75, arcA);
+  ctx.strokeStyle = braking ? '#ff3333' : (isAlp ? 'rgba(29,158,117,0.88)' : 'rgba(180,185,210,0.65)');
+  ctx.lineWidth = clR * 0.14; ctx.stroke();
+  // Speed needle
+  ctx.beginPath();
+  ctx.moveTo(clX, clY);
+  ctx.lineTo(clX + Math.cos(arcA) * clR * 0.65, clY + Math.sin(arcA) * clR * 0.65);
+  ctx.strokeStyle = braking ? '#ff6666' : (isAlp ? '#1D9E75' : '#aaaacc');
+  ctx.lineWidth = 1.5; ctx.stroke();
+  // Center hub
+  ctx.beginPath(); ctx.arc(clX, clY, clR * 0.1, 0, Math.PI*2);
+  ctx.fillStyle = isAlp ? '#1D9E75' : '#444458'; ctx.fill();
+  // Speed number
+  ctx.fillStyle = isAlp ? 'rgba(29,158,117,0.92)' : 'rgba(200,200,220,0.82)';
+  ctx.font = `bold ${Math.max(9, clR * 0.46)}px monospace`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(mph, clX, clY + clR * 0.02);
+  ctx.font = `${Math.max(6, clR * 0.26)}px sans-serif`;
+  ctx.fillStyle = 'rgba(130,135,155,0.6)';
+  ctx.fillText('MPH', clX, clY + clR * 0.42);
+  ctx.textBaseline = 'alphabetic';
+
+  // ── Center info screen ──
+  const scW = w * 0.26, scH = (h - dashY) * 0.35;
+  const scX = w/2 - scW/2, scY = dashY + (h - dashY) * 0.12;
+  ctx.fillStyle = isAlp ? '#030c07' : '#050510';
+  ctx.beginPath(); ctx.roundRect(scX, scY, scW, scH, 4); ctx.fill();
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.35)' : 'rgba(255,255,255,0.09)';
+  ctx.lineWidth = 1; ctx.stroke();
+  // Screen label
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const sysName = isAlp ? 'ALPAMAYO 2 SUPER' : 'SUPER CRUISE';
+  ctx.fillStyle = isAlp ? 'rgba(29,158,117,0.48)' : 'rgba(140,140,165,0.42)';
+  ctx.font = `bold ${Math.max(6, w * 0.017)}px monospace`;
+  ctx.fillText(sysName, w/2, scY + scH * 0.26);
+  // Status
+  const statusStr = disengaged ? '⚠ DISENGAGED' : (braking ? '● BRAKING' : (isAlp ? '◆ ENGAGED' : '● CRUISE'));
+  ctx.fillStyle = disengaged
+    ? 'rgba(255,65,65,0.95)'
+    : (braking ? 'rgba(255,140,30,0.9)' : (isAlp ? 'rgba(29,158,117,0.88)' : 'rgba(170,180,200,0.72)'));
+  ctx.font = `bold ${Math.max(8, w * 0.024)}px monospace`;
+  ctx.fillText(statusStr, w/2, scY + scH * 0.62);
+  ctx.textBaseline = 'alphabetic';
+
+  // ── ADAS indicator strip right of screen ──
+  const indX = scX + scW + w * 0.025, indY = scY + scH * 0.18;
+  const dotR = Math.max(3, w * 0.008);
+  const indLabels = isAlp
+    ? [['LIDAR','on'], ['CAMERA','on'], ['PLAN','on'], ['REASON','on']]
+    : [['LIDAR','on'], ['CAMERA','on'], ['PLAN','off'], ['REASON','off']];
+  indLabels.forEach(([label, state], i) => {
+    const iy = indY + i * (dotR * 2.6 + 3);
+    ctx.beginPath(); ctx.arc(indX, iy, dotR, 0, Math.PI*2);
+    ctx.fillStyle = state === 'on'
+      ? (isAlp ? 'rgba(29,158,117,0.9)' : 'rgba(160,180,200,0.7)')
+      : 'rgba(80,80,90,0.5)';
+    ctx.fill();
+    ctx.fillStyle = 'rgba(130,140,160,0.55)';
+    ctx.font = `${Math.max(6, w*0.016)}px monospace`;
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, indX + dotR + 4, iy);
+  });
+  ctx.textBaseline = 'alphabetic';
+
+  // ── Steering wheel ──
+  const steerAngle = (curLaneX - 0.5) * -Math.PI * 0.58;
+  const swCX = w / 2;
+  const swCY = h * 0.93;
+  const swR  = Math.min(w * 0.115, 52);
+
+  ctx.save();
+  ctx.translate(swCX, swCY);
+  ctx.rotate(steerAngle);
+
+  // Shadow
+  ctx.shadowColor = 'rgba(0,0,0,0.85)'; ctx.shadowBlur = 20;
+  // Rim
+  ctx.beginPath(); ctx.arc(0, 0, swR, 0, Math.PI * 2);
+  const rimG = ctx.createLinearGradient(-swR, -swR, swR, swR);
+  rimG.addColorStop(0, isAlp ? '#1e3528' : '#30304a');
+  rimG.addColorStop(0.5, isAlp ? '#0d1e14' : '#1c1c2e');
+  rimG.addColorStop(1, isAlp ? '#1e3528' : '#30304a');
+  ctx.strokeStyle = rimG;
+  ctx.lineWidth = swR * 0.19;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  // Rim highlight glint
+  ctx.beginPath(); ctx.arc(0, 0, swR * 0.94, -Math.PI * 0.18, Math.PI * 0.07);
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.55)' : 'rgba(210,215,240,0.22)';
+  ctx.lineWidth = swR * 0.055; ctx.stroke();
+  // 3 spokes
+  ctx.lineWidth = swR * 0.1;
+  for (let i = 0; i < 3; i++) {
+    const a = (i * Math.PI * 2 / 3) - Math.PI / 2;
+    const sg2 = ctx.createLinearGradient(0, 0, Math.cos(a)*swR*0.86, Math.sin(a)*swR*0.86);
+    sg2.addColorStop(0, isAlp ? '#1e3528' : '#2e2e45');
+    sg2.addColorStop(1, isAlp ? '#0a1610' : '#14141f');
+    ctx.strokeStyle = sg2;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a)*swR*0.2, Math.sin(a)*swR*0.2);
+    ctx.lineTo(Math.cos(a)*swR*0.86, Math.sin(a)*swR*0.86);
+    ctx.stroke();
+  }
+  // Center hub
+  ctx.beginPath(); ctx.arc(0, 0, swR * 0.2, 0, Math.PI * 2);
+  ctx.fillStyle = isAlp ? '#1D9E75' : '#282840'; ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = `bold ${swR * 0.16}px sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('GM', 0, 0.5);
+  ctx.textBaseline = 'alphabetic';
+  ctx.restore();
+
+  // ── Rearview mirror ──
+  const mirW = w * 0.2, mirH = h * 0.036;
+  const mirY = h * 0.024;
+  ctx.fillStyle = '#0a0a14';
+  ctx.beginPath(); ctx.roundRect(w/2 - mirW/2, mirY, mirW, mirH, 2); ctx.fill();
+  ctx.strokeStyle = isAlp ? 'rgba(29,158,117,0.22)' : 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = 1; ctx.stroke();
+  const mrg = ctx.createLinearGradient(w/2-mirW/2, 0, w/2+mirW/2, 0);
+  mrg.addColorStop(0, 'rgba(40,55,90,0.15)');
+  mrg.addColorStop(0.5, 'rgba(55,70,110,0.28)');
+  mrg.addColorStop(1, 'rgba(40,55,90,0.15)');
+  ctx.fillStyle = mrg;
+  ctx.beginPath(); ctx.roundRect(w/2 - mirW/2 + 1, mirY + 1, mirW - 2, mirH - 2, 2); ctx.fill();
+
+  // ── Braking glow on dash ──
+  if (braking) {
+    const bg = ctx.createLinearGradient(0, dashY, 0, dashY + (h-dashY) * 0.45);
+    bg.addColorStop(0, 'rgba(255,30,30,0.09)');
+    bg.addColorStop(1, 'transparent');
+    ctx.fillStyle = bg; ctx.fillRect(0, dashY, w, (h-dashY)*0.45);
+  }
+
+  // ── Disengaged alarm (on windshield view) ──
+  if (disengaged) {
+    const da = 0.22 + 0.16 * Math.sin(Date.now() / 105);
+    ctx.fillStyle = `rgba(215,18,18,${da})`;
+    ctx.fillRect(0, 0, w, dashY);
+    ctx.fillStyle = 'rgba(255,255,255,0.97)';
+    ctx.font = `bold ${Math.max(13, w * 0.044)}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('⚠  SYSTEM DISENGAGED', w/2, h * 0.31);
+    ctx.font = `${Math.max(9, w * 0.025)}px sans-serif`;
+    ctx.fillStyle = 'rgba(255,155,155,0.85)';
+    ctx.fillText('Driver intervention required', w/2, h * 0.31 + Math.max(13, w * 0.044) * 1.6);
+    ctx.textBaseline = 'alphabetic';
+  }
+
+  // ── Windshield corner vignette / curvature ──
+  const vg2 = ctx.createRadialGradient(w/2, dashY*0.5, dashY*0.1, w/2, dashY*0.5, w*0.72);
+  vg2.addColorStop(0.55, 'transparent');
+  vg2.addColorStop(1, 'rgba(0,0,0,0.5)');
+  ctx.fillStyle = vg2; ctx.fillRect(0, 0, w, dashY);
 }
 
 // ── SCENARIO DATA ─────────────────────
@@ -1000,10 +1237,10 @@ const SCENARIOS = [
 ];
 
 // ── SIM STATE ────────────────────────
-const LOOP_DUR = 7.0;
+const SCENARIO_DUR = 7.5; // seconds per scenario — no auto-loop
 
 let SIM = {
-  scenario: 0, t: 0, frame: 0, speedMult: 1, running: false, rafId: null,
+  scenario: 0, t: 0, frame: 0, speedMult: 1, running: false, ended: false, rafId: null,
   disengagements: 0, legWasDis: false, cotIdx: 0, cotTimer: null,
   alp: { speed:0.8, laneX:0.5, curLaneX:0.5, dist:0, braking:false, disengaged:false },
   leg: { speed:0.8, laneX:0.5, curLaneX:0.5, dist:0, braking:false, disengaged:false }
@@ -1015,11 +1252,16 @@ const legX = legC.getContext('2d');
 const alpX = alpC.getContext('2d');
 
 function resizeCanvases() {
-  [legC, alpC].forEach(c => { c.width = c.parentElement.clientWidth; c.height = 360; });
+  [legC, alpC].forEach(c => { c.width = c.parentElement.clientWidth; c.height = 420; });
 }
 
 function resetSideState(s) {
   s.speed=0.8; s.laneX=0.5; s.curLaneX=0.5; s.dist=0; s.braking=false; s.disengaged=false;
+}
+
+function setEndedOverlays(visible) {
+  document.getElementById('legacyEnded').classList.toggle('show', visible);
+  document.getElementById('alpEnded').classList.toggle('show', visible);
 }
 
 let lastTS = 0;
@@ -1028,54 +1270,57 @@ function simLoop(ts) {
   const rawDt = (ts - lastTS) / 1000;
   lastTS = ts;
   const dt = Math.min(0.05, rawDt) * SIM.speedMult;
-  SIM.t += dt; SIM.frame++;
+  SIM.t = Math.min(SIM.t + dt, SCENARIO_DUR);
+  SIM.frame++;
 
-  if (SIM.t >= LOOP_DUR) {
-    SIM.t = 0; SIM.frame = 0; SIM.legWasDis = false;
-    resetSideState(SIM.alp); resetSideState(SIM.leg);
-    document.getElementById('legacyDisengaged').style.display = 'none';
-    startCOT();
+  // Stop (do not loop) when scenario ends
+  if (SIM.t >= SCENARIO_DUR && !SIM.ended) {
+    SIM.ended = true;
+    SIM.running = false;
+    setEndedOverlays(true);
+    clearTimeout(SIM.cotTimer);
+    return;
   }
 
   const sc = SCENARIOS[SIM.scenario];
   const t  = SIM.t;
 
-  // Update behavior
+  // Behavior update
   sc.alpBeh(t, SIM.alp);
   sc.legBeh(t, SIM.leg);
 
-  // Smooth laneX
+  // Smooth lateral position
   SIM.alp.curLaneX += (SIM.alp.laneX - SIM.alp.curLaneX) * 0.07;
   SIM.leg.curLaneX += (SIM.leg.laneX - SIM.leg.curLaneX) * 0.05;
 
-  // Advance distances
+  // Advance odometer
   SIM.alp.dist += SIM.alp.speed * dt * 80;
   if (!SIM.leg.disengaged) SIM.leg.dist += SIM.leg.speed * dt * 80;
 
-  // Trigger disengagement UI
+  // Disengagement counter (once per run)
   if (SIM.leg.disengaged && !SIM.legWasDis) {
     SIM.legWasDis = true;
     SIM.disengagements++;
     document.getElementById('disengageCount').textContent = SIM.disengagements;
-    document.getElementById('legacyDisengaged').style.display = 'flex';
   }
 
   const obs = sc.getObs(t);
   const w1=legC.width, h1=legC.height, w2=alpC.width, h2=alpC.height;
 
-  // Legacy draw
-  const lvpx = w1/2 + (SIM.leg.curLaneX - 0.5)*w1*0.18;
-  legX.clearRect(0,0,w1,h1);
-  drawRoad(legX,w1,h1,SIM.leg.dist,lvpx,false,sc.nightMode);
-  obs.forEach(o => drawObstacle(legX,o,w1,h1,lvpx,SIM.frame));
-  drawEgoCar(legX,w1,h1,SIM.leg.curLaneX,lvpx,false,SIM.leg.braking,SIM.leg.disengaged);
+  // ── Legacy canvas ──
+  const lvpx = w1/2 + (SIM.leg.curLaneX - 0.5) * w1 * 0.2;
+  legX.clearRect(0, 0, w1, h1);
+  drawRoad(legX, w1, h1, SIM.leg.dist, lvpx, false, sc.nightMode);
+  obs.forEach(o => drawObstacle(legX, o, w1, h1, lvpx));
+  drawCockpit(legX, w1, h1, SIM.leg.curLaneX, false, SIM.leg.braking, SIM.leg.disengaged, SIM.leg.speed);
 
-  // Alpamayo draw
-  const avpx = w2/2 + (SIM.alp.curLaneX - 0.5)*w2*0.18;
-  alpX.clearRect(0,0,w2,h2);
-  drawRoad(alpX,w2,h2,SIM.alp.dist,avpx,true,sc.nightMode);
-  obs.forEach(o => drawObstacle(alpX,o,w2,h2,avpx,SIM.frame));
-  drawEgoCar(alpX,w2,h2,SIM.alp.curLaneX,avpx,true,SIM.alp.braking,false);
+  // ── Alpamayo canvas ──
+  const avpx = w2/2 + (SIM.alp.curLaneX - 0.5) * w2 * 0.2;
+  alpX.clearRect(0, 0, w2, h2);
+  drawRoad(alpX, w2, h2, SIM.alp.dist, avpx, true, sc.nightMode);
+  obs.forEach(o => drawObstacle(alpX, o, w2, h2, avpx));
+  drawPerceptionOverlay(alpX, obs, w2, h2, avpx);
+  drawCockpit(alpX, w2, h2, SIM.alp.curLaneX, true, SIM.alp.braking, false, SIM.alp.speed);
 
   SIM.rafId = requestAnimationFrame(simLoop);
 }
@@ -1084,20 +1329,25 @@ function startSimulation() {
   cancelAnimationFrame(SIM.rafId);
   clearTimeout(SIM.cotTimer);
   resizeCanvases();
-  SIM.t=0; SIM.frame=0; SIM.legWasDis=false;
+  SIM.t=0; SIM.frame=0; SIM.legWasDis=false; SIM.ended=false;
   resetSideState(SIM.alp); resetSideState(SIM.leg);
-  document.getElementById('legacyDisengaged').style.display='none';
+  setEndedOverlays(false);
   document.getElementById('scenarioDesc').textContent = SCENARIOS[SIM.scenario].desc;
-  SIM.running=true;
+  SIM.running = true;
   lastTS = performance.now();
   SIM.rafId = requestAnimationFrame(simLoop);
   startCOT();
 }
 
 function replayScenario() {
-  SIM.t=0; SIM.frame=0; SIM.legWasDis=false;
+  cancelAnimationFrame(SIM.rafId);
+  clearTimeout(SIM.cotTimer);
+  SIM.t=0; SIM.frame=0; SIM.legWasDis=false; SIM.ended=false;
   resetSideState(SIM.alp); resetSideState(SIM.leg);
-  document.getElementById('legacyDisengaged').style.display='none';
+  setEndedOverlays(false);
+  SIM.running = true;
+  lastTS = performance.now();
+  SIM.rafId = requestAnimationFrame(simLoop);
   startCOT();
 }
 
